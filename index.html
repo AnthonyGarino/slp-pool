@@ -372,7 +372,7 @@ function openDetail(name) {
   const ranked = rankEntries(data.entries);
   const r = ranked.find(e => e.name === name);
   const rank = r ? r.rank : '—';
-  const score = calcEntryScore(entry);
+  const score = entry.score || 0;
 
   let html = `<h2>${entry.name}</h2>
     <div class="total">Rank <strong style="color:var(--blue)">#${rank}</strong> &nbsp;·&nbsp;
