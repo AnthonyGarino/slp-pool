@@ -1,0 +1,39 @@
+name: Update Scores
+
+on:
+  schedule:
+    - cron: '0 * * * *'   # Every hour at :00
+  workflow_dispatch:        # Allow manual trigger from GitHub UI
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run score updater
+        run: node update_scores.js
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "SLP Score Bot"
+          git config user.email "bot@slp-pool.github.io"
+          git add data.json index.html
+          if git diff --cached --quiet; then
+            echo "No score changes detected — skipping commit."
+          else
+            git commit -m "Auto-update scores $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
