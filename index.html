@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SLP – College Basketball Pool</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface2: #21262d;
+      --border: #30363d;
+      --accent: #e67e22;
+      --accent2: #f39c12;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --green: #3fb950;
+      --blue: #58a6ff;
+      --red: #f85149;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    /* HEADER */
+    header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; z-index: 100; }
+    .logo { display: flex; align-items: center; gap: 12px; }
+    .logo-icon { width: 36px; height: 36px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+    .logo h1 { font-size: 18px; font-weight: 700; letter-spacing: 0.5px; }
+    .logo span { font-size: 12px; color: var(--muted); }
+    .header-meta { font-size: 12px; color: var(--muted); text-align: right; }
+    .header-meta strong { color: var(--accent); }
+
+    /* NAV */
+    nav { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 24px; display: flex; gap: 4px; overflow-x: auto; }
+    nav button { background: none; border: none; color: var(--muted); padding: 14px 16px; font-size: 14px; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap; }
+    nav button:hover { color: var(--text); }
+    nav button.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+
+    /* MAIN */
+    main { max-width: 1100px; margin: 0 auto; padding: 24px 16px; }
+
+    /* TABS */
+    .tab { display: none; }
+    .tab.active { display: block; }
+
+    /* STANDINGS */
+    .standings-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 12px; }
+    .standings-title { font-size: 22px; font-weight: 700; }
+    .search-box { background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 8px 14px; border-radius: 8px; font-size: 14px; width: 240px; outline: none; }
+    .search-box:focus { border-color: var(--accent); }
+
+    .standings-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .standings-table th { background: var(--surface2); color: var(--muted); text-align: left; padding: 10px 12px; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--border); cursor: pointer; user-select: none; }
+    .standings-table th:hover { color: var(--text); }
+    .standings-table tr { border-bottom: 1px solid var(--border); transition: background 0.1s; cursor: pointer; }
+    .standings-table tr:hover { background: var(--surface); }
+    .standings-table td { padding: 11px 12px; }
+    .rank { color: var(--muted); font-weight: 600; width: 44px; }
+    .rank.top3 { color: var(--accent2); }
+    .entry-name { font-weight: 600; color: var(--text); }
+    .score-cell { font-weight: 700; font-size: 15px; color: var(--accent); }
+    .behind-cell { color: var(--muted); font-size: 13px; }
+    .sort-arrow { font-size: 10px; margin-left: 4px; }
+    .value-badge { display: inline-block; background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 2px 6px; font-size: 11px; color: var(--muted); }
+
+    /* DETAIL PANEL */
+    .detail-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; align-items: center; justify-content: center; }
+    .detail-overlay.open { display: flex; }
+    .detail-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; width: 90%; max-width: 600px; max-height: 90vh; overflow-y: auto; padding: 24px; }
+    .detail-panel h2 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+    .detail-panel .total { color: var(--muted); font-size: 13px; margin-bottom: 20px; }
+    .detail-panel .total strong { color: var(--accent); font-size: 22px; }
+    .close-btn { float: right; background: var(--surface2); border: 1px solid var(--border); color: var(--muted); padding: 4px 10px; border-radius: 6px; cursor: pointer; font-size: 13px; }
+    .close-btn:hover { color: var(--text); }
+
+    .picks-section { margin-bottom: 20px; }
+    .picks-section h3 { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--muted); margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+    .pick-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; border-radius: 6px; margin-bottom: 4px; background: var(--surface2); }
+    .pick-row .conf-label { font-size: 11px; color: var(--muted); width: 70px; }
+    .pick-row .team-name { font-weight: 600; flex: 1; }
+    .pick-row .pick-value { font-size: 12px; color: var(--muted); margin-right: 12px; }
+    .pick-row .pick-pts { font-weight: 700; color: var(--accent); min-width: 30px; text-align: right; }
+    .pick-row.wildcard-dropped { opacity: 0.45; }
+    .pick-row.wildcard-dropped .team-name::after { content: ' (dropped)'; font-size: 11px; color: var(--red); font-weight: 400; }
+    .wildcard-note { font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+    /* RULES TAB */
+    .rules-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 24px; max-width: 800px; }
+    .rules-card h2 { font-size: 18px; font-weight: 700; margin-bottom: 16px; color: var(--accent); }
+    .rules-card h3 { font-size: 15px; font-weight: 700; margin: 20px 0 10px; color: var(--blue); }
+    .rules-card p { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+    .scoring-table { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 8px; }
+    .scoring-table td { padding: 7px 10px; border-bottom: 1px solid var(--border); }
+    .scoring-table td:first-child { color: var(--muted); }
+    .scoring-table td:last-child { color: var(--accent); font-weight: 700; text-align: right; }
+
+    /* ADMIN TAB */
+    .admin-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 24px; max-width: 800px; }
+    .admin-card h2 { font-size: 18px; font-weight: 700; margin-bottom: 12px; color: var(--accent); }
+    .admin-card h3 { font-size: 14px; font-weight: 700; margin: 18px 0 8px; color: var(--blue); }
+    .admin-card p { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+    .code-block { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 14px; font-family: 'Courier New', monospace; font-size: 13px; color: #a9b7c6; overflow-x: auto; margin: 10px 0; white-space: pre; }
+    .alert { background: rgba(230, 126, 34, 0.12); border: 1px solid rgba(230, 126, 34, 0.3); border-radius: 8px; padding: 12px 16px; font-size: 13px; color: var(--accent2); margin: 12px 0; }
+
+    /* SUBMIT FORM */
+    .submit-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 24px; max-width: 700px; }
+    .submit-card h2 { font-size: 18px; font-weight: 700; margin-bottom: 4px; color: var(--accent); }
+    .submit-card .subtitle { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-bottom: 6px; }
+    .form-input { width: 100%; background: var(--bg); border: 1px solid var(--border); color: var(--text); padding: 10px 12px; border-radius: 8px; font-size: 14px; outline: none; }
+    .form-input:focus { border-color: var(--accent); }
+    .form-input::placeholder { color: var(--muted); opacity: 0.6; }
+    select.form-input { appearance: none; cursor: pointer; }
+    .pick-group { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: end; }
+    .pick-value { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; font-size: 14px; color: var(--muted); min-width: 55px; text-align: center; }
+    .budget-bar { display: flex; align-items: center; gap: 12px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; margin-bottom: 20px; }
+    .budget-bar .budget-fill { flex: 1; height: 8px; background: var(--bg); border-radius: 4px; overflow: hidden; }
+    .budget-bar .budget-fill-inner { height: 100%; border-radius: 4px; transition: width 0.3s, background 0.3s; }
+    .budget-text { font-size: 14px; font-weight: 700; min-width: 90px; text-align: right; }
+    .budget-ok { color: var(--green); }
+    .budget-warn { color: var(--accent); }
+    .budget-over { color: var(--red); }
+    .conf-label-form { font-size: 13px; color: var(--blue); font-weight: 600; margin-bottom: 6px; }
+    .submit-btn { background: var(--accent); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 12px; transition: opacity 0.2s; }
+    .submit-btn:hover { opacity: 0.9; }
+    .submit-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .form-error { color: var(--red); font-size: 12px; margin-top: 4px; }
+    .form-success { background: rgba(63,185,80,0.12); border: 1px solid rgba(63,185,80,0.3); border-radius: 8px; padding: 16px; color: var(--green); font-size: 14px; margin-top: 16px; }
+    .wc-section { margin-top: 20px; }
+    .wc-section h3 { font-size: 13px; color: var(--muted); font-weight: 600; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+
+    /* LOADING */
+    .loading { text-align: center; padding: 60px; color: var(--muted); font-size: 16px; }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      .standings-header { flex-direction: column; align-items: flex-start; }
+      .search-box { width: 100%; }
+    }
+
+    /* MEDAL ICONS */
+    .medal-1::before { content: '🥇 '; }
+    .medal-2::before { content: '🥈 '; }
+    .medal-3::before { content: '🥉 '; }
+
+    /* SEASON BADGE */
+    .season-badge { display: inline-block; background: var(--accent); color: white; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; margin-left: 8px; vertical-align: middle; }
+
+    /* TEAM COUNT BADGE */
+    .count-badge { background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 2px 10px; font-size: 12px; color: var(--muted); }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">🏀</div>
+    <div>
+      <h1>SLP Pool</h1>
+      <span>Season Long Pool</span>
+    </div>
+  </div>
+  <div class="header-meta">
+    Season <strong>2025–26</strong><br/>
+    <span id="header-count">Loading...</span>
+  </div>
+</header>
+
+<nav>
+  <button class="active" onclick="showTab('standings')">📊 Standings</button>
+  <button onclick="showTab('submit')">📝 Submit Entry</button>
+  <button onclick="showTab('rules')">📋 Rules</button>
+  <button onclick="showTab('admin')">⚙️ How to Update</button>
+</nav>
+
+<main>
+
+  <!-- STANDINGS TAB -->
+  <div id="tab-standings" class="tab active">
+    <div class="standings-header">
+      <div>
+        <div class="standings-title">Standings <span class="season-badge">2025–26</span></div>
+        <div style="font-size:13px; color:var(--muted); margin-top:4px;">Click any row to view full roster</div>
+      </div>
+      <input class="search-box" type="text" id="search-input" placeholder="Search entries..." oninput="filterStandings()"/>
+    </div>
+
+    <div id="standings-container" class="loading">Loading standings...</div>
+  </div>
+
+  <!-- RULES TAB -->
+  <div id="tab-rules" class="tab">
+    <div class="rules-card">
+      <h2>🏀 SLP Pool Rules</h2>
+
+      <h3>Roster Selection</h3>
+      <p>A dollar value is assigned to each Division I college basketball team. You select a roster of <strong>11 schools</strong>, the total value of which cannot exceed <strong>$100</strong>. Your roster is locked for the entire season once submitted.</p>
+      <p>You must select <strong>at least one school</strong> from each of the following conferences:</p>
+      <p style="color:var(--text); font-weight:600;">ACC · Big East · Big Ten · Big 12 · SEC</p>
+      <p>The remaining <strong>6 schools (wildcards)</strong> can be any Division I school. Only the <strong>top 4 scoring wildcards</strong> count toward your final score — the lowest wildcard is dropped.</p>
+
+      <h3>Entry Fee</h3>
+      <p>Entry fee: <strong style="color:var(--accent);">$75 per entry</strong>.</p>
+
+      <h3>Regular Season Scoring</h3>
+      <table class="scoring-table">
+        <tr><td>Non-conference win</td><td>+1 pt</td></tr>
+        <tr><td>Conference win</td><td>+2 pts</td></tr>
+        <tr><td>Conference regular season title (best winning %)</td><td>+5 pts</td></tr>
+        <tr><td>Tie for conference title (2-way)</td><td>+3 pts each</td></tr>
+        <tr><td>Tie for conference title (3+ way)</td><td>+2 pts each</td></tr>
+      </table>
+
+      <h3>Conference Tournament Scoring</h3>
+      <table class="scoring-table">
+        <tr><td>Conference tournament win</td><td>+2 pts</td></tr>
+        <tr><td>Conference tournament title</td><td>+5 pts</td></tr>
+      </table>
+
+      <h3>NCAA Tournament Scoring</h3>
+      <table class="scoring-table">
+        <tr><td>#1 seed in Field of 64</td><td>+8 pts</td></tr>
+        <tr><td>#2–4 seed in Field of 64</td><td>+6 pts</td></tr>
+        <tr><td>#5–8 seed in Field of 64</td><td>+4 pts</td></tr>
+        <tr><td>#9–16 seed in Field of 64</td><td>+2 pts</td></tr>
+        <tr><td>Round of 64 win</td><td>+2 pts</td></tr>
+        <tr><td>Round of 32 win</td><td>+4 pts</td></tr>
+        <tr><td>Sweet 16 win</td><td>+6 pts</td></tr>
+        <tr><td>Elite 8 win</td><td>+8 pts</td></tr>
+        <tr><td>Final Four win</td><td>+10 pts</td></tr>
+        <tr><td>Championship game win</td><td>+12 pts</td></tr>
+      </table>
+
+      <h3>Notes</h3>
+      <p>Conference game designations follow each conference's official rules. The non-Big Dance post-season tournaments do not count. If a team cannot participate in the NCAA Tournament due to reclassification, they still receive conference tournament points but only receive seeding points for their actual bid.</p>
+    </div>
+  </div>
+
+  <!-- SUBMIT ENTRY TAB -->
+  <div id="tab-submit" class="tab">
+    <div class="submit-card">
+      <h2>📝 Submit Your Entry</h2>
+      <div class="subtitle">Pick 11 teams within a $100 budget. One required team from each major conference + 6 wildcards.</div>
+
+      <div class="budget-bar">
+        <div style="font-size:12px; color:var(--muted);">BUDGET</div>
+        <div class="budget-fill"><div class="budget-fill-inner" id="budget-fill"></div></div>
+        <div class="budget-text" id="budget-text">$0 / $100</div>
+      </div>
+
+      <div class="form-group">
+        <label>Entry Name</label>
+        <input class="form-input" type="text" id="entry-name" placeholder="e.g. Donut Holes" oninput="validateForm()"/>
+      </div>
+
+      <div class="form-group">
+        <label>Your Email</label>
+        <input class="form-input" type="email" id="entry-email" placeholder="your@email.com" oninput="validateForm()"/>
+      </div>
+
+      <div id="conf-picks-form"></div>
+
+      <div class="wc-section">
+        <h3>🎲 Wildcards (pick 6 — any D1 school)</h3>
+        <div id="wc-picks-form"></div>
+      </div>
+
+      <div id="form-errors"></div>
+      <button class="submit-btn" id="submit-btn" disabled onclick="submitEntry()">Submit Entry ($0 / $100)</button>
+      <div id="form-result"></div>
+    </div>
+  </div>
+
+  <!-- ADMIN TAB -->
+  <div id="tab-admin" class="tab">
+    <div class="admin-card">
+      <h2>⚙️ How to Update the Website</h2>
+
+      <div class="alert">All scores and team values live in <strong>data.json</strong>. Edit that file to update the site — no other files need to change.</div>
+
+      <h3>1. Set Team Values</h3>
+      <p>Once you've assigned dollar values for the 2025–26 season, open <code>data.json</code> and update the <code>"value"</code> field for each team in each entry's <code>"picks"</code> and <code>"wildcards"</code> arrays. Also update <code>"totalValue"</code> for each entry.</p>
+      <div class="code-block">"picks": {
+  "ACC": { "team": "Duke", "value": 16, "points": 0 },
+  "Big East": { "team": "UConn", "value": 15, "points": 0 },
+  ...
+},
+"wildcards": [
+  { "team": "Gonzaga", "value": 13, "points": 0, "counts": true },
+  ...
+]</div>
+
+      <h3>2. Update Scores</h3>
+      <p>To update scores manually, edit each entry's <code>"score"</code> field and the <code>"points"</code> for individual teams. Also update <code>"lastUpdated"</code> at the top of the file.</p>
+      <div class="code-block">{
+  "name": "Connor Pelton",
+  "totalValue": 98,
+  "score": 42,         ← update this
+  "picks": { ... }
+}</div>
+
+      <h3>3. Auto-Update with ESPN + Claude Code</h3>
+      <div class="alert">🏀 <strong>This is the best workflow:</strong> Use Claude Code to run a scoring script that pulls from ESPN and updates data.json automatically.</div>
+      <p>The ESPN public API provides live college basketball scores and standings. Ask Claude Code to write a script that:</p>
+      <p>• Fetches game results from the ESPN API</p>
+      <p>• Applies SLP scoring rules (1pt non-conf win, 2pt conf win, 5pt conf title, etc.)</p>
+      <p>• Calculates each entry's score based on their roster</p>
+      <p>• Writes updated scores back to <code>data.json</code></p>
+      <p>• Can be scheduled to run daily (e.g., every morning)</p>
+      <div class="code-block"># Ask Claude Code something like:
+# "Write a Python script that pulls college basketball
+#  scores from ESPN's API, applies the SLP scoring rules
+#  defined in data.json, and updates each entry's score
+#  in data.json. Then commit and push to GitHub."</div>
+      <p>Once the script is set up, Claude Code can run it on a schedule. Every push to GitHub automatically updates the live site.</p>
+
+      <h3>4. Mark Wildcards as Dropped</h3>
+      <p>At the end of the season, set <code>"counts": false</code> on the lowest-scoring wildcard for each entry. The site will automatically gray it out and exclude it.</p>
+
+      <h3>5. 🚀 Hosting on GitHub Pages (Free)</h3>
+      <div class="alert">Your GitHub username is <strong>AnthonyGarino</strong> — your site will be live at:<br/>
+      <strong>AnthonyGarino.github.io/slp-pool</strong> (or whatever you name the repo)</div>
+      <p><strong>Step 1:</strong> Go to <a href="https://github.com/new" target="_blank" style="color:var(--blue)">github.com/new</a> and create a repo named <code>slp-pool</code></p>
+      <p><strong>Step 2:</strong> Upload <code>index.html</code> and <code>data.json</code> to the repo (drag & drop works)</p>
+      <p><strong>Step 3:</strong> In the repo → Settings → Pages → set Source to "Deploy from branch" → select <code>main</code> → Save</p>
+      <p><strong>Step 4:</strong> Wait ~60 seconds and visit <code>AnthonyGarino.github.io/slp-pool</code> — it's live!</p>
+
+      <h3>6. Updating the Live Site</h3>
+      <p>Every time you edit <code>data.json</code> and push/upload it to GitHub, the site updates within about 60 seconds automatically. No server needed — it's just two files.</p>
+    </div>
+  </div>
+
+</main>
+
+<!-- DETAIL OVERLAY -->
+<div class="detail-overlay" id="detail-overlay" onclick="closeDetail(event)">
+  <div class="detail-panel" id="detail-panel">
+    <button class="close-btn" onclick="closeDetailBtn()">✕ Close</button>
+    <div id="detail-content"></div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// DATA LOAD
+// ============================================================
+let data = null;
+let sortKey = 'score';
+let sortDir = -1; // -1 = desc, 1 = asc
+let filteredEntries = [];
+
+async function loadData() {
+  try {
+    const res = await fetch('data.json');
+    data = await res.json();
+    init();
+  } catch(e) {
+    document.getElementById('standings-container').innerHTML =
+      '<div class="loading" style="color:#f85149">Error loading data.json. Make sure both files are in the same folder.</div>';
+  }
+}
+
+function init() {
+  const n = data.entries.length;
+  document.getElementById('header-count').textContent = `${n} entries`;
+  renderStandings();
+  buildForm();
+}
+
+// ============================================================
+// SCORE CALCULATION — derived from team points, not stored
+// ============================================================
+function calcEntryScore(entry) {
+  // Sum all 5 conference pick points
+  let total = 0;
+  for (const conf of (data.conferences || [])) {
+    total += (entry.picks?.[conf]?.points || 0);
+  }
+  // Add top 4 wildcard points (drop lowest)
+  if (entry.wildcards?.length) {
+    const wcPts = entry.wildcards.map(w => w.points || 0).sort((a,b) => b - a);
+    total += wcPts.slice(0, 4).reduce((s, p) => s + p, 0);
+  }
+  return total;
+}
+
+function rankEntries(entries) {
+  const sorted = [...entries].sort((a,b) => calcEntryScore(b) - calcEntryScore(a));
+  let rank = 1, prev = null;
+  return sorted.map((e, i) => {
+    const s = calcEntryScore(e);
+    if (i > 0 && s !== prev) rank = i + 1;
+    prev = s;
+    return { ...e, _score: s, rank };
+  });
+}
+
+function renderStandings() {
+  const search = (document.getElementById('search-input')?.value || '').toLowerCase();
+
+  // Rank all entries by calculated score
+  const ranked = rankEntries(data.entries);
+  const rankMap = {};
+  ranked.forEach(e => rankMap[e.name] = { rank: e.rank, score: e._score });
+
+  let entries = ranked;
+
+  // Sort
+  if (sortKey === 'name') {
+    entries = [...entries].sort((a, b) => {
+      const av = a.name.toLowerCase(), bv = b.name.toLowerCase();
+      return av < bv ? sortDir : av > bv ? -sortDir : 0;
+    });
+  } else if (sortKey === 'totalValue') {
+    entries = [...entries].sort((a, b) => sortDir === -1 ? (b.totalValue||0)-(a.totalValue||0) : (a.totalValue||0)-(b.totalValue||0));
+  }
+  // Default sort (score) is already ranked
+
+  // Filter
+  if (search) entries = entries.filter(e => e.name.toLowerCase().includes(search));
+
+  const topScore = ranked.length ? ranked[0]._score : 0;
+  const arrow = (key) => sortKey === key ? (sortDir === -1 ? '↓' : '↑') : '';
+
+  let html = `<table class="standings-table">
+    <thead><tr>
+      <th onclick="setSort('rank')" style="width:44px">Rank ${arrow('rank')}</th>
+      <th onclick="setSort('name')">Entry Name ${arrow('name')}</th>
+      <th onclick="setSort('totalValue')" style="width:80px; text-align:right">Value ${arrow('totalValue')}</th>
+      <th onclick="setSort('score')" style="width:80px; text-align:right">Score ${arrow('score')}</th>
+      <th style="width:80px; text-align:right">Behind</th>
+    </tr></thead><tbody>`;
+
+  entries.forEach(e => {
+    const info = rankMap[e.name] || { rank: '—', score: 0 };
+    const rank = info.rank;
+    const score = info.score;
+    const behind = score === topScore ? '—' : `${topScore - score}`;
+    const rankClass = rank <= 3 ? 'rank top3' : 'rank';
+    const medalClass = rank === 1 ? 'medal-1' : rank === 2 ? 'medal-2' : rank === 3 ? 'medal-3' : '';
+    const tv = e.totalValue ? `$${e.totalValue}` : '—';
+
+    html += `<tr onclick="openDetail('${e.name.replace(/'/g, "\\'")}')">
+      <td class="${rankClass}">${rank}</td>
+      <td class="entry-name ${medalClass}">${e.name}</td>
+      <td style="text-align:right"><span class="value-badge">${tv}</span></td>
+      <td class="score-cell" style="text-align:right">${score}</td>
+      <td class="behind-cell" style="text-align:right">${behind}</td>
+    </tr>`;
+  });
+
+  html += '</tbody></table>';
+  if (entries.length === 0) html = '<div class="loading">No entries match your search.</div>';
+  document.getElementById('standings-container').innerHTML = html;
+}
+
+function setSort(key) {
+  if (key === 'rank') key = 'score';
+  if (sortKey === key) sortDir *= -1;
+  else { sortKey = key; sortDir = key === 'name' ? 1 : -1; }
+  renderStandings();
+}
+
+function filterStandings() { renderStandings(); }
+
+// ============================================================
+// DETAIL PANEL
+// ============================================================
+function openDetail(name) {
+  const entry = data.entries.find(e => e.name === name);
+  if (!entry) return;
+
+  const confs = data.conferences || ['ACC', 'Big East', 'Big Ten', 'Big 12', 'SEC'];
+  const ranked = rankEntries(data.entries);
+  const r = ranked.find(e => e.name === name);
+  const rank = r ? r.rank : '—';
+  const score = calcEntryScore(entry);
+
+  let html = `<h2>${entry.name}</h2>
+    <div class="total">Rank <strong style="color:var(--blue)">#${rank}</strong> &nbsp;·&nbsp;
+    Score: <strong>${score}</strong> pts &nbsp;·&nbsp; Value: ${entry.totalValue ? '$'+entry.totalValue : '—'}</div>`;
+
+  // Conference picks
+  html += `<div class="picks-section"><h3>🏆 Required Conference Picks</h3>`;
+  confs.forEach(conf => {
+    const pick = entry.picks?.[conf];
+    if (!pick) return;
+    const pts = pick.points || 0;
+    const val = pick.value ? `$${pick.value}` : '?';
+    html += `<div class="pick-row">
+      <span class="conf-label">${conf}</span>
+      <span class="team-name">${pick.team}</span>
+      <span class="pick-value">${val}</span>
+      <span class="pick-pts">${pts}</span>
+    </div>`;
+  });
+  html += `</div>`;
+
+  // Wildcards
+  if (entry.wildcards?.length) {
+    const sorted = [...entry.wildcards].sort((a,b) => (b.points||0) - (a.points||0));
+    // Mark lowest as dropped only if scores are live
+    const hasScores = sorted.some(w => (w.points||0) > 0);
+    let droppedIdx = -1;
+    if (hasScores) {
+      // Find lowest points wildcard
+      let minPts = Infinity, minI = -1;
+      sorted.forEach((w,i) => { if ((w.points||0) < minPts) { minPts = w.points||0; minI = i; } });
+      droppedIdx = minI;
+    }
+
+    html += `<div class="picks-section"><h3>🎲 Wildcards <span style="font-size:11px; font-weight:400; color:var(--muted)">(4 of 6 count)</span></h3>`;
+    entry.wildcards.forEach((w, i) => {
+      const dropped = !w.counts;
+      const pts = w.points || 0;
+      const val = w.value ? `$${w.value}` : '?';
+      html += `<div class="pick-row ${dropped ? 'wildcard-dropped' : ''}">
+        <span class="conf-label">WC ${i+1}</span>
+        <span class="team-name">${w.team}</span>
+        <span class="pick-value">${val}</span>
+        <span class="pick-pts">${pts}</span>
+      </div>`;
+    });
+    html += `<div class="wildcard-note">Lowest-scoring wildcard is dropped at end of season.</div>`;
+    html += `</div>`;
+  }
+
+  document.getElementById('detail-content').innerHTML = html;
+  document.getElementById('detail-overlay').classList.add('open');
+}
+
+function closeDetail(e) {
+  if (e.target === document.getElementById('detail-overlay')) closeDetailBtn();
+}
+function closeDetailBtn() {
+  document.getElementById('detail-overlay').classList.remove('open');
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDetailBtn(); });
+
+// ============================================================
+// TABS
+// ============================================================
+function showTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ============================================================
+// SUBMIT ENTRY FORM
+// ============================================================
+function buildForm() {
+  if (!data?.teamValues) return; // needs teamValues in data.json
+
+  const confs = data.conferences || ['ACC', 'Big East', 'Big Ten', 'Big 12', 'SEC'];
+  const tv = data.teamValues || {};
+
+  // Build conference pick dropdowns
+  let confHtml = '';
+  confs.forEach(conf => {
+    const teams = (data.conferenceTeams?.[conf] || []).sort();
+    const options = teams.map(t => `<option value="${t}">${t} ($${tv[t]||'?'})</option>`).join('');
+    confHtml += `<div class="form-group">
+      <div class="conf-label-form">${conf}</div>
+      <div class="pick-group">
+        <select class="form-input conf-pick" data-conf="${conf}" onchange="validateForm()">
+          <option value="">— Select ${conf} team —</option>
+          ${options}
+        </select>
+        <div class="pick-value" id="val-${conf.replace(/\s/g,'')}">$0</div>
+      </div>
+    </div>`;
+  });
+  document.getElementById('conf-picks-form').innerHTML = confHtml;
+
+  // Build 6 wildcard dropdowns
+  const allTeams = Object.keys(tv).sort();
+  const wcOptions = allTeams.map(t => `<option value="${t}">${t} ($${tv[t]})</option>`).join('');
+  let wcHtml = '';
+  for (let i = 1; i <= 6; i++) {
+    wcHtml += `<div class="form-group">
+      <div class="pick-group">
+        <select class="form-input wc-pick" data-wc="${i}" onchange="validateForm()">
+          <option value="">— Wildcard ${i} —</option>
+          ${wcOptions}
+        </select>
+        <div class="pick-value" id="val-wc${i}">$0</div>
+      </div>
+    </div>`;
+  }
+  document.getElementById('wc-picks-form').innerHTML = wcHtml;
+}
+
+function validateForm() {
+  if (!data?.teamValues) return;
+  const tv = data.teamValues || {};
+  const confs = data.conferences || [];
+  const name = document.getElementById('entry-name').value.trim();
+  const email = document.getElementById('entry-email').value.trim();
+
+  let total = 0, errors = [], pickedTeams = [];
+
+  // Conference picks
+  document.querySelectorAll('.conf-pick').forEach(sel => {
+    const team = sel.value;
+    const conf = sel.dataset.conf;
+    const v = team ? (tv[team] || 0) : 0;
+    document.getElementById('val-' + conf.replace(/\s/g, '')).textContent = team ? `$${v}` : '$0';
+    total += v;
+    if (team) {
+      if (pickedTeams.includes(team)) errors.push(`${team} picked twice`);
+      pickedTeams.push(team);
+    }
+  });
+
+  // Wildcard picks
+  for (let i = 1; i <= 6; i++) {
+    const sel = document.querySelector(`.wc-pick[data-wc="${i}"]`);
+    const team = sel?.value || '';
+    const v = team ? (tv[team] || 0) : 0;
+    document.getElementById('val-wc' + i).textContent = team ? `$${v}` : '$0';
+    total += v;
+    if (team) {
+      if (pickedTeams.includes(team)) errors.push(`${team} picked twice`);
+      pickedTeams.push(team);
+    }
+  }
+
+  // Budget bar
+  const pct = Math.min(100, (total / 100) * 100);
+  const fill = document.getElementById('budget-fill');
+  fill.style.width = pct + '%';
+  fill.style.background = total > 100 ? 'var(--red)' : total > 90 ? 'var(--accent)' : 'var(--green)';
+  const budgetText = document.getElementById('budget-text');
+  budgetText.textContent = `$${total} / $100`;
+  budgetText.className = 'budget-text ' + (total > 100 ? 'budget-over' : total > 90 ? 'budget-warn' : 'budget-ok');
+
+  if (total > 100) errors.push('Over $100 budget');
+  if (!name) errors.push('Entry name required');
+  if (!email) errors.push('Email required');
+
+  const confPicks = document.querySelectorAll('.conf-pick');
+  confPicks.forEach(s => { if (!s.value) errors.push(`Missing ${s.dataset.conf} pick`); });
+  const wcPicks = document.querySelectorAll('.wc-pick');
+  let wcCount = 0;
+  wcPicks.forEach(s => { if (s.value) wcCount++; });
+  if (wcCount < 6) errors.push(`Need 6 wildcards (have ${wcCount})`);
+
+  document.getElementById('form-errors').innerHTML = errors.map(e => `<div class="form-error">${e}</div>`).join('');
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = errors.length > 0;
+  btn.textContent = `Submit Entry ($${total} / $100)`;
+}
+
+function submitEntry() {
+  if (!data?.teamValues) return;
+  const tv = data.teamValues;
+  const name = document.getElementById('entry-name').value.trim();
+  const email = document.getElementById('entry-email').value.trim();
+
+  const picks = {};
+  document.querySelectorAll('.conf-pick').forEach(sel => {
+    if (sel.value) picks[sel.dataset.conf] = { team: sel.value, value: tv[sel.value]||0, points: 0 };
+  });
+
+  const wildcards = [];
+  document.querySelectorAll('.wc-pick').forEach(sel => {
+    if (sel.value) wildcards.push({ team: sel.value, value: tv[sel.value]||0, points: 0, counts: true });
+  });
+
+  const totalValue = Object.values(picks).reduce((s,p) => s + p.value, 0) + wildcards.reduce((s,w) => s + w.value, 0);
+
+  const entry = { name, email, totalValue, score: 0, picks, wildcards };
+
+  // Format for email / clipboard
+  const lines = [
+    `Entry Name: ${name}`,
+    `Email: ${email}`,
+    `Total Value: $${totalValue}`,
+    '',
+    ...Object.entries(picks).map(([conf, p]) => `${conf}: ${p.team} ($${p.value})`),
+    '',
+    ...wildcards.map((w, i) => `Wildcard ${i+1}: ${w.team} ($${w.value})`),
+  ];
+  const text = lines.join('\n');
+
+  // Copy to clipboard
+  navigator.clipboard.writeText(text).then(() => {
+    document.getElementById('form-result').innerHTML = `
+      <div class="form-success">
+        <strong>Entry copied to clipboard!</strong><br/><br/>
+        Paste it into an email to the pool commissioner to complete your submission.<br/><br/>
+        <pre style="background:var(--bg); padding:12px; border-radius:6px; white-space:pre-wrap; font-size:12px; color:var(--text); margin-top:8px;">${text}</pre>
+      </div>`;
+  }).catch(() => {
+    document.getElementById('form-result').innerHTML = `
+      <div class="form-success">
+        <strong>Here's your entry — copy and email it to the commissioner:</strong>
+        <pre style="background:var(--bg); padding:12px; border-radius:6px; white-space:pre-wrap; font-size:12px; color:var(--text); margin-top:8px;">${text}</pre>
+      </div>`;
+  });
+}
+
+// ============================================================
+// INIT
+// ============================================================
+loadData();
+</script>
+</body>
+</html>
