@@ -416,6 +416,8 @@ async function main() {
       confTournWinPts,
       confTournTitlePts: 0,   // determined per-conference below
       ncaaPts,
+      ncaaSeedPts:    post.ncaaSeeding,   // separated for breakdown tooltip
+      ncaaWinPts:     post.ncaaWins,      // separated for breakdown tooltip
       totalPreTitle:  reg.points + confTournWinPts + ncaaPts,
       confW:          reg.confW  || 0,
       confL:          reg.confL  || 0,
@@ -498,6 +500,22 @@ async function main() {
     sc.totalPoints += 5;
     console.log(`  🏆 Conf tourn champ: ${champ.name} (group ${gid}, ${champ.wins} wins)`);
   }
+
+  // ── Build team breakdowns for frontend tooltip ─────────────────────
+  data.teamBreakdowns = {};
+  for (const [name, sc] of Object.entries(teamScore)) {
+    data.teamBreakdowns[name] = {
+      confW:             sc.confW,
+      nonConfW:          sc.basePoints - (sc.confW * 2),
+      confTitlePts:      sc.confTitlePts || 0,
+      confTournWinPts:   sc.confTournWinPts || 0,
+      confTournTitlePts: sc.confTournTitlePts || 0,
+      ncaaSeedPts:       sc.ncaaSeedPts || 0,
+      ncaaWinPts:        sc.ncaaWinPts || 0,
+      totalPoints:       sc.totalPoints,
+    };
+  }
+  console.log(`📊 Built scoring breakdowns for ${Object.keys(data.teamBreakdowns).length} teams`);
 
   // ── Save previous ranks for movement tracking ───────────────────────
   // Rank entries by current score before overwriting
