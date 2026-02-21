@@ -47,8 +47,25 @@
     /* STANDINGS */
     .standings-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 12px; }
     .standings-title { font-size: 20px; font-weight: 600; letter-spacing: -0.2px; }
+    .standings-filters { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
     .search-box { background: var(--surface2); border: 1px solid transparent; color: var(--text); padding: 8px 14px; border-radius: 6px; font-size: 13px; width: 240px; outline: none; transition: border-color 0.2s; }
     .search-box:focus { border-color: var(--accent); }
+
+    /* TEAM FILTER */
+    .team-filter { position: relative; width: 240px; }
+    .team-filter-input { background: var(--surface2); border: 1px solid transparent; color: var(--text); padding: 8px 14px; border-radius: 6px; font-size: 13px; width: 100%; outline: none; transition: border-color 0.2s; }
+    .team-filter-input:focus { border-color: var(--accent); }
+    .team-filter-input::placeholder { color: var(--muted); opacity: 0.6; }
+    .team-filter-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+    .team-filter-tags:empty { margin-top: 0; }
+    .team-filter-tag { display: inline-flex; align-items: center; gap: 4px; background: rgba(139,157,195,0.12); color: var(--accent); font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+    .team-filter-tag button { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 12px; padding: 0 2px; line-height: 1; }
+    .team-filter-tag button:hover { color: var(--text); }
+    .team-filter-dropdown { display: none; position: absolute; top: 100%; left: 0; right: 0; z-index: 150; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; margin-top: 4px; max-height: 240px; overflow-y: auto; box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+    .team-filter-dropdown.open { display: block; }
+    .team-filter-item { padding: 8px 14px; font-size: 13px; cursor: pointer; display: flex; justify-content: space-between; transition: background 0.1s; }
+    .team-filter-item:hover { background: rgba(255,255,255,0.04); }
+    .team-filter-item .tfi-count { color: var(--muted); font-size: 11px; }
 
     .standings-table { width: 100%; border-collapse: collapse; font-size: 14px; }
     .standings-table th { background: transparent; color: var(--muted); text-align: left; padding: 8px 12px; font-weight: 500; font-size: 12px; letter-spacing: normal; border-bottom: 1px solid var(--border); cursor: pointer; user-select: none; }
@@ -140,7 +157,9 @@
     /* RESPONSIVE */
     @media (max-width: 600px) {
       .standings-header { flex-direction: column; align-items: flex-start; }
+      .standings-filters { align-items: stretch; width: 100%; }
       .search-box { width: 100%; }
+      .team-filter { width: 100%; }
     }
 
     /* SEASON BADGE */
@@ -201,7 +220,14 @@
         <div style="font-size:13px; color:var(--muted); margin-top:4px;">Click any row to view full roster</div>
         <div id="last-updated" style="font-size:12px; color:var(--muted); margin-top:2px;"></div>
       </div>
-      <input class="search-box" type="text" id="search-input" placeholder="Search entries..." oninput="filterStandings()"/>
+      <div class="standings-filters">
+        <input class="search-box" type="text" id="search-input" placeholder="Search entries..." oninput="filterStandings()"/>
+        <div class="team-filter">
+          <input class="team-filter-input" type="text" id="team-filter-input" placeholder="Filter by team..." oninput="onTeamFilterInput()" onfocus="onTeamFilterInput()" />
+          <div id="team-filter-tags" class="team-filter-tags"></div>
+          <div id="team-filter-dropdown" class="team-filter-dropdown"></div>
+        </div>
+      </div>
     </div>
 
     <div id="standings-container" class="loading">Loading standings...</div>
@@ -346,6 +372,20 @@ function renderStandings() {
   // Filter
   if (search) entries = entries.filter(e => e.name.toLowerCase().includes(search));
 
+  // Team filter — show only entries containing ALL selected teams
+  if (teamFilters.size > 0) {
+    entries = entries.filter(e => {
+      const entryTeams = new Set([
+        ...Object.values(e.picks).map(p => p.team),
+        ...e.wildcards.map(w => w.team)
+      ]);
+      for (const t of teamFilters) {
+        if (!entryTeams.has(t)) return false;
+      }
+      return true;
+    });
+  }
+
   const topScore = ranked.length ? ranked[0]._score : 0;
   const arrow = (key) => sortKey === key ? (sortDir === -1 ? '↓' : '↑') : '';
 
@@ -387,7 +427,7 @@ function renderStandings() {
   });
 
   html += '</tbody></table>';
-  if (entries.length === 0) html = '<div class="loading">No entries match your search.</div>';
+  if (entries.length === 0) html = '<div class="loading">No entries match your filters.</div>';
   document.getElementById('standings-container').innerHTML = html;
 }
 
@@ -399,6 +439,69 @@ function setSort(key) {
 }
 
 function filterStandings() { renderStandings(); }
+
+// ============================================================
+// TEAM FILTER
+// ============================================================
+function onTeamFilterInput() {
+  const input = document.getElementById('team-filter-input');
+  const dropdown = document.getElementById('team-filter-dropdown');
+  const query = (input.value || '').toLowerCase().trim();
+
+  if (!query) { dropdown.classList.remove('open'); dropdown.innerHTML = ''; return; }
+
+  const matches = allEntryTeams
+    .filter(t => !teamFilters.has(t) && t.toLowerCase().includes(query))
+    .slice(0, 8);
+
+  if (matches.length === 0) {
+    dropdown.classList.remove('open');
+    dropdown.innerHTML = '';
+    return;
+  }
+
+  dropdown.innerHTML = matches.map(t =>
+    `<div class="team-filter-item" onmousedown="addTeamFilter('${t.replace(/'/g, "\\'")}')">
+      <span>${t}</span>
+      <span class="tfi-count">${teamOwnerCount[t] || 0} entries</span>
+    </div>`
+  ).join('');
+  dropdown.classList.add('open');
+}
+
+function addTeamFilter(teamName) {
+  teamFilters.add(teamName);
+  const input = document.getElementById('team-filter-input');
+  input.value = '';
+  document.getElementById('team-filter-dropdown').classList.remove('open');
+  renderTeamFilterTags();
+  renderStandings();
+  input.placeholder = 'Add another team...';
+}
+
+function removeTeamFilter(teamName) {
+  teamFilters.delete(teamName);
+  renderTeamFilterTags();
+  renderStandings();
+  if (teamFilters.size === 0) {
+    document.getElementById('team-filter-input').placeholder = 'Filter by team...';
+  }
+}
+
+function renderTeamFilterTags() {
+  const container = document.getElementById('team-filter-tags');
+  if (teamFilters.size === 0) { container.innerHTML = ''; return; }
+  container.innerHTML = [...teamFilters].map(t =>
+    `<span class="team-filter-tag">${t}<button onclick="removeTeamFilter('${t.replace(/'/g, "\\'")}')">&times;</button></span>`
+  ).join('');
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', e => {
+  if (!e.target.closest('.team-filter')) {
+    document.getElementById('team-filter-dropdown').classList.remove('open');
+  }
+});
 
 // ============================================================
 // DETAIL PANEL
@@ -754,6 +857,9 @@ for (const entry of data.entries) {
     teamOwnerCount[wc.team] = (teamOwnerCount[wc.team] || 0) + 1;
   }
 }
+
+const allEntryTeams = Object.keys(teamOwnerCount).sort();
+const teamFilters = new Set();
 
 // Populate header info
 document.getElementById('header-count').textContent = data.entries.length + ' Entries';
