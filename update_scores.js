@@ -55,7 +55,7 @@ const MANUAL_MAP = {
   'Utah Valley State':   '3084',
   'Incarnate Word':      '2916',
   'Sam Houston':         '2534',
-  'Stephen F Austin':    '2621',
+  'Stephen F Austin':    '2617',
   'Arkansas Pine Bluff': '2029',
   'Green Bay':           '2739',
   'Omaha':               '2437',
@@ -71,9 +71,9 @@ const MANUAL_MAP = {
   'UTEP':                '2638',
   'UTSA':                '2636',
   'Umass Lowell':        '2349',
-  'UNC Asheville':       '2454',
-  'UNC Greensboro':      '2455',
-  'UNC Wilmington':      '2458',
+  'UNC Asheville':       '2427',
+  'UNC Greensboro':      '2430',
+  'UNC Wilmington':      '350',
   'UC Davis':            '302',
   'UC Irvine':           '300',
   'UC Santa Barbara':    '301',
@@ -87,6 +87,22 @@ const MANUAL_MAP = {
   'Grambling State':     '2755',
   'Nicholls State':      '2447',
   'Lindenwood':          null,   // New D1 team, not yet in ESPN database
+  // Additional mappings for Excel team names
+  'Miami OH':            '193',   // Miami (OH) RedHawks
+  'American U':          '44',    // American University Eagles
+  'Penn':                '219',   // Pennsylvania Quakers
+  'East Texas A&M':      '2837',  // East Texas A&M Lions
+  'Little Rock':         '2031',  // Little Rock Trojans
+  'Prairie View':        '2504',  // Prairie View A&M Panthers
+  'Gardner-Webb':        '2241',  // Gardner-Webb Bulldogs
+  'East Tennessee State':'2193',  // ETSU Buccaneers
+  'Charleston':          '232',   // College of Charleston
+  'Loyola Chicago':      '2350',  // Loyola Chicago Ramblers
+  'Chicago State':       '2130',  // Chicago State Cougars
+  'CCSU':                '2115',  // Central Connecticut State
+  'Bethune-Cookman':     '2065',  // Bethune-Cookman Wildcats
+  'Southern Indiana':    '88',    // Southern Indiana Screaming Eagles
+  'IU Indianapolis (IUPUI)': '85',// IU Indianapolis
 };
 
 // ── Helpers ───────────────────────────────────────────────────────────
@@ -461,11 +477,25 @@ async function main() {
       entryScore += pts;
     }
 
-    // Update wildcards — respect the original counts field (set at draft time)
+    // Update wildcards — score all 6, then drop the 1 lowest
     for (const wc of entry.wildcards) {
       const sc = teamScore[wc.team];
       wc.points = sc ? sc.totalPoints : 0;
-      if (wc.counts !== false) entryScore += wc.points;
+      wc.counts = true;  // reset
+    }
+
+    // Find the lowest-scoring wildcard and mark it as dropped
+    if (entry.wildcards.length > 0) {
+      let minPts = Infinity, minIdx = -1;
+      entry.wildcards.forEach((wc, i) => {
+        if (wc.points < minPts) { minPts = wc.points; minIdx = i; }
+      });
+      if (minIdx >= 0) entry.wildcards[minIdx].counts = false;
+    }
+
+    // Sum only the 5 wildcards that count
+    for (const wc of entry.wildcards) {
+      if (wc.counts) entryScore += wc.points;
     }
 
     entry.score = entryScore;
