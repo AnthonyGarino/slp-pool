@@ -283,9 +283,9 @@ async function calcTeamScore(dataName, espnId, standingsCache) {
 }
 
 // ── Step 5: Conference tournament points (post-season) ────────────────
-// Once conf tournaments start, each win vs same-conf opponent in type-3 = +2
-// Champion (most wins in type-3 same-conf games AND won final) = +5 bonus
-// NCAA tournament seeding + wins also computed here
+// Classifies post-season games by checking event name for "NCAA" keyword.
+// Conf tournament: wins vs same-conf opponents in non-NCAA post-season games
+// NCAA tournament: seeding + per-round win bonuses
 async function calcPostSeasonPoints(espnId, gid, standingsCache) {
   if (!espnId) return { confTournWins: 0, confTournTitle: false, ncaaSeeding: 0, ncaaWins: 0 };
 
@@ -316,28 +316,31 @@ async function calcPostSeasonPoints(espnId, gid, standingsCache) {
 
     const oppId   = opp.id;
     const iWon    = me.winner === true;
-    const sameConf = confTeamIds.has(oppId);
 
-    if (sameConf) {
-      // Conference tournament game
-      if (iWon) confTournWins++;
-      confTournLast = iWon ? 'W' : 'L';
-    } else {
+    // Classify: check event name for "NCAA" to distinguish from conf tournament
+    const evName  = (ev.name || '').toLowerCase();
+    const evNotes = ((ev.competitions[0] && ev.competitions[0].notes && ev.competitions[0].notes[0] && ev.competitions[0].notes[0].headline) || '').toLowerCase();
+    const isNCAA  = evName.includes('ncaa') || evNotes.includes('ncaa');
+
+    if (isNCAA) {
       // NCAA tournament game
       if (iWon) ncaaWins++;
-      // Get seed from team record if available
-      if (!ncaaSeed && me.curatedRank && me.curatedRank.current) {
-        ncaaSeed = me.curatedRank.current;
+      // Get seed — check multiple possible ESPN fields
+      if (!ncaaSeed) {
+        if (me.curatedRank && me.curatedRank.current) ncaaSeed = me.curatedRank.current;
+        else if (me.seed) ncaaSeed = me.seed;
       }
+    } else if (confTeamIds.has(oppId)) {
+      // Conference tournament game (post-season + same-conf opponent + not NCAA)
+      if (iWon) confTournWins++;
+      confTournLast = iWon ? 'W' : 'L';
     }
+    // else: other post-season games (NIT, CBI, etc.) — no points
   }
 
-  // Try to get playoff seed from team record
-  if (!ncaaSeed && gid && standingsCache[gid] && standingsCache[gid][espnId]) {
-    // Not available until Selection Sunday
-  }
-
-  // Conf tournament title: won last conf-tourn game and won 3+ games (most common conf tourn length)
+  // Conf tournament title: won their last conf tournament game AND had the most wins
+  // We track this per-team; the actual title determination is done in the main loop
+  // by comparing confTournWins across all teams in the conference group
   const confTournTitle = confTournLast === 'W' && confTournWins >= 1;
 
   // NCAA seeding points (only if we actually have a seed, i.e. tournament started)
@@ -405,22 +408,22 @@ async function main() {
       await sleep(60);   // gentle rate limiting
     }
 
-    const confTitlePts   = 0;  // determined per-conference below
-    const confTournPts   = (post.confTournWins * 2) + (post.confTournTitle ? 5 : 0);
-    const ncaaPts        = post.ncaaSeeding + post.ncaaWins;
+    const confTournWinPts = post.confTournWins * 2;  // +2 per conf tourn win
+    const ncaaPts         = post.ncaaSeeding + post.ncaaWins;
 
     teamScore[name] = {
       basePoints:     reg.points,
-      confTournPts,
+      confTournWinPts,
+      confTournTitlePts: 0,   // determined per-conference below
       ncaaPts,
-      totalPreTitle:  reg.points + confTournPts + ncaaPts,
+      totalPreTitle:  reg.points + confTournWinPts + ncaaPts,
       confW:          reg.confW  || 0,
       confL:          reg.confL  || 0,
       confWPct:       reg.confWPct || 0,
       gid,
       espnId,
       confTournWins:  post.confTournWins,
-      confTournTitle: post.confTournTitle,
+      confTournTitle: post.confTournTitle,  // per-team flag (won last + has wins)
     };
 
     count++;
@@ -448,19 +451,63 @@ async function main() {
   }
   console.log('  Conf tournaments started (group IDs):', Object.keys(confTournStarted).join(', ') || 'none');
 
-  // Award conf title bonus (+5) to leaders — only if conf tournament has started
+  // Count how many teams share the lead in each conference group
+  const confTitleCount = {};   // gid → number of teams tied for best WPct
+  for (const [name, sc] of Object.entries(teamScore)) {
+    const gid = sc.gid;
+    if (!gid) continue;
+    const isTitle = sc.confWPct > 0 && sc.confWPct === confLeaders[gid];
+    if (isTitle) confTitleCount[gid] = (confTitleCount[gid] || 0) + 1;
+  }
+
+  // Award conf title bonus — only if conf tournament has started
+  // Tie rules: sole winner = +5, 2-way tie = +3 each, 3+ way tie = +2 each
   for (const [name, sc] of Object.entries(teamScore)) {
     const gid    = sc.gid;
     const isTitle = gid && sc.confWPct > 0 && sc.confWPct === confLeaders[gid];
     const tournOver = confTournStarted[gid] || false;
-    sc.confTitlePts = (isTitle && tournOver) ? 5 : 0;
-    sc.totalPoints  = sc.totalPreTitle + sc.confTitlePts;
-    if (isTitle && tournOver) console.log(`  🏆 Conf title: ${name} (group ${gid}, WPct ${sc.confWPct.toFixed(3)})`);
-    if (isTitle && !tournOver && sc.gid && Object.values(CONF_GROUPS).includes(sc.gid)) {
-      // Only log pending for the 5 main pool conferences to reduce noise
-      console.log(`  ⏳ Conf leader (pending): ${name} (group ${gid}, WPct ${sc.confWPct.toFixed(3)})`);
+
+    if (isTitle && tournOver) {
+      const tiedCount = confTitleCount[gid] || 1;
+      sc.confTitlePts = tiedCount === 1 ? 5 : tiedCount === 2 ? 3 : 2;
+      console.log(`  🏆 Conf title: ${name} (group ${gid}, WPct ${sc.confWPct.toFixed(3)}, ${tiedCount}-way${tiedCount > 1 ? ' tie → +' + sc.confTitlePts : ' → +5'})`);
+    } else {
+      sc.confTitlePts = 0;
+      if (isTitle && !tournOver && Object.values(CONF_GROUPS).includes(sc.gid)) {
+        console.log(`  ⏳ Conf leader (pending): ${name} (group ${gid}, WPct ${sc.confWPct.toFixed(3)})`);
+      }
+    }
+    sc.totalPoints = sc.totalPreTitle + sc.confTitlePts + sc.confTournTitlePts;
+  }
+
+  // ── Determine conference tournament champions per group ──────────────
+  // The champion is the team with the most conf tournament wins who also
+  // won their last conf tournament game. Only one team per conference.
+  const confTournChampions = {};  // gid → { name, wins }
+  for (const [name, sc] of Object.entries(teamScore)) {
+    if (!sc.gid || !sc.confTournTitle) continue;  // didn't win last game
+    const gid = sc.gid;
+    if (!confTournChampions[gid] || sc.confTournWins > confTournChampions[gid].wins) {
+      confTournChampions[gid] = { name, wins: sc.confTournWins };
     }
   }
+  // Award +5 conf tournament title to confirmed champions
+  for (const [gid, champ] of Object.entries(confTournChampions)) {
+    const sc = teamScore[champ.name];
+    sc.confTournTitlePts = 5;
+    sc.totalPoints += 5;
+    console.log(`  🏆 Conf tourn champ: ${champ.name} (group ${gid}, ${champ.wins} wins)`);
+  }
+
+  // ── Save previous ranks for movement tracking ───────────────────────
+  // Rank entries by current score before overwriting
+  const prevSorted = [...data.entries].sort((a, b) => (b.score || 0) - (a.score || 0));
+  let prevRank = 1;
+  prevSorted.forEach((e, i) => {
+    const prevScore = e.score || 0;
+    if (i > 0 && prevScore < (prevSorted[i-1].score || 0)) prevRank = i + 1;
+    e.previousRank = prevRank;
+  });
 
   // ── Update entries in data.json ───────────────────────────────────────
   console.log('\n✏️  Updating data.json entries...');
