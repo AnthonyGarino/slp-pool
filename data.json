@@ -4845,6 +4845,77 @@
       "previousRank": 61
     },
     {
+      "name": "The Hawk Will Never Die",
+      "totalValue": 100,
+      "score": 268,
+      "picks": {
+        "ACC": {
+          "team": "Duke",
+          "value": 16,
+          "points": 38
+        },
+        "Big East": {
+          "team": "Xavier",
+          "value": 9,
+          "points": 18
+        },
+        "Big Ten": {
+          "team": "Maryland",
+          "value": 8,
+          "points": 15
+        },
+        "Big 12": {
+          "team": "West Virginia",
+          "value": 9,
+          "points": 23
+        },
+        "SEC": {
+          "team": "Missouri",
+          "value": 10,
+          "points": 26
+        }
+      },
+      "wildcards": [
+        {
+          "team": "Miami",
+          "value": 10,
+          "points": 31,
+          "counts": true
+        },
+        {
+          "team": "UAB",
+          "value": 9,
+          "points": 26,
+          "counts": true
+        },
+        {
+          "team": "Miami OH",
+          "value": 9,
+          "points": 41,
+          "counts": true
+        },
+        {
+          "team": "Saint Josephs",
+          "value": 8,
+          "points": 26,
+          "counts": true
+        },
+        {
+          "team": "Iona",
+          "value": 7,
+          "points": 24,
+          "counts": true
+        },
+        {
+          "team": "Delaware",
+          "value": 5,
+          "points": 14,
+          "counts": false
+        }
+      ],
+      "previousRank": 63
+    },
+    {
       "name": "Shafts and Balls",
       "totalValue": 100,
       "score": 267,
@@ -4914,77 +4985,6 @@
         }
       ],
       "previousRank": 62
-    },
-    {
-      "name": "The Hawk Will Never Die",
-      "totalValue": 100,
-      "score": 266,
-      "picks": {
-        "ACC": {
-          "team": "Duke",
-          "value": 16,
-          "points": 38
-        },
-        "Big East": {
-          "team": "Xavier",
-          "value": 9,
-          "points": 18
-        },
-        "Big Ten": {
-          "team": "Maryland",
-          "value": 8,
-          "points": 15
-        },
-        "Big 12": {
-          "team": "West Virginia",
-          "value": 9,
-          "points": 23
-        },
-        "SEC": {
-          "team": "Missouri",
-          "value": 10,
-          "points": 26
-        }
-      },
-      "wildcards": [
-        {
-          "team": "Miami",
-          "value": 10,
-          "points": 31,
-          "counts": true
-        },
-        {
-          "team": "UAB",
-          "value": 9,
-          "points": 24,
-          "counts": true
-        },
-        {
-          "team": "Miami OH",
-          "value": 9,
-          "points": 41,
-          "counts": true
-        },
-        {
-          "team": "Saint Josephs",
-          "value": 8,
-          "points": 26,
-          "counts": true
-        },
-        {
-          "team": "Iona",
-          "value": 7,
-          "points": 24,
-          "counts": true
-        },
-        {
-          "team": "Delaware",
-          "value": 5,
-          "points": 14,
-          "counts": false
-        }
-      ],
-      "previousRank": 63
     },
     {
       "name": "WCS",
@@ -15438,20 +15438,15 @@
       }
     },
     "UAB": {
-      "confW": 10,
+      "confW": 11,
       "nonConfW": 4,
       "confTitlePts": 0,
       "confTournWinPts": 0,
       "confTournTitlePts": 0,
       "ncaaSeedPts": 0,
       "ncaaWinPts": 0,
-      "totalPoints": 24,
+      "totalPoints": 26,
       "recentGames": [
-        {
-          "result": "W",
-          "opponent": "N Kentucky",
-          "score": "76-65"
-        },
         {
           "result": "L",
           "opponent": "Cleveland St",
@@ -15471,6 +15466,11 @@
           "result": "L",
           "opponent": "Green Bay",
           "score": "68-73"
+        },
+        {
+          "result": "W",
+          "opponent": "Milwaukee",
+          "score": "81-70"
         }
       ],
       "nextGame": {
