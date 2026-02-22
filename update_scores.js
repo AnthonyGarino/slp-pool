@@ -287,12 +287,48 @@ async function calcTeamScore(dataName, espnId, standingsCache) {
 // Conf tournament: wins vs same-conf opponents in non-NCAA post-season games
 // NCAA tournament: seeding + per-round win bonuses
 async function calcPostSeasonPoints(espnId, gid, standingsCache) {
-  if (!espnId) return { confTournWins: 0, confTournTitle: false, ncaaSeeding: 0, ncaaWins: 0 };
+  const empty = { confTournWins: 0, confTournTitle: false, ncaaSeeding: 0, ncaaWins: 0, recentGames: [], nextGame: null };
+  if (!espnId) return empty;
 
   const sched = await get(
     `https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/${espnId}/schedule?season=${SEASON}`
   );
-  if (!sched || !sched.events) return { confTournWins: 0, confTournTitle: false, ncaaSeeding: 0, ncaaWins: 0 };
+  if (!sched || !sched.events) return empty;
+
+  // ── Extract last 5 completed games + next upcoming game ──
+  const allEvents = sched.events;
+  const completedGames = allEvents
+    .filter(e => e.competitions && e.competitions[0] && e.competitions[0].status && e.competitions[0].status.type.completed)
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .slice(0, 5)
+    .reverse();
+
+  const recentGames = completedGames.map(ev => {
+    const comp = ev.competitions[0];
+    const me  = comp.competitors.find(c => c.id === espnId);
+    const opp = comp.competitors.find(c => c.id !== espnId);
+    const myScore  = me && me.score ? (me.score.displayValue || me.score.value || me.score) : '?';
+    const oppScore = opp && opp.score ? (opp.score.displayValue || opp.score.value || opp.score) : '?';
+    return {
+      result:   me && me.winner ? 'W' : 'L',
+      opponent: (opp && opp.team && opp.team.shortDisplayName) || '?',
+      score:    `${myScore}-${oppScore}`,
+    };
+  });
+
+  const upcoming = allEvents
+    .filter(e => e.competitions && e.competitions[0] && e.competitions[0].status && !e.competitions[0].status.type.completed && new Date(e.date) > new Date())
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
+  const nextEv = upcoming[0] || null;
+  let nextGame = null;
+  if (nextEv && nextEv.competitions && nextEv.competitions[0]) {
+    const comp = nextEv.competitions[0];
+    const opp  = comp.competitors ? comp.competitors.find(c => c.id !== espnId) : null;
+    nextGame = {
+      opponent: (opp && opp.team && opp.team.shortDisplayName) || 'TBD',
+      date:     new Date(nextEv.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+    };
+  }
 
   // Build set of teammate IDs (same conference)
   const confTeamIds = new Set(
@@ -361,6 +397,8 @@ async function calcPostSeasonPoints(espnId, gid, standingsCache) {
     ncaaSeeding: seedPts,
     ncaaWins:    ncaaWinPts,
     ncaaSeed,
+    recentGames,
+    nextGame,
   };
 }
 
@@ -426,6 +464,8 @@ async function main() {
       espnId,
       confTournWins:  post.confTournWins,
       confTournTitle: post.confTournTitle,  // per-team flag (won last + has wins)
+      recentGames:    post.recentGames || [],
+      nextGame:       post.nextGame || null,
     };
 
     count++;
@@ -513,6 +553,8 @@ async function main() {
       ncaaSeedPts:       sc.ncaaSeedPts || 0,
       ncaaWinPts:        sc.ncaaWinPts || 0,
       totalPoints:       sc.totalPoints,
+      recentGames:       sc.recentGames || [],
+      nextGame:          sc.nextGame || null,
     };
   }
   console.log(`📊 Built scoring breakdowns for ${Object.keys(data.teamBreakdowns).length} teams`);
