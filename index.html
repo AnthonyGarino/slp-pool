@@ -595,7 +595,7 @@ function showTeamTooltip(e, teamName) {
         html += `<div class="tt-next">Next: vs ${bd.nextGame.opponent} · ${bd.nextGame.date}</div>`;
       }
       if (bd.recentGames && bd.recentGames.length) {
-        html += '<div class="tt-results"><span class="tt-results-label">Last ${bd.recentGames.length}:</span>';
+        html += '<div class="tt-results">';
         bd.recentGames.forEach(g => {
           const cls = g.result === 'W' ? 'tt-wl tt-w' : 'tt-wl tt-l';
           html += `<span class="${cls}" title="${g.result} ${g.score} vs ${g.opponent}">${g.result}</span>`;
