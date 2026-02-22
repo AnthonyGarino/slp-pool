@@ -4913,7 +4913,7 @@
           "counts": false
         }
       ],
-      "previousRank": 63
+      "previousRank": 61
     },
     {
       "name": "Shafts and Balls",
@@ -4984,7 +4984,7 @@
           "counts": true
         }
       ],
-      "previousRank": 62
+      "previousRank": 63
     },
     {
       "name": "WCS",
@@ -5055,7 +5055,7 @@
           "counts": true
         }
       ],
-      "previousRank": 63
+      "previousRank": 64
     },
     {
       "name": "Razor Razorbacks",
@@ -5126,7 +5126,7 @@
           "counts": false
         }
       ],
-      "previousRank": 63
+      "previousRank": 64
     },
     {
       "name": "Some Sort of Rothstein-ism",
@@ -10323,11 +10323,6 @@
       "totalPoints": 30,
       "recentGames": [
         {
-          "result": "W",
-          "opponent": "FAU",
-          "score": "78-76"
-        },
-        {
           "result": "L",
           "opponent": "South Florida",
           "score": "74-80"
@@ -10346,6 +10341,11 @@
           "result": "W",
           "opponent": "Charlotte",
           "score": "79-74"
+        },
+        {
+          "result": "W",
+          "opponent": "UTSA",
+          "score": "100-74"
         }
       ],
       "nextGame": {
@@ -10898,11 +10898,6 @@
       "recentGames": [
         {
           "result": "L",
-          "opponent": "South Florida",
-          "score": "88-109"
-        },
-        {
-          "result": "L",
           "opponent": "North Texas",
           "score": "58-81"
         },
@@ -10920,6 +10915,11 @@
           "result": "L",
           "opponent": "FAU",
           "score": "52-60"
+        },
+        {
+          "result": "L",
+          "opponent": "Tulsa",
+          "score": "74-100"
         }
       ],
       "nextGame": {
@@ -15314,88 +15314,6 @@
         "date": "Feb 26"
       }
     },
-    "Michigan State": {
-      "confW": 12,
-      "nonConfW": 10,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 34,
-      "recentGames": [
-        {
-          "result": "L",
-          "opponent": "Minnesota",
-          "score": "73-76"
-        },
-        {
-          "result": "W",
-          "opponent": "Illinois",
-          "score": "85-82"
-        },
-        {
-          "result": "L",
-          "opponent": "Wisconsin",
-          "score": "71-92"
-        },
-        {
-          "result": "W",
-          "opponent": "UCLA",
-          "score": "82-59"
-        },
-        {
-          "result": "W",
-          "opponent": "Ohio State",
-          "score": "66-60"
-        }
-      ],
-      "nextGame": {
-        "opponent": "Purdue",
-        "date": "Feb 27"
-      }
-    },
-    "Merrimack": {
-      "confW": 16,
-      "nonConfW": 4,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 36,
-      "recentGames": [
-        {
-          "result": "W",
-          "opponent": "Rider",
-          "score": "73-47"
-        },
-        {
-          "result": "W",
-          "opponent": "Marist",
-          "score": "81-56"
-        },
-        {
-          "result": "W",
-          "opponent": "Quinnipiac",
-          "score": "56-49"
-        },
-        {
-          "result": "W",
-          "opponent": "Siena",
-          "score": "79-72"
-        },
-        {
-          "result": "W",
-          "opponent": "Iona",
-          "score": "88-86"
-        }
-      ],
-      "nextGame": {
-        "opponent": "Canisius",
-        "date": "Feb 28"
-      }
-    },
     "West Virginia": {
       "confW": 7,
       "nonConfW": 9,
@@ -15557,6 +15475,88 @@
       ],
       "nextGame": {
         "opponent": "Rider",
+        "date": "Feb 28"
+      }
+    },
+    "Michigan State": {
+      "confW": 12,
+      "nonConfW": 10,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 34,
+      "recentGames": [
+        {
+          "result": "L",
+          "opponent": "Minnesota",
+          "score": "73-76"
+        },
+        {
+          "result": "W",
+          "opponent": "Illinois",
+          "score": "85-82"
+        },
+        {
+          "result": "L",
+          "opponent": "Wisconsin",
+          "score": "71-92"
+        },
+        {
+          "result": "W",
+          "opponent": "UCLA",
+          "score": "82-59"
+        },
+        {
+          "result": "W",
+          "opponent": "Ohio State",
+          "score": "66-60"
+        }
+      ],
+      "nextGame": {
+        "opponent": "Purdue",
+        "date": "Feb 27"
+      }
+    },
+    "Merrimack": {
+      "confW": 16,
+      "nonConfW": 4,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 36,
+      "recentGames": [
+        {
+          "result": "W",
+          "opponent": "Rider",
+          "score": "73-47"
+        },
+        {
+          "result": "W",
+          "opponent": "Marist",
+          "score": "81-56"
+        },
+        {
+          "result": "W",
+          "opponent": "Quinnipiac",
+          "score": "56-49"
+        },
+        {
+          "result": "W",
+          "opponent": "Siena",
+          "score": "79-72"
+        },
+        {
+          "result": "W",
+          "opponent": "Iona",
+          "score": "88-86"
+        }
+      ],
+      "nextGame": {
+        "opponent": "Canisius",
         "date": "Feb 28"
       }
     },
