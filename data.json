@@ -4989,7 +4989,7 @@
     {
       "name": "Chorizo & Egg$$$$$",
       "totalValue": 100,
-      "score": 283,
+      "score": 285,
       "picks": {
         "ACC": {
           "team": "Pittsburgh",
@@ -5033,7 +5033,7 @@
         {
           "team": "Northern Iowa",
           "value": 9,
-          "points": 28,
+          "points": 30,
           "counts": true
         },
         {
@@ -7259,6 +7259,77 @@
       "previousRank": 94
     },
     {
+      "name": "The NEW NEW Ant-Dentites",
+      "totalValue": 100,
+      "score": 263,
+      "picks": {
+        "ACC": {
+          "team": "North Carolina State",
+          "value": 14,
+          "points": 29
+        },
+        "Big East": {
+          "team": "Villanova",
+          "value": 11,
+          "points": 35
+        },
+        "Big Ten": {
+          "team": "UCLA",
+          "value": 14,
+          "points": 30
+        },
+        "Big 12": {
+          "team": "Arizona State",
+          "value": 6,
+          "points": 21
+        },
+        "SEC": {
+          "team": "Ole Miss",
+          "value": 12,
+          "points": 16
+        }
+      },
+      "wildcards": [
+        {
+          "team": "Yale",
+          "value": 10,
+          "points": 32,
+          "counts": true
+        },
+        {
+          "team": "Northern Iowa",
+          "value": 9,
+          "points": 30,
+          "counts": true
+        },
+        {
+          "team": "Charleston",
+          "value": 9,
+          "points": 33,
+          "counts": true
+        },
+        {
+          "team": "Georgia State",
+          "value": 5,
+          "points": 17,
+          "counts": true
+        },
+        {
+          "team": "UTSA",
+          "value": 5,
+          "points": 6,
+          "counts": false
+        },
+        {
+          "team": "Missouri State",
+          "value": 5,
+          "points": 20,
+          "counts": true
+        }
+      ],
+      "previousRank": 96
+    },
+    {
       "name": "Little Pitino Energy",
       "totalValue": 100,
       "score": 261,
@@ -7324,77 +7395,6 @@
           "team": "Delaware",
           "value": 5,
           "points": 14,
-          "counts": true
-        }
-      ],
-      "previousRank": 96
-    },
-    {
-      "name": "The NEW NEW Ant-Dentites",
-      "totalValue": 100,
-      "score": 261,
-      "picks": {
-        "ACC": {
-          "team": "North Carolina State",
-          "value": 14,
-          "points": 29
-        },
-        "Big East": {
-          "team": "Villanova",
-          "value": 11,
-          "points": 35
-        },
-        "Big Ten": {
-          "team": "UCLA",
-          "value": 14,
-          "points": 30
-        },
-        "Big 12": {
-          "team": "Arizona State",
-          "value": 6,
-          "points": 21
-        },
-        "SEC": {
-          "team": "Ole Miss",
-          "value": 12,
-          "points": 16
-        }
-      },
-      "wildcards": [
-        {
-          "team": "Yale",
-          "value": 10,
-          "points": 32,
-          "counts": true
-        },
-        {
-          "team": "Northern Iowa",
-          "value": 9,
-          "points": 28,
-          "counts": true
-        },
-        {
-          "team": "Charleston",
-          "value": 9,
-          "points": 33,
-          "counts": true
-        },
-        {
-          "team": "Georgia State",
-          "value": 5,
-          "points": 17,
-          "counts": true
-        },
-        {
-          "team": "UTSA",
-          "value": 5,
-          "points": 6,
-          "counts": false
-        },
-        {
-          "team": "Missouri State",
-          "value": 5,
-          "points": 20,
           "counts": true
         }
       ],
@@ -11859,10 +11859,7 @@
           "score": "71-69"
         }
       ],
-      "nextGame": {
-        "opponent": "Belmont",
-        "date": "Mar 1"
-      }
+      "nextGame": null
     },
     "St Bonaventure": {
       "confW": 4,
@@ -15654,14 +15651,14 @@
       "nextGame": null
     },
     "Northern Iowa": {
-      "confW": 10,
+      "confW": 11,
       "nonConfW": 8,
       "confTitlePts": 0,
       "confTournWinPts": 0,
       "confTournTitlePts": 0,
       "ncaaSeedPts": 0,
       "ncaaWinPts": 0,
-      "totalPoints": 28,
+      "totalPoints": 30,
       "recentGames": [
         {
           "result": "W",
