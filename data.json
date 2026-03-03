@@ -2712,7 +2712,7 @@
           "counts": false
         }
       ],
-      "previousRank": 32
+      "previousRank": 30
     },
     {
       "name": "ODog2",
@@ -2783,7 +2783,7 @@
           "counts": true
         }
       ],
-      "previousRank": 31
+      "previousRank": 32
     },
     {
       "name": "Ooohgzieerrs",
@@ -2854,7 +2854,7 @@
           "counts": true
         }
       ],
-      "previousRank": 32
+      "previousRank": 33
     },
     {
       "name": "Dr C TX Entry B",
@@ -10591,7 +10591,10 @@
           "score": "60-84"
         }
       ],
-      "nextGame": null
+      "nextGame": {
+        "opponent": "E Washington",
+        "date": "Mar 10"
+      }
     },
     "UTSA": {
       "confW": 1,
@@ -12102,7 +12105,10 @@
           "score": "65-83"
         }
       ],
-      "nextGame": null
+      "nextGame": {
+        "opponent": "N Arizona",
+        "date": "Mar 8"
+      }
     },
     "CS Northridge": {
       "confW": 11,
@@ -13700,6 +13706,85 @@
         "date": "Mar 7"
       }
     },
+    "Sacramento State": {
+      "confW": 6,
+      "nonConfW": 4,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 16,
+      "recentGames": [
+        {
+          "result": "L",
+          "opponent": "E Washington",
+          "score": "94-102"
+        },
+        {
+          "result": "L",
+          "opponent": "Idaho",
+          "score": "80-86"
+        },
+        {
+          "result": "L",
+          "opponent": "Montana",
+          "score": "73-81"
+        },
+        {
+          "result": "L",
+          "opponent": "Montana St",
+          "score": "61-82"
+        },
+        {
+          "result": "W",
+          "opponent": "Idaho St",
+          "score": "83-65"
+        }
+      ],
+      "nextGame": {
+        "opponent": "Idaho",
+        "date": "Mar 8"
+      }
+    },
+    "Niagara": {
+      "confW": 5,
+      "nonConfW": 3,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 13,
+      "recentGames": [
+        {
+          "result": "W",
+          "opponent": "Iona",
+          "score": "70-68"
+        },
+        {
+          "result": "L",
+          "opponent": "Mount St Marys",
+          "score": "63-76"
+        },
+        {
+          "result": "L",
+          "opponent": "Rider",
+          "score": "62-67"
+        },
+        {
+          "result": "W",
+          "opponent": "Quinnipiac",
+          "score": "78-76"
+        },
+        {
+          "result": "L",
+          "opponent": "Merrimack",
+          "score": "66-73"
+        }
+      ],
+      "nextGame": null
+    },
     "Chicago State": {
       "confW": 5,
       "nonConfW": 2,
@@ -13740,82 +13825,6 @@
         "opponent": "Long Island",
         "date": "Mar 5"
       }
-    },
-    "Sacramento State": {
-      "confW": 6,
-      "nonConfW": 4,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 16,
-      "recentGames": [
-        {
-          "result": "L",
-          "opponent": "E Washington",
-          "score": "94-102"
-        },
-        {
-          "result": "L",
-          "opponent": "Idaho",
-          "score": "80-86"
-        },
-        {
-          "result": "L",
-          "opponent": "Montana",
-          "score": "73-81"
-        },
-        {
-          "result": "L",
-          "opponent": "Montana St",
-          "score": "61-82"
-        },
-        {
-          "result": "W",
-          "opponent": "Idaho St",
-          "score": "83-65"
-        }
-      ],
-      "nextGame": null
-    },
-    "Niagara": {
-      "confW": 5,
-      "nonConfW": 3,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 13,
-      "recentGames": [
-        {
-          "result": "W",
-          "opponent": "Iona",
-          "score": "70-68"
-        },
-        {
-          "result": "L",
-          "opponent": "Mount St Marys",
-          "score": "63-76"
-        },
-        {
-          "result": "L",
-          "opponent": "Rider",
-          "score": "62-67"
-        },
-        {
-          "result": "W",
-          "opponent": "Quinnipiac",
-          "score": "78-76"
-        },
-        {
-          "result": "L",
-          "opponent": "Merrimack",
-          "score": "66-73"
-        }
-      ],
-      "nextGame": null
     },
     "Penn": {
       "confW": 8,
@@ -15938,7 +15947,10 @@
           "score": "85-81"
         }
       ],
-      "nextGame": null
+      "nextGame": {
+        "opponent": "Sacramento St",
+        "date": "Mar 8"
+      }
     },
     "American U": {
       "confW": 9,
@@ -17856,7 +17868,10 @@
           "score": "65-76"
         }
       ],
-      "nextGame": null
+      "nextGame": {
+        "opponent": "Idaho St",
+        "date": "Mar 8"
+      }
     },
     "Southern Indiana": {
       "confW": 4,
