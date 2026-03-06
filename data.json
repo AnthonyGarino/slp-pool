@@ -871,7 +871,7 @@
     {
       "name": "Wirk",
       "totalValue": 100,
-      "score": 335,
+      "score": 336,
       "picks": {
         "ACC": {
           "team": "Virginia Tech",
@@ -903,7 +903,7 @@
         {
           "team": "High Point",
           "value": 10,
-          "points": 42,
+          "points": 43,
           "counts": true
         },
         {
@@ -942,7 +942,7 @@
     {
       "name": "GHILL",
       "totalValue": 100,
-      "score": 332,
+      "score": 333,
       "picks": {
         "ACC": {
           "team": "Florida State",
@@ -986,7 +986,7 @@
         {
           "team": "High Point",
           "value": 10,
-          "points": 42,
+          "points": 43,
           "counts": true
         },
         {
@@ -1721,6 +1721,77 @@
       "previousRank": 15
     },
     {
+      "name": "DelKo LLP",
+      "totalValue": 100,
+      "score": 322,
+      "picks": {
+        "ACC": {
+          "team": "Miami",
+          "value": 10,
+          "points": 37
+        },
+        "Big East": {
+          "team": "Xavier",
+          "value": 9,
+          "points": 20
+        },
+        "Big Ten": {
+          "team": "Indiana",
+          "value": 9,
+          "points": 27
+        },
+        "Big 12": {
+          "team": "Kansas",
+          "value": 13,
+          "points": 32
+        },
+        "SEC": {
+          "team": "Vanderbilt",
+          "value": 9,
+          "points": 33
+        }
+      },
+      "wildcards": [
+        {
+          "team": "Saint Marys",
+          "value": 11,
+          "points": 43,
+          "counts": true
+        },
+        {
+          "team": "High Point",
+          "value": 10,
+          "points": 43,
+          "counts": true
+        },
+        {
+          "team": "South Florida",
+          "value": 9,
+          "points": 36,
+          "counts": true
+        },
+        {
+          "team": "Loyola Chicago",
+          "value": 8,
+          "points": 10,
+          "counts": false
+        },
+        {
+          "team": "UNLV",
+          "value": 7,
+          "points": 27,
+          "counts": true
+        },
+        {
+          "team": "Buffalo",
+          "value": 5,
+          "points": 24,
+          "counts": true
+        }
+      ],
+      "previousRank": 18
+    },
+    {
       "name": "Connor Pelton",
       "totalValue": 100,
       "score": 321,
@@ -1786,77 +1857,6 @@
           "team": "Missouri State",
           "value": 5,
           "points": 22,
-          "counts": true
-        }
-      ],
-      "previousRank": 18
-    },
-    {
-      "name": "DelKo LLP",
-      "totalValue": 100,
-      "score": 321,
-      "picks": {
-        "ACC": {
-          "team": "Miami",
-          "value": 10,
-          "points": 37
-        },
-        "Big East": {
-          "team": "Xavier",
-          "value": 9,
-          "points": 20
-        },
-        "Big Ten": {
-          "team": "Indiana",
-          "value": 9,
-          "points": 27
-        },
-        "Big 12": {
-          "team": "Kansas",
-          "value": 13,
-          "points": 32
-        },
-        "SEC": {
-          "team": "Vanderbilt",
-          "value": 9,
-          "points": 33
-        }
-      },
-      "wildcards": [
-        {
-          "team": "Saint Marys",
-          "value": 11,
-          "points": 43,
-          "counts": true
-        },
-        {
-          "team": "High Point",
-          "value": 10,
-          "points": 42,
-          "counts": true
-        },
-        {
-          "team": "South Florida",
-          "value": 9,
-          "points": 36,
-          "counts": true
-        },
-        {
-          "team": "Loyola Chicago",
-          "value": 8,
-          "points": 10,
-          "counts": false
-        },
-        {
-          "team": "UNLV",
-          "value": 7,
-          "points": 27,
-          "counts": true
-        },
-        {
-          "team": "Buffalo",
-          "value": 5,
-          "points": 24,
           "counts": true
         }
       ],
@@ -2218,6 +2218,77 @@
       "previousRank": 23
     },
     {
+      "name": "Briggs 1",
+      "totalValue": 100,
+      "score": 318,
+      "picks": {
+        "ACC": {
+          "team": "Pittsburgh",
+          "value": 8,
+          "points": 15
+        },
+        "Big East": {
+          "team": "Butler",
+          "value": 8,
+          "points": 21
+        },
+        "Big Ten": {
+          "team": "Michigan",
+          "value": 15,
+          "points": 46
+        },
+        "Big 12": {
+          "team": "Houston",
+          "value": 16,
+          "points": 38
+        },
+        "SEC": {
+          "team": "Texas A&M",
+          "value": 7,
+          "points": 30
+        }
+      },
+      "wildcards": [
+        {
+          "team": "Gonzaga",
+          "value": 13,
+          "points": 44,
+          "counts": true
+        },
+        {
+          "team": "High Point",
+          "value": 10,
+          "points": 43,
+          "counts": true
+        },
+        {
+          "team": "UNLV",
+          "value": 7,
+          "points": 27,
+          "counts": true
+        },
+        {
+          "team": "Duquesne",
+          "value": 6,
+          "points": 24,
+          "counts": true
+        },
+        {
+          "team": "Mercer",
+          "value": 5,
+          "points": 30,
+          "counts": true
+        },
+        {
+          "team": "Rhode Island",
+          "value": 5,
+          "points": 23,
+          "counts": false
+        }
+      ],
+      "previousRank": 25
+    },
+    {
       "name": "Ooohgzieerrs",
       "totalValue": 100,
       "score": 317,
@@ -2284,77 +2355,6 @@
           "value": 5,
           "points": 30,
           "counts": true
-        }
-      ],
-      "previousRank": 25
-    },
-    {
-      "name": "Briggs 1",
-      "totalValue": 100,
-      "score": 317,
-      "picks": {
-        "ACC": {
-          "team": "Pittsburgh",
-          "value": 8,
-          "points": 15
-        },
-        "Big East": {
-          "team": "Butler",
-          "value": 8,
-          "points": 21
-        },
-        "Big Ten": {
-          "team": "Michigan",
-          "value": 15,
-          "points": 46
-        },
-        "Big 12": {
-          "team": "Houston",
-          "value": 16,
-          "points": 38
-        },
-        "SEC": {
-          "team": "Texas A&M",
-          "value": 7,
-          "points": 30
-        }
-      },
-      "wildcards": [
-        {
-          "team": "Gonzaga",
-          "value": 13,
-          "points": 44,
-          "counts": true
-        },
-        {
-          "team": "High Point",
-          "value": 10,
-          "points": 42,
-          "counts": true
-        },
-        {
-          "team": "UNLV",
-          "value": 7,
-          "points": 27,
-          "counts": true
-        },
-        {
-          "team": "Duquesne",
-          "value": 6,
-          "points": 24,
-          "counts": true
-        },
-        {
-          "team": "Mercer",
-          "value": 5,
-          "points": 30,
-          "counts": true
-        },
-        {
-          "team": "Rhode Island",
-          "value": 5,
-          "points": 23,
-          "counts": false
         }
       ],
       "previousRank": 25
@@ -3995,7 +3995,7 @@
     {
       "name": "SUNSHINE",
       "totalValue": 100,
-      "score": 304,
+      "score": 305,
       "picks": {
         "ACC": {
           "team": "North Carolina State",
@@ -4027,7 +4027,7 @@
         {
           "team": "High Point",
           "value": 10,
-          "points": 42,
+          "points": 43,
           "counts": true
         },
         {
@@ -5841,7 +5841,7 @@
     {
       "name": "Tom Frankini",
       "totalValue": 100,
-      "score": 287,
+      "score": 288,
       "picks": {
         "ACC": {
           "team": "Virginia Tech",
@@ -5897,7 +5897,7 @@
         {
           "team": "High Point",
           "value": 10,
-          "points": 42,
+          "points": 43,
           "counts": true
         },
         {
@@ -8113,7 +8113,7 @@
     {
       "name": "Domsey",
       "totalValue": 100,
-      "score": 257,
+      "score": 258,
       "picks": {
         "ACC": {
           "team": "Florida State",
@@ -8145,7 +8145,7 @@
         {
           "team": "High Point",
           "value": 10,
-          "points": 42,
+          "points": 43,
           "counts": true
         },
         {
@@ -10188,19 +10188,14 @@
     },
     "High Point": {
       "confW": 15,
-      "nonConfW": 12,
+      "nonConfW": 13,
       "confTitlePts": 0,
       "confTournWinPts": 0,
       "confTournTitlePts": 0,
       "ncaaSeedPts": 0,
       "ncaaWinPts": 0,
-      "totalPoints": 42,
+      "totalPoints": 43,
       "recentGames": [
-        {
-          "result": "W",
-          "opponent": "SC Upstate",
-          "score": "95-70"
-        },
         {
           "result": "W",
           "opponent": "Gardner-Webb",
@@ -10220,9 +10215,17 @@
           "result": "W",
           "opponent": "Presbyterian",
           "score": "79-73"
+        },
+        {
+          "result": "W",
+          "opponent": "Gardner-Webb",
+          "score": "81-59"
         }
       ],
-      "nextGame": null
+      "nextGame": {
+        "opponent": "TBD",
+        "date": "Mar 7"
+      }
     },
     "New Mexico": {
       "confW": 13,
@@ -15512,11 +15515,6 @@
       "recentGames": [
         {
           "result": "L",
-          "opponent": "Charleston So",
-          "score": "66-75"
-        },
-        {
-          "result": "L",
           "opponent": "Radford",
           "score": "70-82"
         },
@@ -15534,6 +15532,11 @@
           "result": "W",
           "opponent": "SC Upstate",
           "score": "65-64"
+        },
+        {
+          "result": "L",
+          "opponent": "High Point",
+          "score": "59-81"
         }
       ],
       "nextGame": null
