@@ -937,7 +937,7 @@
           "counts": true
         }
       ],
-      "previousRank": 6
+      "previousRank": 5
     },
     {
       "name": "GHILL",
@@ -1079,7 +1079,7 @@
           "counts": true
         }
       ],
-      "previousRank": 7
+      "previousRank": 8
     },
     {
       "name": "Oval Office",
@@ -1789,7 +1789,7 @@
           "counts": true
         }
       ],
-      "previousRank": 18
+      "previousRank": 15
     },
     {
       "name": "Connor Pelton",
@@ -1860,7 +1860,7 @@
           "counts": true
         }
       ],
-      "previousRank": 18
+      "previousRank": 19
     },
     {
       "name": "FrankInGeneral",
@@ -2286,7 +2286,7 @@
           "counts": false
         }
       ],
-      "previousRank": 25
+      "previousRank": 23
     },
     {
       "name": "Ooohgzieerrs",
@@ -2357,7 +2357,7 @@
           "counts": true
         }
       ],
-      "previousRank": 25
+      "previousRank": 26
     },
     {
       "name": "ODog2",
@@ -2428,7 +2428,7 @@
           "counts": true
         }
       ],
-      "previousRank": 25
+      "previousRank": 26
     },
     {
       "name": "PhiSlamaJama",
@@ -2499,7 +2499,7 @@
           "counts": true
         }
       ],
-      "previousRank": 25
+      "previousRank": 26
     },
     {
       "name": "3 Irishman",
@@ -4061,7 +4061,7 @@
           "counts": false
         }
       ],
-      "previousRank": 50
+      "previousRank": 45
     },
     {
       "name": "D Fries",
@@ -4132,7 +4132,7 @@
           "counts": true
         }
       ],
-      "previousRank": 50
+      "previousRank": 51
     },
     {
       "name": "Moose, CPAs",
@@ -5907,7 +5907,7 @@
           "counts": true
         }
       ],
-      "previousRank": 76
+      "previousRank": 75
     },
     {
       "name": "TLEVY1994",
@@ -5978,7 +5978,7 @@
           "counts": true
         }
       ],
-      "previousRank": 76
+      "previousRank": 77
     },
     {
       "name": "I'm Punching Out",
@@ -9364,10 +9364,7 @@
           "score": "74-70"
         }
       ],
-      "nextGame": {
-        "opponent": "Charleston So",
-        "date": "Mar 6"
-      }
+      "nextGame": null
     },
     "Houston Christian": {
       "confW": 8,
@@ -10796,10 +10793,7 @@
           "score": "69-58"
         }
       ],
-      "nextGame": {
-        "opponent": "Lipscomb",
-        "date": "Mar 6"
-      }
+      "nextGame": null
     },
     "Hawaii": {
       "confW": 14,
@@ -12104,88 +12098,6 @@
         "date": "Mar 8"
       }
     },
-    "Kentucky": {
-      "confW": 10,
-      "nonConfW": 9,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 29,
-      "recentGames": [
-        {
-          "result": "L",
-          "opponent": "Georgia",
-          "score": "78-86"
-        },
-        {
-          "result": "L",
-          "opponent": "Auburn",
-          "score": "74-75"
-        },
-        {
-          "result": "W",
-          "opponent": "South Carolina",
-          "score": "72-63"
-        },
-        {
-          "result": "W",
-          "opponent": "Vanderbilt",
-          "score": "91-77"
-        },
-        {
-          "result": "L",
-          "opponent": "Texas A&M",
-          "score": "85-96"
-        }
-      ],
-      "nextGame": {
-        "opponent": "Florida",
-        "date": "Mar 7"
-      }
-    },
-    "George Washington": {
-      "confW": 8,
-      "nonConfW": 9,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 25,
-      "recentGames": [
-        {
-          "result": "W",
-          "opponent": "George Mason",
-          "score": "72-53"
-        },
-        {
-          "result": "L",
-          "opponent": "VCU",
-          "score": "75-89"
-        },
-        {
-          "result": "W",
-          "opponent": "La Salle",
-          "score": "104-77"
-        },
-        {
-          "result": "L",
-          "opponent": "Dayton",
-          "score": "66-68"
-        },
-        {
-          "result": "W",
-          "opponent": "St Bonaventure",
-          "score": "91-82"
-        }
-      ],
-      "nextGame": {
-        "opponent": "Loyola Chicago",
-        "date": "Mar 7"
-      }
-    },
     "Xavier": {
       "confW": 6,
       "nonConfW": 8,
@@ -12429,6 +12341,88 @@
       ],
       "nextGame": {
         "opponent": "Toledo",
+        "date": "Mar 7"
+      }
+    },
+    "Kentucky": {
+      "confW": 10,
+      "nonConfW": 9,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 29,
+      "recentGames": [
+        {
+          "result": "L",
+          "opponent": "Georgia",
+          "score": "78-86"
+        },
+        {
+          "result": "L",
+          "opponent": "Auburn",
+          "score": "74-75"
+        },
+        {
+          "result": "W",
+          "opponent": "South Carolina",
+          "score": "72-63"
+        },
+        {
+          "result": "W",
+          "opponent": "Vanderbilt",
+          "score": "91-77"
+        },
+        {
+          "result": "L",
+          "opponent": "Texas A&M",
+          "score": "85-96"
+        }
+      ],
+      "nextGame": {
+        "opponent": "Florida",
+        "date": "Mar 7"
+      }
+    },
+    "George Washington": {
+      "confW": 8,
+      "nonConfW": 9,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 25,
+      "recentGames": [
+        {
+          "result": "W",
+          "opponent": "George Mason",
+          "score": "72-53"
+        },
+        {
+          "result": "L",
+          "opponent": "VCU",
+          "score": "75-89"
+        },
+        {
+          "result": "W",
+          "opponent": "La Salle",
+          "score": "104-77"
+        },
+        {
+          "result": "L",
+          "opponent": "Dayton",
+          "score": "66-68"
+        },
+        {
+          "result": "W",
+          "opponent": "St Bonaventure",
+          "score": "91-82"
+        }
+      ],
+      "nextGame": {
+        "opponent": "Loyola Chicago",
         "date": "Mar 7"
       }
     },
