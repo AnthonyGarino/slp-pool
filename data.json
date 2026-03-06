@@ -5163,7 +5163,7 @@
         {
           "team": "Drake",
           "value": 7,
-          "points": 19,
+          "points": 20,
           "counts": false
         },
         {
@@ -6054,7 +6054,7 @@
     {
       "name": "Hemdawg",
       "totalValue": 100,
-      "score": 284,
+      "score": 285,
       "picks": {
         "ACC": {
           "team": "Duke",
@@ -6086,7 +6086,7 @@
         {
           "team": "Drake",
           "value": 7,
-          "points": 19,
+          "points": 20,
           "counts": true
         },
         {
@@ -6121,6 +6121,77 @@
         }
       ],
       "previousRank": 79
+    },
+    {
+      "name": "Sarah Razi",
+      "totalValue": 100,
+      "score": 283,
+      "picks": {
+        "ACC": {
+          "team": "Virginia",
+          "value": 12,
+          "points": 40
+        },
+        "Big East": {
+          "team": "Marquette",
+          "value": 13,
+          "points": 17
+        },
+        "Big Ten": {
+          "team": "Indiana",
+          "value": 9,
+          "points": 27
+        },
+        "Big 12": {
+          "team": "Kansas",
+          "value": 13,
+          "points": 32
+        },
+        "SEC": {
+          "team": "Arkansas",
+          "value": 13,
+          "points": 34
+        }
+      },
+      "wildcards": [
+        {
+          "team": "Charleston",
+          "value": 9,
+          "points": 35,
+          "counts": true
+        },
+        {
+          "team": "LSU",
+          "value": 6,
+          "points": 18,
+          "counts": false
+        },
+        {
+          "team": "Drake",
+          "value": 7,
+          "points": 20,
+          "counts": true
+        },
+        {
+          "team": "Stanford",
+          "value": 7,
+          "points": 27,
+          "counts": true
+        },
+        {
+          "team": "Florida State",
+          "value": 6,
+          "points": 25,
+          "counts": true
+        },
+        {
+          "team": "Weber State",
+          "value": 5,
+          "points": 26,
+          "counts": true
+        }
+      ],
+      "previousRank": 80
     },
     {
       "name": "Callan",
@@ -6188,77 +6259,6 @@
           "team": "Rhode Island",
           "value": 5,
           "points": 23,
-          "counts": true
-        }
-      ],
-      "previousRank": 80
-    },
-    {
-      "name": "Sarah Razi",
-      "totalValue": 100,
-      "score": 282,
-      "picks": {
-        "ACC": {
-          "team": "Virginia",
-          "value": 12,
-          "points": 40
-        },
-        "Big East": {
-          "team": "Marquette",
-          "value": 13,
-          "points": 17
-        },
-        "Big Ten": {
-          "team": "Indiana",
-          "value": 9,
-          "points": 27
-        },
-        "Big 12": {
-          "team": "Kansas",
-          "value": 13,
-          "points": 32
-        },
-        "SEC": {
-          "team": "Arkansas",
-          "value": 13,
-          "points": 34
-        }
-      },
-      "wildcards": [
-        {
-          "team": "Charleston",
-          "value": 9,
-          "points": 35,
-          "counts": true
-        },
-        {
-          "team": "LSU",
-          "value": 6,
-          "points": 18,
-          "counts": false
-        },
-        {
-          "team": "Drake",
-          "value": 7,
-          "points": 19,
-          "counts": true
-        },
-        {
-          "team": "Stanford",
-          "value": 7,
-          "points": 27,
-          "counts": true
-        },
-        {
-          "team": "Florida State",
-          "value": 6,
-          "points": 25,
-          "counts": true
-        },
-        {
-          "team": "Weber State",
-          "value": 5,
-          "points": 26,
           "counts": true
         }
       ],
@@ -8831,10 +8831,7 @@
           "score": "78-87"
         }
       ],
-      "nextGame": {
-        "opponent": "UIC",
-        "date": "Mar 6"
-      }
+      "nextGame": null
     },
     "Stephen F Austin": {
       "confW": 20,
@@ -15537,19 +15534,14 @@
     },
     "Drake": {
       "confW": 6,
-      "nonConfW": 7,
+      "nonConfW": 8,
       "confTitlePts": 0,
       "confTournWinPts": 0,
       "confTournTitlePts": 0,
       "ncaaSeedPts": 0,
       "ncaaWinPts": 0,
-      "totalPoints": 19,
+      "totalPoints": 20,
       "recentGames": [
-        {
-          "result": "L",
-          "opponent": "Northern Iowa",
-          "score": "62-86"
-        },
         {
           "result": "L",
           "opponent": "S Illinois",
@@ -15569,9 +15561,17 @@
           "result": "W",
           "opponent": "S Illinois",
           "score": "67-63"
+        },
+        {
+          "result": "W",
+          "opponent": "Belmont",
+          "score": "100-79"
         }
       ],
-      "nextGame": null
+      "nextGame": {
+        "opponent": "TBD",
+        "date": "Mar 7"
+      }
     },
     "Richmond": {
       "confW": 5,
