@@ -1008,7 +1008,7 @@
           "counts": false
         }
       ],
-      "previousRank": 7
+      "previousRank": 6
     },
     {
       "name": "Oval Office",
@@ -1079,7 +1079,7 @@
           "counts": false
         }
       ],
-      "previousRank": 9
+      "previousRank": 8
     },
     {
       "name": "Jelly Donuts",
@@ -1150,7 +1150,7 @@
           "counts": true
         }
       ],
-      "previousRank": 8
+      "previousRank": 9
     },
     {
       "name": "Coco 2",
@@ -1363,7 +1363,78 @@
           "counts": true
         }
       ],
-      "previousRank": 14
+      "previousRank": 12
+    },
+    {
+      "name": "JuliannaL",
+      "totalValue": 100,
+      "score": 327,
+      "picks": {
+        "ACC": {
+          "team": "Virginia",
+          "value": 12,
+          "points": 42
+        },
+        "Big East": {
+          "team": "Uconn",
+          "value": 15,
+          "points": 44
+        },
+        "Big Ten": {
+          "team": "Iowa",
+          "value": 10,
+          "points": 30
+        },
+        "Big 12": {
+          "team": "Utah",
+          "value": 7,
+          "points": 12
+        },
+        "SEC": {
+          "team": "Arkansas",
+          "value": 13,
+          "points": 36
+        }
+      },
+      "wildcards": [
+        {
+          "team": "Gonzaga",
+          "value": 13,
+          "points": 44,
+          "counts": true
+        },
+        {
+          "team": "New Mexico",
+          "value": 7,
+          "points": 35,
+          "counts": true
+        },
+        {
+          "team": "Winthrop",
+          "value": 7,
+          "points": 35,
+          "counts": true
+        },
+        {
+          "team": "Florida Atlantic",
+          "value": 6,
+          "points": 26,
+          "counts": true
+        },
+        {
+          "team": "Rhode Island",
+          "value": 5,
+          "points": 23,
+          "counts": true
+        },
+        {
+          "team": "Houston Christian",
+          "value": 5,
+          "points": 20,
+          "counts": false
+        }
+      ],
+      "previousRank": 15
     },
     {
       "name": "The Hackers",
@@ -1434,7 +1505,7 @@
           "counts": false
         }
       ],
-      "previousRank": 11
+      "previousRank": 13
     },
     {
       "name": "Crazyab",
@@ -1508,34 +1579,34 @@
       "previousRank": 13
     },
     {
-      "name": "JuliannaL",
+      "name": "DrewL",
       "totalValue": 100,
       "score": 325,
       "picks": {
         "ACC": {
-          "team": "Virginia",
-          "value": 12,
-          "points": 42
+          "team": "Miami",
+          "value": 10,
+          "points": 37
         },
         "Big East": {
-          "team": "Uconn",
-          "value": 15,
-          "points": 44
+          "team": "Depaul",
+          "value": 7,
+          "points": 24
         },
         "Big Ten": {
-          "team": "Iowa",
-          "value": 10,
-          "points": 30
+          "team": "Indiana",
+          "value": 9,
+          "points": 27
         },
         "Big 12": {
-          "team": "Utah",
-          "value": 7,
-          "points": 12
+          "team": "Baylor",
+          "value": 12,
+          "points": 20
         },
         "SEC": {
           "team": "Arkansas",
           "value": 13,
-          "points": 34
+          "points": 36
         }
       },
       "wildcards": [
@@ -1546,13 +1617,19 @@
           "counts": true
         },
         {
-          "team": "New Mexico",
-          "value": 7,
-          "points": 35,
+          "team": "Liberty",
+          "value": 10,
+          "points": 40,
           "counts": true
         },
         {
-          "team": "Winthrop",
+          "team": "Hawaii",
+          "value": 8,
+          "points": 36,
+          "counts": true
+        },
+        {
+          "team": "New Mexico",
           "value": 7,
           "points": 35,
           "counts": true
@@ -1564,19 +1641,13 @@
           "counts": true
         },
         {
-          "team": "Rhode Island",
-          "value": 5,
-          "points": 23,
-          "counts": true
-        },
-        {
           "team": "Houston Christian",
           "value": 5,
           "points": 20,
           "counts": false
         }
       ],
-      "previousRank": 14
+      "previousRank": 17
     },
     {
       "name": "Clip Team",
@@ -1647,7 +1718,7 @@
           "counts": true
         }
       ],
-      "previousRank": 18
+      "previousRank": 16
     },
     {
       "name": "Remptorious 2",
@@ -1718,78 +1789,7 @@
           "counts": true
         }
       ],
-      "previousRank": 14
-    },
-    {
-      "name": "DrewL",
-      "totalValue": 100,
-      "score": 323,
-      "picks": {
-        "ACC": {
-          "team": "Miami",
-          "value": 10,
-          "points": 37
-        },
-        "Big East": {
-          "team": "Depaul",
-          "value": 7,
-          "points": 24
-        },
-        "Big Ten": {
-          "team": "Indiana",
-          "value": 9,
-          "points": 27
-        },
-        "Big 12": {
-          "team": "Baylor",
-          "value": 12,
-          "points": 20
-        },
-        "SEC": {
-          "team": "Arkansas",
-          "value": 13,
-          "points": 34
-        }
-      },
-      "wildcards": [
-        {
-          "team": "Gonzaga",
-          "value": 13,
-          "points": 44,
-          "counts": true
-        },
-        {
-          "team": "Liberty",
-          "value": 10,
-          "points": 40,
-          "counts": true
-        },
-        {
-          "team": "Hawaii",
-          "value": 8,
-          "points": 36,
-          "counts": true
-        },
-        {
-          "team": "New Mexico",
-          "value": 7,
-          "points": 35,
-          "counts": true
-        },
-        {
-          "team": "Florida Atlantic",
-          "value": 6,
-          "points": 26,
-          "counts": true
-        },
-        {
-          "team": "Houston Christian",
-          "value": 5,
-          "points": 20,
-          "counts": false
-        }
-      ],
-      "previousRank": 14
+      "previousRank": 17
     },
     {
       "name": "DelKo LLP",
@@ -1860,7 +1860,7 @@
           "counts": true
         }
       ],
-      "previousRank": 18
+      "previousRank": 17
     },
     {
       "name": "Zach Bontempi",
@@ -1931,7 +1931,7 @@
           "counts": false
         }
       ],
-      "previousRank": 20
+      "previousRank": 17
     },
     {
       "name": "Briggs 1",
@@ -2002,7 +2002,7 @@
           "counts": false
         }
       ],
-      "previousRank": 26
+      "previousRank": 17
     },
     {
       "name": "FrankInGeneral",
@@ -2286,7 +2286,7 @@
           "counts": true
         }
       ],
-      "previousRank": 20
+      "previousRank": 25
     },
     {
       "name": "JSJPCM",
@@ -2360,6 +2360,77 @@
       "previousRank": 25
     },
     {
+      "name": "Dr C TX Entry B",
+      "totalValue": 100,
+      "score": 321,
+      "picks": {
+        "ACC": {
+          "team": "Florida State",
+          "value": 6,
+          "points": 25
+        },
+        "Big East": {
+          "team": "Seton Hall",
+          "value": 6,
+          "points": 30
+        },
+        "Big Ten": {
+          "team": "Northwestern",
+          "value": 7,
+          "points": 18
+        },
+        "Big 12": {
+          "team": "Houston",
+          "value": 16,
+          "points": 40
+        },
+        "SEC": {
+          "team": "Arkansas",
+          "value": 13,
+          "points": 36
+        }
+      },
+      "wildcards": [
+        {
+          "team": "Weber State",
+          "value": 5,
+          "points": 26,
+          "counts": true
+        },
+        {
+          "team": "UC Santa Barbara",
+          "value": 9,
+          "points": 17,
+          "counts": false
+        },
+        {
+          "team": "UNC Wilmington",
+          "value": 10,
+          "points": 41,
+          "counts": true
+        },
+        {
+          "team": "Rice",
+          "value": 5,
+          "points": 18,
+          "counts": true
+        },
+        {
+          "team": "Akron",
+          "value": 10,
+          "points": 43,
+          "counts": true
+        },
+        {
+          "team": "Gonzaga",
+          "value": 13,
+          "points": 44,
+          "counts": true
+        }
+      ],
+      "previousRank": 27
+    },
+    {
       "name": "ODog2",
       "totalValue": 100,
       "score": 319,
@@ -2428,7 +2499,7 @@
           "counts": true
         }
       ],
-      "previousRank": 28
+      "previousRank": 27
     },
     {
       "name": "PhiSlamaJama",
@@ -2499,78 +2570,7 @@
           "counts": true
         }
       ],
-      "previousRank": 28
-    },
-    {
-      "name": "Dr C TX Entry B",
-      "totalValue": 100,
-      "score": 319,
-      "picks": {
-        "ACC": {
-          "team": "Florida State",
-          "value": 6,
-          "points": 25
-        },
-        "Big East": {
-          "team": "Seton Hall",
-          "value": 6,
-          "points": 30
-        },
-        "Big Ten": {
-          "team": "Northwestern",
-          "value": 7,
-          "points": 18
-        },
-        "Big 12": {
-          "team": "Houston",
-          "value": 16,
-          "points": 40
-        },
-        "SEC": {
-          "team": "Arkansas",
-          "value": 13,
-          "points": 34
-        }
-      },
-      "wildcards": [
-        {
-          "team": "Weber State",
-          "value": 5,
-          "points": 26,
-          "counts": true
-        },
-        {
-          "team": "UC Santa Barbara",
-          "value": 9,
-          "points": 17,
-          "counts": false
-        },
-        {
-          "team": "UNC Wilmington",
-          "value": 10,
-          "points": 41,
-          "counts": true
-        },
-        {
-          "team": "Rice",
-          "value": 5,
-          "points": 18,
-          "counts": true
-        },
-        {
-          "team": "Akron",
-          "value": 10,
-          "points": 43,
-          "counts": true
-        },
-        {
-          "team": "Gonzaga",
-          "value": 13,
-          "points": 44,
-          "counts": true
-        }
-      ],
-      "previousRank": 28
+      "previousRank": 27
     },
     {
       "name": "3 Irishman",
@@ -2641,7 +2641,7 @@
           "counts": false
         }
       ],
-      "previousRank": 26
+      "previousRank": 30
     },
     {
       "name": "Crash Course",
@@ -2712,7 +2712,7 @@
           "counts": true
         }
       ],
-      "previousRank": 31
+      "previousRank": 30
     },
     {
       "name": "High Top Cons",
@@ -2783,12 +2783,12 @@
           "counts": true
         }
       ],
-      "previousRank": 33
+      "previousRank": 32
     },
     {
       "name": "Faconal",
       "totalValue": 100,
-      "score": 315,
+      "score": 317,
       "picks": {
         "ACC": {
           "team": "Florida State",
@@ -2813,7 +2813,7 @@
         "SEC": {
           "team": "Arkansas",
           "value": 13,
-          "points": 34
+          "points": 36
         }
       },
       "wildcards": [
@@ -2854,7 +2854,7 @@
           "counts": true
         }
       ],
-      "previousRank": 32
+      "previousRank": 33
     },
     {
       "name": "MattyMattiMatte 1",
@@ -2925,7 +2925,7 @@
           "counts": true
         }
       ],
-      "previousRank": 34
+      "previousRank": 33
     },
     {
       "name": "Mehta World Peace",
@@ -2996,7 +2996,7 @@
           "counts": true
         }
       ],
-      "previousRank": 38
+      "previousRank": 33
     },
     {
       "name": "Dirty Water",
@@ -3138,7 +3138,7 @@
           "counts": false
         }
       ],
-      "previousRank": 39
+      "previousRank": 36
     },
     {
       "name": "Tom Galanek",
@@ -3209,7 +3209,7 @@
           "counts": true
         }
       ],
-      "previousRank": 34
+      "previousRank": 38
     },
     {
       "name": "gHost",
@@ -3280,7 +3280,7 @@
           "counts": false
         }
       ],
-      "previousRank": 36
+      "previousRank": 39
     },
     {
       "name": "Benji Ford",
@@ -3351,7 +3351,7 @@
           "counts": true
         }
       ],
-      "previousRank": 42
+      "previousRank": 40
     },
     {
       "name": "Andrew Schwartz 2",
@@ -3422,7 +3422,7 @@
           "counts": false
         }
       ],
-      "previousRank": 42
+      "previousRank": 40
     },
     {
       "name": "Uconn't Touch This",
@@ -3493,7 +3493,7 @@
           "counts": true
         }
       ],
-      "previousRank": 39
+      "previousRank": 42
     },
     {
       "name": "The Hawk Will Never Die",
@@ -3564,7 +3564,7 @@
           "counts": false
         }
       ],
-      "previousRank": 39
+      "previousRank": 42
     },
     {
       "name": "Coco 1",
@@ -3635,7 +3635,7 @@
           "counts": true
         }
       ],
-      "previousRank": 46
+      "previousRank": 42
     },
     {
       "name": "Jim Tuite",
@@ -3706,7 +3706,7 @@
           "counts": true
         }
       ],
-      "previousRank": 44
+      "previousRank": 45
     },
     {
       "name": "Rice Rice Baby",
@@ -3777,7 +3777,7 @@
           "counts": true
         }
       ],
-      "previousRank": 44
+      "previousRank": 45
     },
     {
       "name": "Andrew Schwartz 1",
@@ -3848,7 +3848,149 @@
           "counts": true
         }
       ],
-      "previousRank": 46
+      "previousRank": 47
+    },
+    {
+      "name": "SUNSHINE",
+      "totalValue": 100,
+      "score": 308,
+      "picks": {
+        "ACC": {
+          "team": "North Carolina State",
+          "value": 14,
+          "points": 29
+        },
+        "Big East": {
+          "team": "Uconn",
+          "value": 15,
+          "points": 44
+        },
+        "Big Ten": {
+          "team": "Maryland",
+          "value": 8,
+          "points": 15
+        },
+        "Big 12": {
+          "team": "Colorado",
+          "value": 6,
+          "points": 24
+        },
+        "SEC": {
+          "team": "Arkansas",
+          "value": 13,
+          "points": 36
+        }
+      },
+      "wildcards": [
+        {
+          "team": "High Point",
+          "value": 10,
+          "points": 44,
+          "counts": true
+        },
+        {
+          "team": "Liberty",
+          "value": 10,
+          "points": 40,
+          "counts": true
+        },
+        {
+          "team": "Texas A&M",
+          "value": 7,
+          "points": 30,
+          "counts": true
+        },
+        {
+          "team": "Georgia",
+          "value": 7,
+          "points": 30,
+          "counts": true
+        },
+        {
+          "team": "Southern Utah",
+          "value": 5,
+          "points": 16,
+          "counts": true
+        },
+        {
+          "team": "IU Indy",
+          "value": 5,
+          "points": 10,
+          "counts": false
+        }
+      ],
+      "previousRank": 49
+    },
+    {
+      "name": "Runaway2",
+      "totalValue": 100,
+      "score": 308,
+      "picks": {
+        "ACC": {
+          "team": "Virginia Tech",
+          "value": 8,
+          "points": 27
+        },
+        "Big East": {
+          "team": "Butler",
+          "value": 8,
+          "points": 23
+        },
+        "Big Ten": {
+          "team": "Wisconsin",
+          "value": 12,
+          "points": 34
+        },
+        "Big 12": {
+          "team": "Houston",
+          "value": 16,
+          "points": 40
+        },
+        "SEC": {
+          "team": "Arkansas",
+          "value": 13,
+          "points": 36
+        }
+      },
+      "wildcards": [
+        {
+          "team": "Gonzaga",
+          "value": 13,
+          "points": 44,
+          "counts": true
+        },
+        {
+          "team": "Dayton",
+          "value": 10,
+          "points": 33,
+          "counts": true
+        },
+        {
+          "team": "Southern Miss",
+          "value": 5,
+          "points": 27,
+          "counts": true
+        },
+        {
+          "team": "Weber State",
+          "value": 5,
+          "points": 26,
+          "counts": true
+        },
+        {
+          "team": "Delaware",
+          "value": 5,
+          "points": 16,
+          "counts": false
+        },
+        {
+          "team": "Rice",
+          "value": 5,
+          "points": 18,
+          "counts": true
+        }
+      ],
+      "previousRank": 49
     },
     {
       "name": "Garden State Wizard",
@@ -3919,7 +4061,7 @@
           "counts": false
         }
       ],
-      "previousRank": 49
+      "previousRank": 48
     },
     {
       "name": "D Fries",
@@ -3990,17 +4132,17 @@
           "counts": true
         }
       ],
-      "previousRank": 46
+      "previousRank": 49
     },
     {
-      "name": "SUNSHINE",
+      "name": "Neon Boudeaux",
       "totalValue": 100,
       "score": 306,
       "picks": {
         "ACC": {
-          "team": "North Carolina State",
-          "value": 14,
-          "points": 29
+          "team": "Florida State",
+          "value": 6,
+          "points": 25
         },
         "Big East": {
           "team": "Uconn",
@@ -4008,80 +4150,9 @@
           "points": 44
         },
         "Big Ten": {
-          "team": "Maryland",
-          "value": 8,
-          "points": 15
-        },
-        "Big 12": {
-          "team": "Colorado",
-          "value": 6,
-          "points": 24
-        },
-        "SEC": {
-          "team": "Arkansas",
-          "value": 13,
-          "points": 34
-        }
-      },
-      "wildcards": [
-        {
-          "team": "High Point",
+          "team": "USC",
           "value": 10,
-          "points": 44,
-          "counts": true
-        },
-        {
-          "team": "Liberty",
-          "value": 10,
-          "points": 40,
-          "counts": true
-        },
-        {
-          "team": "Texas A&M",
-          "value": 7,
-          "points": 30,
-          "counts": true
-        },
-        {
-          "team": "Georgia",
-          "value": 7,
-          "points": 30,
-          "counts": true
-        },
-        {
-          "team": "Southern Utah",
-          "value": 5,
-          "points": 16,
-          "counts": true
-        },
-        {
-          "team": "IU Indy",
-          "value": 5,
-          "points": 10,
-          "counts": false
-        }
-      ],
-      "previousRank": 49
-    },
-    {
-      "name": "Runaway2",
-      "totalValue": 100,
-      "score": 306,
-      "picks": {
-        "ACC": {
-          "team": "Virginia Tech",
-          "value": 8,
-          "points": 27
-        },
-        "Big East": {
-          "team": "Butler",
-          "value": 8,
-          "points": 23
-        },
-        "Big Ten": {
-          "team": "Wisconsin",
-          "value": 12,
-          "points": 34
+          "points": 25
         },
         "Big 12": {
           "team": "Houston",
@@ -4091,48 +4162,48 @@
         "SEC": {
           "team": "Arkansas",
           "value": 13,
-          "points": 34
+          "points": 36
         }
       },
       "wildcards": [
         {
-          "team": "Gonzaga",
-          "value": 13,
-          "points": 44,
-          "counts": true
-        },
-        {
-          "team": "Dayton",
+          "team": "Little Rock",
           "value": 10,
-          "points": 33,
+          "points": 21,
           "counts": true
         },
         {
-          "team": "Southern Miss",
-          "value": 5,
-          "points": 27,
+          "team": "Liberty",
+          "value": 10,
+          "points": 40,
           "counts": true
         },
         {
-          "team": "Weber State",
+          "team": "Missouri State",
           "value": 5,
-          "points": 26,
+          "points": 22,
           "counts": true
         },
         {
-          "team": "Delaware",
+          "team": "East Texas A&M",
           "value": 5,
-          "points": 16,
+          "points": 17,
           "counts": false
         },
         {
-          "team": "Rice",
+          "team": "Mercer",
           "value": 5,
-          "points": 18,
+          "points": 30,
+          "counts": true
+        },
+        {
+          "team": "Rhode Island",
+          "value": 5,
+          "points": 23,
           "counts": true
         }
       ],
-      "previousRank": 54
+      "previousRank": 56
     },
     {
       "name": "Briggs 2",
@@ -4203,7 +4274,7 @@
           "counts": false
         }
       ],
-      "previousRank": 49
+      "previousRank": 52
     },
     {
       "name": "Logger Scoots 3",
@@ -4416,78 +4487,7 @@
           "counts": true
         }
       ],
-      "previousRank": 56
-    },
-    {
-      "name": "Neon Boudeaux",
-      "totalValue": 100,
-      "score": 304,
-      "picks": {
-        "ACC": {
-          "team": "Florida State",
-          "value": 6,
-          "points": 25
-        },
-        "Big East": {
-          "team": "Uconn",
-          "value": 15,
-          "points": 44
-        },
-        "Big Ten": {
-          "team": "USC",
-          "value": 10,
-          "points": 25
-        },
-        "Big 12": {
-          "team": "Houston",
-          "value": 16,
-          "points": 40
-        },
-        "SEC": {
-          "team": "Arkansas",
-          "value": 13,
-          "points": 34
-        }
-      },
-      "wildcards": [
-        {
-          "team": "Little Rock",
-          "value": 10,
-          "points": 21,
-          "counts": true
-        },
-        {
-          "team": "Liberty",
-          "value": 10,
-          "points": 40,
-          "counts": true
-        },
-        {
-          "team": "Missouri State",
-          "value": 5,
-          "points": 22,
-          "counts": true
-        },
-        {
-          "team": "East Texas A&M",
-          "value": 5,
-          "points": 17,
-          "counts": false
-        },
-        {
-          "team": "Mercer",
-          "value": 5,
-          "points": 30,
-          "counts": true
-        },
-        {
-          "team": "Rhode Island",
-          "value": 5,
-          "points": 23,
-          "counts": true
-        }
-      ],
-      "previousRank": 54
+      "previousRank": 52
     },
     {
       "name": "TommyL",
@@ -4558,7 +4558,7 @@
           "counts": true
         }
       ],
-      "previousRank": 58
+      "previousRank": 57
     },
     {
       "name": "Shafts and Balls",
@@ -4629,7 +4629,7 @@
           "counts": true
         }
       ],
-      "previousRank": 56
+      "previousRank": 58
     },
     {
       "name": "Ashton",
@@ -4700,7 +4700,7 @@
           "counts": false
         }
       ],
-      "previousRank": 58
+      "previousRank": 59
     },
     {
       "name": "Bob S. 2",
@@ -4771,7 +4771,7 @@
           "counts": true
         }
       ],
-      "previousRank": 64
+      "previousRank": 59
     },
     {
       "name": "Steph Blurry",
@@ -4916,6 +4916,77 @@
       "previousRank": 61
     },
     {
+      "name": "WCS",
+      "totalValue": 100,
+      "score": 299,
+      "picks": {
+        "ACC": {
+          "team": "Duke",
+          "value": 16,
+          "points": 44
+        },
+        "Big East": {
+          "team": "DePaul",
+          "value": 7,
+          "points": 24
+        },
+        "Big Ten": {
+          "team": "Purdue",
+          "value": 16,
+          "points": 36
+        },
+        "Big 12": {
+          "team": "Houston",
+          "value": 16,
+          "points": 40
+        },
+        "SEC": {
+          "team": "Arkansas",
+          "value": 13,
+          "points": 36
+        }
+      },
+      "wildcards": [
+        {
+          "team": "LSU",
+          "value": 6,
+          "points": 18,
+          "counts": false
+        },
+        {
+          "team": "Arizona State",
+          "value": 6,
+          "points": 23,
+          "counts": true
+        },
+        {
+          "team": "Elon",
+          "value": 5,
+          "points": 20,
+          "counts": true
+        },
+        {
+          "team": "Fordham",
+          "value": 5,
+          "points": 23,
+          "counts": true
+        },
+        {
+          "team": "Rhode Island",
+          "value": 5,
+          "points": 23,
+          "counts": true
+        },
+        {
+          "team": "Green Bay",
+          "value": 5,
+          "points": 30,
+          "counts": true
+        }
+      ],
+      "previousRank": 65
+    },
+    {
       "name": "Reverse Course",
       "totalValue": 100,
       "score": 298,
@@ -4984,7 +5055,7 @@
           "counts": true
         }
       ],
-      "previousRank": 60
+      "previousRank": 63
     },
     {
       "name": "The Jacob Pullen Experience",
@@ -5055,7 +5126,7 @@
           "counts": true
         }
       ],
-      "previousRank": 64
+      "previousRank": 63
     },
     {
       "name": "Josh Peter",
@@ -5126,78 +5197,7 @@
           "counts": true
         }
       ],
-      "previousRank": 61
-    },
-    {
-      "name": "WCS",
-      "totalValue": 100,
-      "score": 297,
-      "picks": {
-        "ACC": {
-          "team": "Duke",
-          "value": 16,
-          "points": 44
-        },
-        "Big East": {
-          "team": "DePaul",
-          "value": 7,
-          "points": 24
-        },
-        "Big Ten": {
-          "team": "Purdue",
-          "value": 16,
-          "points": 36
-        },
-        "Big 12": {
-          "team": "Houston",
-          "value": 16,
-          "points": 40
-        },
-        "SEC": {
-          "team": "Arkansas",
-          "value": 13,
-          "points": 34
-        }
-      },
-      "wildcards": [
-        {
-          "team": "LSU",
-          "value": 6,
-          "points": 18,
-          "counts": false
-        },
-        {
-          "team": "Arizona State",
-          "value": 6,
-          "points": 23,
-          "counts": true
-        },
-        {
-          "team": "Elon",
-          "value": 5,
-          "points": 20,
-          "counts": true
-        },
-        {
-          "team": "Fordham",
-          "value": 5,
-          "points": 23,
-          "counts": true
-        },
-        {
-          "team": "Rhode Island",
-          "value": 5,
-          "points": 23,
-          "counts": true
-        },
-        {
-          "team": "Green Bay",
-          "value": 5,
-          "points": 30,
-          "counts": true
-        }
-      ],
-      "previousRank": 67
+      "previousRank": 65
     },
     {
       "name": "GFYEAD1",
@@ -5268,7 +5268,7 @@
           "counts": true
         }
       ],
-      "previousRank": 64
+      "previousRank": 67
     },
     {
       "name": "Survive and Advance",
@@ -5339,7 +5339,7 @@
           "counts": true
         }
       ],
-      "previousRank": 69
+      "previousRank": 67
     },
     {
       "name": "Danny Frankini",
@@ -5410,7 +5410,7 @@
           "counts": true
         }
       ],
-      "previousRank": 69
+      "previousRank": 67
     },
     {
       "name": "Some Sort of Rothstein-ism",
@@ -5481,7 +5481,7 @@
           "counts": true
         }
       ],
-      "previousRank": 67
+      "previousRank": 70
     },
     {
       "name": "Razor Razorbacks",
@@ -5552,7 +5552,7 @@
           "counts": false
         }
       ],
-      "previousRank": 72
+      "previousRank": 71
     },
     {
       "name": "BCKAJK",
@@ -5623,7 +5623,78 @@
           "counts": true
         }
       ],
-      "previousRank": 71
+      "previousRank": 72
+    },
+    {
+      "name": "GFYEAD2",
+      "totalValue": 100,
+      "score": 292,
+      "picks": {
+        "ACC": {
+          "team": "Pittsburgh",
+          "value": 8,
+          "points": 15
+        },
+        "Big East": {
+          "team": "Uconn",
+          "value": 15,
+          "points": 44
+        },
+        "Big Ten": {
+          "team": "Michigan",
+          "value": 15,
+          "points": 46
+        },
+        "Big 12": {
+          "team": "BYU",
+          "value": 15,
+          "points": 28
+        },
+        "SEC": {
+          "team": "Arkansas",
+          "value": 13,
+          "points": 36
+        }
+      },
+      "wildcards": [
+        {
+          "team": "Grand Canyon",
+          "value": 9,
+          "points": 31,
+          "counts": true
+        },
+        {
+          "team": "Portland",
+          "value": 5,
+          "points": 21,
+          "counts": true
+        },
+        {
+          "team": "Holy Cross",
+          "value": 5,
+          "points": 16,
+          "counts": false
+        },
+        {
+          "team": "Buffalo",
+          "value": 5,
+          "points": 24,
+          "counts": true
+        },
+        {
+          "team": "Rhode Island",
+          "value": 5,
+          "points": 23,
+          "counts": true
+        },
+        {
+          "team": "Charlotte",
+          "value": 5,
+          "points": 24,
+          "counts": true
+        }
+      ],
+      "previousRank": 75
     },
     {
       "name": "North Shore Joe",
@@ -5694,7 +5765,7 @@
           "counts": true
         }
       ],
-      "previousRank": 74
+      "previousRank": 73
     },
     {
       "name": "Tom Frankini",
@@ -5762,77 +5833,6 @@
           "team": "Houston Christian",
           "value": 5,
           "points": 20,
-          "counts": true
-        }
-      ],
-      "previousRank": 75
-    },
-    {
-      "name": "GFYEAD2",
-      "totalValue": 100,
-      "score": 290,
-      "picks": {
-        "ACC": {
-          "team": "Pittsburgh",
-          "value": 8,
-          "points": 15
-        },
-        "Big East": {
-          "team": "Uconn",
-          "value": 15,
-          "points": 44
-        },
-        "Big Ten": {
-          "team": "Michigan",
-          "value": 15,
-          "points": 46
-        },
-        "Big 12": {
-          "team": "BYU",
-          "value": 15,
-          "points": 28
-        },
-        "SEC": {
-          "team": "Arkansas",
-          "value": 13,
-          "points": 34
-        }
-      },
-      "wildcards": [
-        {
-          "team": "Grand Canyon",
-          "value": 9,
-          "points": 31,
-          "counts": true
-        },
-        {
-          "team": "Portland",
-          "value": 5,
-          "points": 21,
-          "counts": true
-        },
-        {
-          "team": "Holy Cross",
-          "value": 5,
-          "points": 16,
-          "counts": false
-        },
-        {
-          "team": "Buffalo",
-          "value": 5,
-          "points": 24,
-          "counts": true
-        },
-        {
-          "team": "Rhode Island",
-          "value": 5,
-          "points": 23,
-          "counts": true
-        },
-        {
-          "team": "Charlotte",
-          "value": 5,
-          "points": 24,
           "counts": true
         }
       ],
@@ -5907,7 +5907,7 @@
           "counts": true
         }
       ],
-      "previousRank": 79
+      "previousRank": 75
     },
     {
       "name": "TLEVY1994",
@@ -6049,7 +6049,78 @@
           "counts": true
         }
       ],
-      "previousRank": 75
+      "previousRank": 78
+    },
+    {
+      "name": "Callan",
+      "totalValue": 100,
+      "score": 288,
+      "picks": {
+        "ACC": {
+          "team": "Virginia",
+          "value": 12,
+          "points": 42
+        },
+        "Big East": {
+          "team": "Georgetown",
+          "value": 10,
+          "points": 18
+        },
+        "Big Ten": {
+          "team": "USC",
+          "value": 10,
+          "points": 25
+        },
+        "Big 12": {
+          "team": "Cincinnati",
+          "value": 11,
+          "points": 26
+        },
+        "SEC": {
+          "team": "Arkansas",
+          "value": 13,
+          "points": 36
+        }
+      },
+      "wildcards": [
+        {
+          "team": "Akron",
+          "value": 10,
+          "points": 43,
+          "counts": true
+        },
+        {
+          "team": "Missouri",
+          "value": 10,
+          "points": 30,
+          "counts": true
+        },
+        {
+          "team": "Maryland",
+          "value": 8,
+          "points": 15,
+          "counts": false
+        },
+        {
+          "team": "Florida State",
+          "value": 6,
+          "points": 25,
+          "counts": true
+        },
+        {
+          "team": "Elon",
+          "value": 5,
+          "points": 20,
+          "counts": true
+        },
+        {
+          "team": "Rhode Island",
+          "value": 5,
+          "points": 23,
+          "counts": true
+        }
+      ],
+      "previousRank": 81
     },
     {
       "name": "I'm Punching Out",
@@ -6120,7 +6191,7 @@
           "counts": true
         }
       ],
-      "previousRank": 77
+      "previousRank": 79
     },
     {
       "name": "Hemdawg",
@@ -6191,83 +6262,12 @@
           "counts": true
         }
       ],
-      "previousRank": 80
-    },
-    {
-      "name": "Callan",
-      "totalValue": 100,
-      "score": 286,
-      "picks": {
-        "ACC": {
-          "team": "Virginia",
-          "value": 12,
-          "points": 42
-        },
-        "Big East": {
-          "team": "Georgetown",
-          "value": 10,
-          "points": 18
-        },
-        "Big Ten": {
-          "team": "USC",
-          "value": 10,
-          "points": 25
-        },
-        "Big 12": {
-          "team": "Cincinnati",
-          "value": 11,
-          "points": 26
-        },
-        "SEC": {
-          "team": "Arkansas",
-          "value": 13,
-          "points": 34
-        }
-      },
-      "wildcards": [
-        {
-          "team": "Akron",
-          "value": 10,
-          "points": 43,
-          "counts": true
-        },
-        {
-          "team": "Missouri",
-          "value": 10,
-          "points": 30,
-          "counts": true
-        },
-        {
-          "team": "Maryland",
-          "value": 8,
-          "points": 15,
-          "counts": false
-        },
-        {
-          "team": "Florida State",
-          "value": 6,
-          "points": 25,
-          "counts": true
-        },
-        {
-          "team": "Elon",
-          "value": 5,
-          "points": 20,
-          "counts": true
-        },
-        {
-          "team": "Rhode Island",
-          "value": 5,
-          "points": 23,
-          "counts": true
-        }
-      ],
-      "previousRank": 81
+      "previousRank": 79
     },
     {
       "name": "Sarah Razi",
       "totalValue": 100,
-      "score": 285,
+      "score": 287,
       "picks": {
         "ACC": {
           "team": "Virginia",
@@ -6292,7 +6292,7 @@
         "SEC": {
           "team": "Arkansas",
           "value": 13,
-          "points": 34
+          "points": 36
         }
       },
       "wildcards": [
@@ -6333,7 +6333,7 @@
           "counts": true
         }
       ],
-      "previousRank": 84
+      "previousRank": 82
     },
     {
       "name": "GFYEAD3",
@@ -6404,7 +6404,7 @@
           "counts": false
         }
       ],
-      "previousRank": 81
+      "previousRank": 83
     },
     {
       "name": "Nash's Squad",
@@ -6475,7 +6475,7 @@
           "counts": false
         }
       ],
-      "previousRank": 81
+      "previousRank": 83
     },
     {
       "name": "Logger Scoots 1",
@@ -6617,7 +6617,7 @@
           "counts": true
         }
       ],
-      "previousRank": 87
+      "previousRank": 85
     },
     {
       "name": "SK2",
@@ -6688,7 +6688,7 @@
           "counts": true
         }
       ],
-      "previousRank": 86
+      "previousRank": 87
     },
     {
       "name": "Bob S. 1",
@@ -6759,7 +6759,7 @@
           "counts": true
         }
       ],
-      "previousRank": 90
+      "previousRank": 88
     },
     {
       "name": "Bonas80",
@@ -6830,7 +6830,7 @@
           "counts": true
         }
       ],
-      "previousRank": 88
+      "previousRank": 89
     },
     {
       "name": "405 Hustlers",
@@ -7043,7 +7043,7 @@
           "counts": true
         }
       ],
-      "previousRank": 88
+      "previousRank": 92
     },
     {
       "name": "Cig Nation",
@@ -7114,7 +7114,7 @@
           "counts": false
         }
       ],
-      "previousRank": 94
+      "previousRank": 92
     },
     {
       "name": "WEAREPENNSTATE",
@@ -7185,7 +7185,7 @@
           "counts": true
         }
       ],
-      "previousRank": 90
+      "previousRank": 94
     },
     {
       "name": "UConn Do It!",
@@ -7256,12 +7256,12 @@
           "counts": false
         }
       ],
-      "previousRank": 94
+      "previousRank": 95
     },
     {
       "name": "Logger Scoots 2",
       "totalValue": 100,
-      "score": 273,
+      "score": 275,
       "picks": {
         "ACC": {
           "team": "Georgia Tech",
@@ -7286,7 +7286,7 @@
         "SEC": {
           "team": "Arkansas",
           "value": 13,
-          "points": 34
+          "points": 36
         }
       },
       "wildcards": [
@@ -7399,6 +7399,77 @@
         }
       ],
       "previousRank": 96
+    },
+    {
+      "name": "Allan Li",
+      "totalValue": 100,
+      "score": 272,
+      "picks": {
+        "ACC": {
+          "team": "SMU",
+          "value": 13,
+          "points": 27
+        },
+        "Big East": {
+          "team": "Xavier",
+          "value": 9,
+          "points": 20
+        },
+        "Big Ten": {
+          "team": "Purdue",
+          "value": 16,
+          "points": 36
+        },
+        "Big 12": {
+          "team": "Baylor",
+          "value": 12,
+          "points": 20
+        },
+        "SEC": {
+          "team": "Arkansas",
+          "value": 13,
+          "points": 36
+        }
+      },
+      "wildcards": [
+        {
+          "team": "Colorado State",
+          "value": 8,
+          "points": 31,
+          "counts": true
+        },
+        {
+          "team": "Indiana State",
+          "value": 6,
+          "points": 15,
+          "counts": true
+        },
+        {
+          "team": "Wichita State",
+          "value": 7,
+          "points": 32,
+          "counts": true
+        },
+        {
+          "team": "Davidson",
+          "value": 6,
+          "points": 29,
+          "counts": true
+        },
+        {
+          "team": "Gardner-Webb",
+          "value": 5,
+          "points": 5,
+          "counts": false
+        },
+        {
+          "team": "Weber State",
+          "value": 5,
+          "points": 26,
+          "counts": true
+        }
+      ],
+      "previousRank": 102
     },
     {
       "name": "Moscone Bailbond$$$$$",
@@ -7682,7 +7753,7 @@
           "counts": true
         }
       ],
-      "previousRank": 102
+      "previousRank": 98
     },
     {
       "name": "Dr C TX Entry A",
@@ -7753,78 +7824,7 @@
           "counts": true
         }
       ],
-      "previousRank": 101
-    },
-    {
-      "name": "Allan Li",
-      "totalValue": 100,
-      "score": 270,
-      "picks": {
-        "ACC": {
-          "team": "SMU",
-          "value": 13,
-          "points": 27
-        },
-        "Big East": {
-          "team": "Xavier",
-          "value": 9,
-          "points": 20
-        },
-        "Big Ten": {
-          "team": "Purdue",
-          "value": 16,
-          "points": 36
-        },
-        "Big 12": {
-          "team": "Baylor",
-          "value": 12,
-          "points": 20
-        },
-        "SEC": {
-          "team": "Arkansas",
-          "value": 13,
-          "points": 34
-        }
-      },
-      "wildcards": [
-        {
-          "team": "Colorado State",
-          "value": 8,
-          "points": 31,
-          "counts": true
-        },
-        {
-          "team": "Indiana State",
-          "value": 6,
-          "points": 15,
-          "counts": true
-        },
-        {
-          "team": "Wichita State",
-          "value": 7,
-          "points": 32,
-          "counts": true
-        },
-        {
-          "team": "Davidson",
-          "value": 6,
-          "points": 29,
-          "counts": true
-        },
-        {
-          "team": "Gardner-Webb",
-          "value": 5,
-          "points": 5,
-          "counts": false
-        },
-        {
-          "team": "Weber State",
-          "value": 5,
-          "points": 26,
-          "counts": true
-        }
-      ],
-      "previousRank": 103
+      "previousRank": 102
     },
     {
       "name": "Melo's Mini-Me",
@@ -7966,7 +7966,7 @@
           "counts": true
         }
       ],
-      "previousRank": 106
+      "previousRank": 105
     },
     {
       "name": "I Hate Jay Bilas",
@@ -8037,7 +8037,7 @@
           "counts": false
         }
       ],
-      "previousRank": 105
+      "previousRank": 106
     },
     {
       "name": "Tim Lynch",
@@ -8463,7 +8463,7 @@
           "counts": true
         }
       ],
-      "previousRank": 111
+      "previousRank": 112
     }
   ],
   "teamBreakdowns": {
@@ -11203,6 +11203,126 @@
       ],
       "nextGame": null
     },
+    "Missouri": {
+      "confW": 10,
+      "nonConfW": 10,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 30,
+      "recentGames": [
+        {
+          "result": "L",
+          "opponent": "Arkansas",
+          "score": "86-94"
+        },
+        {
+          "result": "W",
+          "opponent": "Tennessee",
+          "score": "73-69"
+        },
+        {
+          "result": "W",
+          "opponent": "Mississippi St",
+          "score": "88-64"
+        },
+        {
+          "result": "L",
+          "opponent": "Oklahoma",
+          "score": "64-80"
+        },
+        {
+          "result": "L",
+          "opponent": "Arkansas",
+          "score": "84-88"
+        }
+      ],
+      "nextGame": null
+    },
+    "Penn": {
+      "confW": 9,
+      "nonConfW": 7,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 25,
+      "recentGames": [
+        {
+          "result": "W",
+          "opponent": "Cornell",
+          "score": "82-76"
+        },
+        {
+          "result": "L",
+          "opponent": "Yale",
+          "score": "70-74"
+        },
+        {
+          "result": "W",
+          "opponent": "Dartmouth",
+          "score": "80-71"
+        },
+        {
+          "result": "W",
+          "opponent": "Harvard",
+          "score": "64-61"
+        },
+        {
+          "result": "W",
+          "opponent": "Brown",
+          "score": "82-61"
+        }
+      ],
+      "nextGame": {
+        "opponent": "Harvard",
+        "date": "Mar 14"
+      }
+    },
+    "Green Bay": {
+      "confW": 12,
+      "nonConfW": 6,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 30,
+      "recentGames": [
+        {
+          "result": "L",
+          "opponent": "Milwaukee",
+          "score": "72-75"
+        },
+        {
+          "result": "W",
+          "opponent": "Oakland",
+          "score": "73-68"
+        },
+        {
+          "result": "L",
+          "opponent": "Detroit Mercy",
+          "score": "70-74"
+        },
+        {
+          "result": "W",
+          "opponent": "Youngstown St",
+          "score": "85-63"
+        },
+        {
+          "result": "W",
+          "opponent": "Purdue FW",
+          "score": "64-56"
+        }
+      ],
+      "nextGame": {
+        "opponent": "N Kentucky",
+        "date": "Mar 8"
+      }
+    },
     "UCLA": {
       "confW": 12,
       "nonConfW": 8,
@@ -11566,6 +11686,246 @@
         "date": "Mar 7"
       }
     },
+    "Utah": {
+      "confW": 2,
+      "nonConfW": 8,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 12,
+      "recentGames": [
+        {
+          "result": "W",
+          "opponent": "West Virginia",
+          "score": "61-56"
+        },
+        {
+          "result": "L",
+          "opponent": "UCF",
+          "score": "71-73"
+        },
+        {
+          "result": "L",
+          "opponent": "Iowa State",
+          "score": "59-75"
+        },
+        {
+          "result": "L",
+          "opponent": "Arizona St",
+          "score": "60-73"
+        },
+        {
+          "result": "L",
+          "opponent": "Colorado",
+          "score": "78-92"
+        }
+      ],
+      "nextGame": {
+        "opponent": "Baylor",
+        "date": "Mar 7"
+      }
+    },
+    "Arkansas": {
+      "confW": 13,
+      "nonConfW": 10,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 36,
+      "recentGames": [
+        {
+          "result": "W",
+          "opponent": "Missouri",
+          "score": "94-86"
+        },
+        {
+          "result": "W",
+          "opponent": "Texas A&M",
+          "score": "99-84"
+        },
+        {
+          "result": "L",
+          "opponent": "Florida",
+          "score": "77-111"
+        },
+        {
+          "result": "W",
+          "opponent": "Texas",
+          "score": "105-85"
+        },
+        {
+          "result": "W",
+          "opponent": "Missouri",
+          "score": "88-84"
+        }
+      ],
+      "nextGame": null
+    },
+    "Florida Atlantic": {
+      "confW": 9,
+      "nonConfW": 8,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 26,
+      "recentGames": [
+        {
+          "result": "L",
+          "opponent": "South Florida",
+          "score": "81-83"
+        },
+        {
+          "result": "W",
+          "opponent": "UTSA",
+          "score": "60-52"
+        },
+        {
+          "result": "L",
+          "opponent": "North Texas",
+          "score": "72-73"
+        },
+        {
+          "result": "W",
+          "opponent": "Temple",
+          "score": "77-73"
+        },
+        {
+          "result": "W",
+          "opponent": "Charlotte",
+          "score": "77-76"
+        }
+      ],
+      "nextGame": {
+        "opponent": "Wichita St",
+        "date": "Mar 7"
+      }
+    },
+    "Depaul": {
+      "confW": 8,
+      "nonConfW": 8,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 24,
+      "recentGames": [
+        {
+          "result": "L",
+          "opponent": "Providence",
+          "score": "68-71"
+        },
+        {
+          "result": "W",
+          "opponent": "Creighton",
+          "score": "72-71"
+        },
+        {
+          "result": "W",
+          "opponent": "Marquette",
+          "score": "62-51"
+        },
+        {
+          "result": "L",
+          "opponent": "Villanova",
+          "score": "57-76"
+        },
+        {
+          "result": "L",
+          "opponent": "Butler",
+          "score": "71-81"
+        }
+      ],
+      "nextGame": null
+    },
+    "Penn State": {
+      "confW": 3,
+      "nonConfW": 9,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 15,
+      "recentGames": [
+        {
+          "result": "L",
+          "opponent": "Oregon",
+          "score": "72-83"
+        },
+        {
+          "result": "L",
+          "opponent": "Rutgers",
+          "score": "72-85"
+        },
+        {
+          "result": "L",
+          "opponent": "Nebraska",
+          "score": "64-87"
+        },
+        {
+          "result": "W",
+          "opponent": "Iowa",
+          "score": "71-69"
+        },
+        {
+          "result": "L",
+          "opponent": "Ohio State",
+          "score": "62-94"
+        }
+      ],
+      "nextGame": {
+        "opponent": "Rutgers",
+        "date": "Mar 8"
+      }
+    },
+    "Rice": {
+      "confW": 6,
+      "nonConfW": 6,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 18,
+      "recentGames": [
+        {
+          "result": "L",
+          "opponent": "East Carolina",
+          "score": "75-85"
+        },
+        {
+          "result": "L",
+          "opponent": "Tulane",
+          "score": "75-81"
+        },
+        {
+          "result": "L",
+          "opponent": "South Florida",
+          "score": "56-75"
+        },
+        {
+          "result": "W",
+          "opponent": "Temple",
+          "score": "80-74"
+        },
+        {
+          "result": "L",
+          "opponent": "North Texas",
+          "score": "58-62"
+        }
+      ],
+      "nextGame": {
+        "opponent": "UTSA",
+        "date": "Mar 8"
+      }
+    },
     "California": {
       "confW": 9,
       "nonConfW": 12,
@@ -11727,44 +12087,6 @@
       ],
       "nextGame": null
     },
-    "Depaul": {
-      "confW": 8,
-      "nonConfW": 8,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 24,
-      "recentGames": [
-        {
-          "result": "L",
-          "opponent": "Providence",
-          "score": "68-71"
-        },
-        {
-          "result": "W",
-          "opponent": "Creighton",
-          "score": "72-71"
-        },
-        {
-          "result": "W",
-          "opponent": "Marquette",
-          "score": "62-51"
-        },
-        {
-          "result": "L",
-          "opponent": "Villanova",
-          "score": "57-76"
-        },
-        {
-          "result": "L",
-          "opponent": "Butler",
-          "score": "71-81"
-        }
-      ],
-      "nextGame": null
-    },
     "Baylor": {
       "confW": 5,
       "nonConfW": 10,
@@ -11804,328 +12126,6 @@
       "nextGame": {
         "opponent": "Utah",
         "date": "Mar 7"
-      }
-    },
-    "Arkansas": {
-      "confW": 12,
-      "nonConfW": 10,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 34,
-      "recentGames": [
-        {
-          "result": "L",
-          "opponent": "Alabama",
-          "score": "115-117"
-        },
-        {
-          "result": "W",
-          "opponent": "Missouri",
-          "score": "94-86"
-        },
-        {
-          "result": "W",
-          "opponent": "Texas A&M",
-          "score": "99-84"
-        },
-        {
-          "result": "L",
-          "opponent": "Florida",
-          "score": "77-111"
-        },
-        {
-          "result": "W",
-          "opponent": "Texas",
-          "score": "105-85"
-        }
-      ],
-      "nextGame": null
-    },
-    "Florida Atlantic": {
-      "confW": 9,
-      "nonConfW": 8,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 26,
-      "recentGames": [
-        {
-          "result": "L",
-          "opponent": "South Florida",
-          "score": "81-83"
-        },
-        {
-          "result": "W",
-          "opponent": "UTSA",
-          "score": "60-52"
-        },
-        {
-          "result": "L",
-          "opponent": "North Texas",
-          "score": "72-73"
-        },
-        {
-          "result": "W",
-          "opponent": "Temple",
-          "score": "77-73"
-        },
-        {
-          "result": "W",
-          "opponent": "Charlotte",
-          "score": "77-76"
-        }
-      ],
-      "nextGame": {
-        "opponent": "Wichita St",
-        "date": "Mar 7"
-      }
-    },
-    "Utah": {
-      "confW": 2,
-      "nonConfW": 8,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 12,
-      "recentGames": [
-        {
-          "result": "W",
-          "opponent": "West Virginia",
-          "score": "61-56"
-        },
-        {
-          "result": "L",
-          "opponent": "UCF",
-          "score": "71-73"
-        },
-        {
-          "result": "L",
-          "opponent": "Iowa State",
-          "score": "59-75"
-        },
-        {
-          "result": "L",
-          "opponent": "Arizona St",
-          "score": "60-73"
-        },
-        {
-          "result": "L",
-          "opponent": "Colorado",
-          "score": "78-92"
-        }
-      ],
-      "nextGame": {
-        "opponent": "Baylor",
-        "date": "Mar 7"
-      }
-    },
-    "Missouri": {
-      "confW": 10,
-      "nonConfW": 10,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 30,
-      "recentGames": [
-        {
-          "result": "W",
-          "opponent": "Vanderbilt",
-          "score": "81-80"
-        },
-        {
-          "result": "L",
-          "opponent": "Arkansas",
-          "score": "86-94"
-        },
-        {
-          "result": "W",
-          "opponent": "Tennessee",
-          "score": "73-69"
-        },
-        {
-          "result": "W",
-          "opponent": "Mississippi St",
-          "score": "88-64"
-        },
-        {
-          "result": "L",
-          "opponent": "Oklahoma",
-          "score": "64-80"
-        }
-      ],
-      "nextGame": null
-    },
-    "Penn": {
-      "confW": 9,
-      "nonConfW": 7,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 25,
-      "recentGames": [
-        {
-          "result": "W",
-          "opponent": "Cornell",
-          "score": "82-76"
-        },
-        {
-          "result": "L",
-          "opponent": "Yale",
-          "score": "70-74"
-        },
-        {
-          "result": "W",
-          "opponent": "Dartmouth",
-          "score": "80-71"
-        },
-        {
-          "result": "W",
-          "opponent": "Harvard",
-          "score": "64-61"
-        },
-        {
-          "result": "W",
-          "opponent": "Brown",
-          "score": "82-61"
-        }
-      ],
-      "nextGame": {
-        "opponent": "Harvard",
-        "date": "Mar 14"
-      }
-    },
-    "Green Bay": {
-      "confW": 12,
-      "nonConfW": 6,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 30,
-      "recentGames": [
-        {
-          "result": "L",
-          "opponent": "Milwaukee",
-          "score": "72-75"
-        },
-        {
-          "result": "W",
-          "opponent": "Oakland",
-          "score": "73-68"
-        },
-        {
-          "result": "L",
-          "opponent": "Detroit Mercy",
-          "score": "70-74"
-        },
-        {
-          "result": "W",
-          "opponent": "Youngstown St",
-          "score": "85-63"
-        },
-        {
-          "result": "W",
-          "opponent": "Purdue FW",
-          "score": "64-56"
-        }
-      ],
-      "nextGame": {
-        "opponent": "N Kentucky",
-        "date": "Mar 8"
-      }
-    },
-    "Penn State": {
-      "confW": 3,
-      "nonConfW": 9,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 15,
-      "recentGames": [
-        {
-          "result": "L",
-          "opponent": "Oregon",
-          "score": "72-83"
-        },
-        {
-          "result": "L",
-          "opponent": "Rutgers",
-          "score": "72-85"
-        },
-        {
-          "result": "L",
-          "opponent": "Nebraska",
-          "score": "64-87"
-        },
-        {
-          "result": "W",
-          "opponent": "Iowa",
-          "score": "71-69"
-        },
-        {
-          "result": "L",
-          "opponent": "Ohio State",
-          "score": "62-94"
-        }
-      ],
-      "nextGame": {
-        "opponent": "Rutgers",
-        "date": "Mar 8"
-      }
-    },
-    "Rice": {
-      "confW": 6,
-      "nonConfW": 6,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 18,
-      "recentGames": [
-        {
-          "result": "L",
-          "opponent": "East Carolina",
-          "score": "75-85"
-        },
-        {
-          "result": "L",
-          "opponent": "Tulane",
-          "score": "75-81"
-        },
-        {
-          "result": "L",
-          "opponent": "South Florida",
-          "score": "56-75"
-        },
-        {
-          "result": "W",
-          "opponent": "Temple",
-          "score": "80-74"
-        },
-        {
-          "result": "L",
-          "opponent": "North Texas",
-          "score": "58-62"
-        }
-      ],
-      "nextGame": {
-        "opponent": "UTSA",
-        "date": "Mar 8"
       }
     },
     "Xavier": {
@@ -12362,85 +12362,6 @@
         "date": "Mar 12"
       }
     },
-    "Kentucky": {
-      "confW": 10,
-      "nonConfW": 9,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 29,
-      "recentGames": [
-        {
-          "result": "L",
-          "opponent": "Georgia",
-          "score": "78-86"
-        },
-        {
-          "result": "L",
-          "opponent": "Auburn",
-          "score": "74-75"
-        },
-        {
-          "result": "W",
-          "opponent": "South Carolina",
-          "score": "72-63"
-        },
-        {
-          "result": "W",
-          "opponent": "Vanderbilt",
-          "score": "91-77"
-        },
-        {
-          "result": "L",
-          "opponent": "Texas A&M",
-          "score": "85-96"
-        }
-      ],
-      "nextGame": {
-        "opponent": "Florida",
-        "date": "Mar 7"
-      }
-    },
-    "George Washington": {
-      "confW": 8,
-      "nonConfW": 9,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 25,
-      "recentGames": [
-        {
-          "result": "W",
-          "opponent": "George Mason",
-          "score": "72-53"
-        },
-        {
-          "result": "L",
-          "opponent": "VCU",
-          "score": "75-89"
-        },
-        {
-          "result": "W",
-          "opponent": "La Salle",
-          "score": "104-77"
-        },
-        {
-          "result": "L",
-          "opponent": "Dayton",
-          "score": "66-68"
-        },
-        {
-          "result": "W",
-          "opponent": "St Bonaventure",
-          "score": "91-82"
-        }
-      ],
-      "nextGame": null
-    },
     "Illinois State": {
       "confW": 12,
       "nonConfW": 8,
@@ -12598,6 +12519,85 @@
         "opponent": "N Arizona",
         "date": "Mar 8"
       }
+    },
+    "Pittsburgh": {
+      "confW": 4,
+      "nonConfW": 7,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 15,
+      "recentGames": [
+        {
+          "result": "L",
+          "opponent": "North Carolina",
+          "score": "65-79"
+        },
+        {
+          "result": "W",
+          "opponent": "Notre Dame",
+          "score": "73-68"
+        },
+        {
+          "result": "L",
+          "opponent": "Stanford",
+          "score": "67-75"
+        },
+        {
+          "result": "W",
+          "opponent": "California",
+          "score": "72-56"
+        },
+        {
+          "result": "L",
+          "opponent": "Florida St",
+          "score": "74-75"
+        }
+      ],
+      "nextGame": {
+        "opponent": "Syracuse",
+        "date": "Mar 7"
+      }
+    },
+    "Duquesne": {
+      "confW": 8,
+      "nonConfW": 8,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 24,
+      "recentGames": [
+        {
+          "result": "W",
+          "opponent": "La Salle",
+          "score": "62-61"
+        },
+        {
+          "result": "L",
+          "opponent": "Dayton",
+          "score": "66-78"
+        },
+        {
+          "result": "L",
+          "opponent": "Davidson",
+          "score": "56-67"
+        },
+        {
+          "result": "L",
+          "opponent": "Saint Louis",
+          "score": "76-91"
+        },
+        {
+          "result": "L",
+          "opponent": "Rhode Island",
+          "score": "52-64"
+        }
+      ],
+      "nextGame": null
     },
     "CS Northridge": {
       "confW": 12,
@@ -12763,47 +12763,6 @@
         "date": "Mar 8"
       }
     },
-    "Pittsburgh": {
-      "confW": 4,
-      "nonConfW": 7,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 15,
-      "recentGames": [
-        {
-          "result": "L",
-          "opponent": "North Carolina",
-          "score": "65-79"
-        },
-        {
-          "result": "W",
-          "opponent": "Notre Dame",
-          "score": "73-68"
-        },
-        {
-          "result": "L",
-          "opponent": "Stanford",
-          "score": "67-75"
-        },
-        {
-          "result": "W",
-          "opponent": "California",
-          "score": "72-56"
-        },
-        {
-          "result": "L",
-          "opponent": "Florida St",
-          "score": "74-75"
-        }
-      ],
-      "nextGame": {
-        "opponent": "Syracuse",
-        "date": "Mar 7"
-      }
-    },
     "Maryland": {
       "confW": 4,
       "nonConfW": 7,
@@ -12844,44 +12803,6 @@
         "opponent": "Illinois",
         "date": "Mar 8"
       }
-    },
-    "Duquesne": {
-      "confW": 8,
-      "nonConfW": 8,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 24,
-      "recentGames": [
-        {
-          "result": "W",
-          "opponent": "La Salle",
-          "score": "62-61"
-        },
-        {
-          "result": "L",
-          "opponent": "Dayton",
-          "score": "66-78"
-        },
-        {
-          "result": "L",
-          "opponent": "Davidson",
-          "score": "56-67"
-        },
-        {
-          "result": "L",
-          "opponent": "Saint Louis",
-          "score": "76-91"
-        },
-        {
-          "result": "L",
-          "opponent": "Rhode Island",
-          "score": "52-64"
-        }
-      ],
-      "nextGame": null
     },
     "Central Michigan": {
       "confW": 6,
@@ -12955,6 +12876,85 @@
           "result": "L",
           "opponent": "Cleveland St",
           "score": "93-101"
+        }
+      ],
+      "nextGame": null
+    },
+    "Kentucky": {
+      "confW": 10,
+      "nonConfW": 9,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 29,
+      "recentGames": [
+        {
+          "result": "L",
+          "opponent": "Georgia",
+          "score": "78-86"
+        },
+        {
+          "result": "L",
+          "opponent": "Auburn",
+          "score": "74-75"
+        },
+        {
+          "result": "W",
+          "opponent": "South Carolina",
+          "score": "72-63"
+        },
+        {
+          "result": "W",
+          "opponent": "Vanderbilt",
+          "score": "91-77"
+        },
+        {
+          "result": "L",
+          "opponent": "Texas A&M",
+          "score": "85-96"
+        }
+      ],
+      "nextGame": {
+        "opponent": "Florida",
+        "date": "Mar 7"
+      }
+    },
+    "George Washington": {
+      "confW": 8,
+      "nonConfW": 9,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 25,
+      "recentGames": [
+        {
+          "result": "W",
+          "opponent": "George Mason",
+          "score": "72-53"
+        },
+        {
+          "result": "L",
+          "opponent": "VCU",
+          "score": "75-89"
+        },
+        {
+          "result": "W",
+          "opponent": "La Salle",
+          "score": "104-77"
+        },
+        {
+          "result": "L",
+          "opponent": "Dayton",
+          "score": "66-68"
+        },
+        {
+          "result": "W",
+          "opponent": "St Bonaventure",
+          "score": "91-82"
         }
       ],
       "nextGame": null
@@ -13040,123 +13040,6 @@
         "opponent": "William & Mary",
         "date": "Mar 8"
       }
-    },
-    "Texas": {
-      "confW": 9,
-      "nonConfW": 9,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 27,
-      "recentGames": [
-        {
-          "result": "W",
-          "opponent": "LSU",
-          "score": "88-85"
-        },
-        {
-          "result": "L",
-          "opponent": "Georgia",
-          "score": "80-91"
-        },
-        {
-          "result": "L",
-          "opponent": "Florida",
-          "score": "71-84"
-        },
-        {
-          "result": "W",
-          "opponent": "Texas A&M",
-          "score": "76-70"
-        },
-        {
-          "result": "L",
-          "opponent": "Arkansas",
-          "score": "85-105"
-        }
-      ],
-      "nextGame": {
-        "opponent": "Oklahoma",
-        "date": "Mar 8"
-      }
-    },
-    "Southern Illinois": {
-      "confW": 10,
-      "nonConfW": 6,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 26,
-      "recentGames": [
-        {
-          "result": "W",
-          "opponent": "Drake",
-          "score": "66-61"
-        },
-        {
-          "result": "W",
-          "opponent": "Northern Iowa",
-          "score": "59-57"
-        },
-        {
-          "result": "W",
-          "opponent": "Indiana St",
-          "score": "66-55"
-        },
-        {
-          "result": "W",
-          "opponent": "Evansville",
-          "score": "81-67"
-        },
-        {
-          "result": "L",
-          "opponent": "Drake",
-          "score": "63-67"
-        }
-      ],
-      "nextGame": null
-    },
-    "Drexel": {
-      "confW": 10,
-      "nonConfW": 6,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 26,
-      "recentGames": [
-        {
-          "result": "L",
-          "opponent": "Stony Brook",
-          "score": "69-72"
-        },
-        {
-          "result": "W",
-          "opponent": "Northeastern",
-          "score": "70-61"
-        },
-        {
-          "result": "W",
-          "opponent": "Towson",
-          "score": "68-62"
-        },
-        {
-          "result": "W",
-          "opponent": "Campbell",
-          "score": "65-60"
-        },
-        {
-          "result": "L",
-          "opponent": "Hofstra",
-          "score": "51-62"
-        }
-      ],
-      "nextGame": null
     },
     "Louisville": {
       "confW": 10,
@@ -13388,9 +13271,126 @@
         }
       ],
       "nextGame": {
-        "opponent": "TBD",
+        "opponent": "Campbell",
         "date": "Mar 8"
       }
+    },
+    "Texas": {
+      "confW": 9,
+      "nonConfW": 9,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 27,
+      "recentGames": [
+        {
+          "result": "W",
+          "opponent": "LSU",
+          "score": "88-85"
+        },
+        {
+          "result": "L",
+          "opponent": "Georgia",
+          "score": "80-91"
+        },
+        {
+          "result": "L",
+          "opponent": "Florida",
+          "score": "71-84"
+        },
+        {
+          "result": "W",
+          "opponent": "Texas A&M",
+          "score": "76-70"
+        },
+        {
+          "result": "L",
+          "opponent": "Arkansas",
+          "score": "85-105"
+        }
+      ],
+      "nextGame": {
+        "opponent": "Oklahoma",
+        "date": "Mar 8"
+      }
+    },
+    "Southern Illinois": {
+      "confW": 10,
+      "nonConfW": 6,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 26,
+      "recentGames": [
+        {
+          "result": "W",
+          "opponent": "Drake",
+          "score": "66-61"
+        },
+        {
+          "result": "W",
+          "opponent": "Northern Iowa",
+          "score": "59-57"
+        },
+        {
+          "result": "W",
+          "opponent": "Indiana St",
+          "score": "66-55"
+        },
+        {
+          "result": "W",
+          "opponent": "Evansville",
+          "score": "81-67"
+        },
+        {
+          "result": "L",
+          "opponent": "Drake",
+          "score": "63-67"
+        }
+      ],
+      "nextGame": null
+    },
+    "Drexel": {
+      "confW": 10,
+      "nonConfW": 6,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 26,
+      "recentGames": [
+        {
+          "result": "L",
+          "opponent": "Stony Brook",
+          "score": "69-72"
+        },
+        {
+          "result": "W",
+          "opponent": "Northeastern",
+          "score": "70-61"
+        },
+        {
+          "result": "W",
+          "opponent": "Towson",
+          "score": "68-62"
+        },
+        {
+          "result": "W",
+          "opponent": "Campbell",
+          "score": "65-60"
+        },
+        {
+          "result": "L",
+          "opponent": "Hofstra",
+          "score": "51-62"
+        }
+      ],
+      "nextGame": null
     },
     "Vermont": {
       "confW": 12,
@@ -13467,85 +13467,6 @@
         }
       ],
       "nextGame": null
-    },
-    "Iowa State": {
-      "confW": 11,
-      "nonConfW": 13,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 35,
-      "recentGames": [
-        {
-          "result": "W",
-          "opponent": "Houston",
-          "score": "70-67"
-        },
-        {
-          "result": "L",
-          "opponent": "BYU",
-          "score": "69-79"
-        },
-        {
-          "result": "W",
-          "opponent": "Utah",
-          "score": "75-59"
-        },
-        {
-          "result": "L",
-          "opponent": "Texas Tech",
-          "score": "73-82"
-        },
-        {
-          "result": "L",
-          "opponent": "Arizona",
-          "score": "57-73"
-        }
-      ],
-      "nextGame": null
-    },
-    "Boise State": {
-      "confW": 11,
-      "nonConfW": 8,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 30,
-      "recentGames": [
-        {
-          "result": "L",
-          "opponent": "Utah State",
-          "score": "56-75"
-        },
-        {
-          "result": "W",
-          "opponent": "San José St",
-          "score": "84-69"
-        },
-        {
-          "result": "W",
-          "opponent": "Wyoming",
-          "score": "72-62"
-        },
-        {
-          "result": "W",
-          "opponent": "Fresno St",
-          "score": "69-53"
-        },
-        {
-          "result": "W",
-          "opponent": "San Diego St",
-          "score": "86-77"
-        }
-      ],
-      "nextGame": {
-        "opponent": "Colorado St",
-        "date": "Mar 7"
-      }
     },
     "Boston College": {
       "confW": 4,
@@ -13702,82 +13623,82 @@
       ],
       "nextGame": null
     },
-    "Arizona State": {
-      "confW": 7,
-      "nonConfW": 9,
+    "Iowa State": {
+      "confW": 11,
+      "nonConfW": 13,
       "confTitlePts": 0,
       "confTournWinPts": 0,
       "confTournTitlePts": 0,
       "ncaaSeedPts": 0,
       "ncaaWinPts": 0,
-      "totalPoints": 23,
+      "totalPoints": 35,
       "recentGames": [
         {
           "result": "W",
-          "opponent": "Texas Tech",
-          "score": "72-67"
+          "opponent": "Houston",
+          "score": "70-67"
         },
         {
           "result": "L",
-          "opponent": "Baylor",
-          "score": "68-73"
-        },
-        {
-          "result": "L",
-          "opponent": "TCU",
-          "score": "78-90"
+          "opponent": "BYU",
+          "score": "69-79"
         },
         {
           "result": "W",
           "opponent": "Utah",
-          "score": "73-60"
+          "score": "75-59"
         },
         {
-          "result": "W",
-          "opponent": "Kansas",
-          "score": "70-60"
+          "result": "L",
+          "opponent": "Texas Tech",
+          "score": "73-82"
+        },
+        {
+          "result": "L",
+          "opponent": "Arizona",
+          "score": "57-73"
         }
       ],
       "nextGame": null
     },
-    "San Jose State": {
-      "confW": 3,
-      "nonConfW": 5,
+    "Boise State": {
+      "confW": 11,
+      "nonConfW": 8,
       "confTitlePts": 0,
       "confTournWinPts": 0,
       "confTournTitlePts": 0,
       "ncaaSeedPts": 0,
       "ncaaWinPts": 0,
-      "totalPoints": 11,
+      "totalPoints": 30,
       "recentGames": [
         {
-          "result": "W",
-          "opponent": "Nevada",
-          "score": "87-71"
-        },
-        {
           "result": "L",
-          "opponent": "Boise St",
-          "score": "69-84"
+          "opponent": "Utah State",
+          "score": "56-75"
         },
         {
           "result": "W",
-          "opponent": "Air Force",
-          "score": "86-80"
+          "opponent": "San José St",
+          "score": "84-69"
         },
         {
-          "result": "L",
-          "opponent": "Colorado St",
-          "score": "73-85"
+          "result": "W",
+          "opponent": "Wyoming",
+          "score": "72-62"
         },
         {
-          "result": "L",
+          "result": "W",
           "opponent": "Fresno St",
-          "score": "68-82"
+          "score": "69-53"
+        },
+        {
+          "result": "W",
+          "opponent": "San Diego St",
+          "score": "86-77"
         }
       ],
       "nextGame": {
-        "opponent": "Wyoming",
+        "opponent": "Colorado St",
         "date": "Mar 7"
       }
     },
@@ -13860,6 +13781,47 @@
       ],
       "nextGame": null
     },
+    "Rutgers": {
+      "confW": 5,
+      "nonConfW": 7,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 17,
+      "recentGames": [
+        {
+          "result": "W",
+          "opponent": "Penn State",
+          "score": "85-72"
+        },
+        {
+          "result": "L",
+          "opponent": "Minnesota",
+          "score": "61-80"
+        },
+        {
+          "result": "L",
+          "opponent": "Washington",
+          "score": "72-79"
+        },
+        {
+          "result": "W",
+          "opponent": "Maryland",
+          "score": "69-65"
+        },
+        {
+          "result": "L",
+          "opponent": "Michigan St",
+          "score": "87-91"
+        }
+      ],
+      "nextGame": {
+        "opponent": "Penn State",
+        "date": "Mar 8"
+      }
+    },
     "Sacramento State": {
       "confW": 6,
       "nonConfW": 4,
@@ -13939,45 +13901,162 @@
       ],
       "nextGame": null
     },
-    "Rutgers": {
-      "confW": 5,
-      "nonConfW": 7,
+    "Southern Miss": {
+      "confW": 9,
+      "nonConfW": 9,
       "confTitlePts": 0,
       "confTournWinPts": 0,
       "confTournTitlePts": 0,
       "ncaaSeedPts": 0,
       "ncaaWinPts": 0,
-      "totalPoints": 17,
+      "totalPoints": 27,
       "recentGames": [
         {
           "result": "W",
-          "opponent": "Penn State",
-          "score": "85-72"
+          "opponent": "Old Dominion",
+          "score": "86-81"
         },
         {
           "result": "L",
-          "opponent": "Minnesota",
-          "score": "61-80"
-        },
-        {
-          "result": "L",
-          "opponent": "Washington",
-          "score": "72-79"
+          "opponent": "Arkansas St",
+          "score": "84-89"
         },
         {
           "result": "W",
-          "opponent": "Maryland",
-          "score": "69-65"
+          "opponent": "South Alabama",
+          "score": "68-55"
         },
         {
-          "result": "L",
-          "opponent": "Michigan St",
-          "score": "87-91"
+          "result": "W",
+          "opponent": "James Madison",
+          "score": "86-80"
+        },
+        {
+          "result": "W",
+          "opponent": "Texas St",
+          "score": "81-77"
         }
       ],
       "nextGame": {
-        "opponent": "Penn State",
-        "date": "Mar 8"
+        "opponent": "App State",
+        "date": "Mar 7"
+      }
+    },
+    "Stetson": {
+      "confW": 7,
+      "nonConfW": 5,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 19,
+      "recentGames": [
+        {
+          "result": "W",
+          "opponent": "North Florida",
+          "score": "76-71"
+        },
+        {
+          "result": "L",
+          "opponent": "Jacksonville",
+          "score": "85-89"
+        },
+        {
+          "result": "W",
+          "opponent": "FGCU",
+          "score": "78-63"
+        },
+        {
+          "result": "W",
+          "opponent": "E Kentucky",
+          "score": "92-76"
+        },
+        {
+          "result": "L",
+          "opponent": "Austin Peay",
+          "score": "60-69"
+        }
+      ],
+      "nextGame": null
+    },
+    "Arizona State": {
+      "confW": 7,
+      "nonConfW": 9,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 23,
+      "recentGames": [
+        {
+          "result": "W",
+          "opponent": "Texas Tech",
+          "score": "72-67"
+        },
+        {
+          "result": "L",
+          "opponent": "Baylor",
+          "score": "68-73"
+        },
+        {
+          "result": "L",
+          "opponent": "TCU",
+          "score": "78-90"
+        },
+        {
+          "result": "W",
+          "opponent": "Utah",
+          "score": "73-60"
+        },
+        {
+          "result": "W",
+          "opponent": "Kansas",
+          "score": "70-60"
+        }
+      ],
+      "nextGame": null
+    },
+    "San Jose State": {
+      "confW": 3,
+      "nonConfW": 5,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 11,
+      "recentGames": [
+        {
+          "result": "W",
+          "opponent": "Nevada",
+          "score": "87-71"
+        },
+        {
+          "result": "L",
+          "opponent": "Boise St",
+          "score": "69-84"
+        },
+        {
+          "result": "W",
+          "opponent": "Air Force",
+          "score": "86-80"
+        },
+        {
+          "result": "L",
+          "opponent": "Colorado St",
+          "score": "73-85"
+        },
+        {
+          "result": "L",
+          "opponent": "Fresno St",
+          "score": "68-82"
+        }
+      ],
+      "nextGame": {
+        "opponent": "Wyoming",
+        "date": "Mar 7"
       }
     },
     "Cal Poly": {
@@ -14060,6 +14139,85 @@
       "nextGame": {
         "opponent": "Yale",
         "date": "Mar 14"
+      }
+    },
+    "New Hampshire": {
+      "confW": 5,
+      "nonConfW": 4,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 14,
+      "recentGames": [
+        {
+          "result": "L",
+          "opponent": "Maine",
+          "score": "58-61"
+        },
+        {
+          "result": "L",
+          "opponent": "Binghamton",
+          "score": "63-65"
+        },
+        {
+          "result": "L",
+          "opponent": "UAlbany",
+          "score": "61-84"
+        },
+        {
+          "result": "W",
+          "opponent": "Bryant",
+          "score": "88-83"
+        },
+        {
+          "result": "L",
+          "opponent": "UMBC",
+          "score": "69-84"
+        }
+      ],
+      "nextGame": null
+    },
+    "Charlotte": {
+      "confW": 9,
+      "nonConfW": 6,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 24,
+      "recentGames": [
+        {
+          "result": "L",
+          "opponent": "Tulsa",
+          "score": "74-79"
+        },
+        {
+          "result": "W",
+          "opponent": "East Carolina",
+          "score": "68-56"
+        },
+        {
+          "result": "W",
+          "opponent": "North Texas",
+          "score": "80-79"
+        },
+        {
+          "result": "L",
+          "opponent": "FAU",
+          "score": "76-77"
+        },
+        {
+          "result": "L",
+          "opponent": "UAB",
+          "score": "74-80"
+        }
+      ],
+      "nextGame": {
+        "opponent": "South Florida",
+        "date": "Mar 8"
       }
     },
     "West Virginia": {
@@ -14214,164 +14372,6 @@
       ],
       "nextGame": null
     },
-    "Southern Miss": {
-      "confW": 9,
-      "nonConfW": 9,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 27,
-      "recentGames": [
-        {
-          "result": "W",
-          "opponent": "Old Dominion",
-          "score": "86-81"
-        },
-        {
-          "result": "L",
-          "opponent": "Arkansas St",
-          "score": "84-89"
-        },
-        {
-          "result": "W",
-          "opponent": "South Alabama",
-          "score": "68-55"
-        },
-        {
-          "result": "W",
-          "opponent": "James Madison",
-          "score": "86-80"
-        },
-        {
-          "result": "W",
-          "opponent": "Texas St",
-          "score": "81-77"
-        }
-      ],
-      "nextGame": {
-        "opponent": "App State",
-        "date": "Mar 7"
-      }
-    },
-    "Stetson": {
-      "confW": 7,
-      "nonConfW": 5,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 19,
-      "recentGames": [
-        {
-          "result": "W",
-          "opponent": "North Florida",
-          "score": "76-71"
-        },
-        {
-          "result": "L",
-          "opponent": "Jacksonville",
-          "score": "85-89"
-        },
-        {
-          "result": "W",
-          "opponent": "FGCU",
-          "score": "78-63"
-        },
-        {
-          "result": "W",
-          "opponent": "E Kentucky",
-          "score": "92-76"
-        },
-        {
-          "result": "L",
-          "opponent": "Austin Peay",
-          "score": "60-69"
-        }
-      ],
-      "nextGame": null
-    },
-    "New Hampshire": {
-      "confW": 5,
-      "nonConfW": 4,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 14,
-      "recentGames": [
-        {
-          "result": "L",
-          "opponent": "UMass Lowell",
-          "score": "56-78"
-        },
-        {
-          "result": "L",
-          "opponent": "Maine",
-          "score": "58-61"
-        },
-        {
-          "result": "L",
-          "opponent": "Binghamton",
-          "score": "63-65"
-        },
-        {
-          "result": "L",
-          "opponent": "UAlbany",
-          "score": "61-84"
-        },
-        {
-          "result": "W",
-          "opponent": "Bryant",
-          "score": "88-83"
-        }
-      ],
-      "nextGame": null
-    },
-    "Charlotte": {
-      "confW": 9,
-      "nonConfW": 6,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 24,
-      "recentGames": [
-        {
-          "result": "L",
-          "opponent": "Tulsa",
-          "score": "74-79"
-        },
-        {
-          "result": "W",
-          "opponent": "East Carolina",
-          "score": "68-56"
-        },
-        {
-          "result": "W",
-          "opponent": "North Texas",
-          "score": "80-79"
-        },
-        {
-          "result": "L",
-          "opponent": "FAU",
-          "score": "76-77"
-        },
-        {
-          "result": "L",
-          "opponent": "UAB",
-          "score": "74-80"
-        }
-      ],
-      "nextGame": {
-        "opponent": "South Florida",
-        "date": "Mar 8"
-      }
-    },
     "Little Rock": {
       "confW": 9,
       "nonConfW": 3,
@@ -14492,6 +14492,88 @@
         "date": "Mar 8"
       }
     },
+    "Southern Utah": {
+      "confW": 6,
+      "nonConfW": 4,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 16,
+      "recentGames": [
+        {
+          "result": "W",
+          "opponent": "UT Arlington",
+          "score": "78-73"
+        },
+        {
+          "result": "L",
+          "opponent": "Tarleton St",
+          "score": "74-78"
+        },
+        {
+          "result": "L",
+          "opponent": "Abilene Chrstn",
+          "score": "83-87"
+        },
+        {
+          "result": "W",
+          "opponent": "Utah Tech",
+          "score": "81-67"
+        },
+        {
+          "result": "L",
+          "opponent": "Utah Valley",
+          "score": "88-92"
+        }
+      ],
+      "nextGame": {
+        "opponent": "CA Baptist",
+        "date": "Mar 8"
+      }
+    },
+    "Wisconsin": {
+      "confW": 13,
+      "nonConfW": 8,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 34,
+      "recentGames": [
+        {
+          "result": "L",
+          "opponent": "Ohio State",
+          "score": "69-86"
+        },
+        {
+          "result": "W",
+          "opponent": "Iowa",
+          "score": "84-71"
+        },
+        {
+          "result": "L",
+          "opponent": "Oregon",
+          "score": "71-85"
+        },
+        {
+          "result": "W",
+          "opponent": "Washington",
+          "score": "90-73"
+        },
+        {
+          "result": "W",
+          "opponent": "Maryland",
+          "score": "78-45"
+        }
+      ],
+      "nextGame": {
+        "opponent": "Purdue",
+        "date": "Mar 7"
+      }
+    },
     "North Texas": {
       "confW": 9,
       "nonConfW": 9,
@@ -14567,47 +14649,6 @@
         }
       ],
       "nextGame": null
-    },
-    "Southern Utah": {
-      "confW": 6,
-      "nonConfW": 4,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 16,
-      "recentGames": [
-        {
-          "result": "W",
-          "opponent": "UT Arlington",
-          "score": "78-73"
-        },
-        {
-          "result": "L",
-          "opponent": "Tarleton St",
-          "score": "74-78"
-        },
-        {
-          "result": "L",
-          "opponent": "Abilene Chrstn",
-          "score": "83-87"
-        },
-        {
-          "result": "W",
-          "opponent": "Utah Tech",
-          "score": "81-67"
-        },
-        {
-          "result": "L",
-          "opponent": "Utah Valley",
-          "score": "88-92"
-        }
-      ],
-      "nextGame": {
-        "opponent": "CA Baptist",
-        "date": "Mar 8"
-      }
     },
     "Georgia Tech": {
       "confW": 2,
@@ -14805,85 +14846,6 @@
       ],
       "nextGame": null
     },
-    "East Texas A&M": {
-      "confW": 6,
-      "nonConfW": 5,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 17,
-      "recentGames": [
-        {
-          "result": "W",
-          "opponent": "SE Louisiana",
-          "score": "70-53"
-        },
-        {
-          "result": "L",
-          "opponent": "Incarnate Word",
-          "score": "73-82"
-        },
-        {
-          "result": "L",
-          "opponent": "Hou Christian",
-          "score": "68-69"
-        },
-        {
-          "result": "L",
-          "opponent": "UT Rio Grande",
-          "score": "55-63"
-        },
-        {
-          "result": "L",
-          "opponent": "Texas A&M-CC",
-          "score": "71-84"
-        }
-      ],
-      "nextGame": null
-    },
-    "Wisconsin": {
-      "confW": 13,
-      "nonConfW": 8,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 34,
-      "recentGames": [
-        {
-          "result": "L",
-          "opponent": "Ohio State",
-          "score": "69-86"
-        },
-        {
-          "result": "W",
-          "opponent": "Iowa",
-          "score": "84-71"
-        },
-        {
-          "result": "L",
-          "opponent": "Oregon",
-          "score": "71-85"
-        },
-        {
-          "result": "W",
-          "opponent": "Washington",
-          "score": "90-73"
-        },
-        {
-          "result": "W",
-          "opponent": "Maryland",
-          "score": "78-45"
-        }
-      ],
-      "nextGame": {
-        "opponent": "Purdue",
-        "date": "Mar 7"
-      }
-    },
     "Umass": {
       "confW": 7,
       "nonConfW": 9,
@@ -14923,6 +14885,85 @@
       "nextGame": {
         "opponent": "Miami OH",
         "date": "Mar 12"
+      }
+    },
+    "East Texas A&M": {
+      "confW": 6,
+      "nonConfW": 5,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 17,
+      "recentGames": [
+        {
+          "result": "W",
+          "opponent": "SE Louisiana",
+          "score": "70-53"
+        },
+        {
+          "result": "L",
+          "opponent": "Incarnate Word",
+          "score": "73-82"
+        },
+        {
+          "result": "L",
+          "opponent": "Hou Christian",
+          "score": "68-69"
+        },
+        {
+          "result": "L",
+          "opponent": "UT Rio Grande",
+          "score": "55-63"
+        },
+        {
+          "result": "L",
+          "opponent": "Texas A&M-CC",
+          "score": "71-84"
+        }
+      ],
+      "nextGame": null
+    },
+    "Hampton": {
+      "confW": 7,
+      "nonConfW": 6,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 20,
+      "recentGames": [
+        {
+          "result": "L",
+          "opponent": "Hofstra",
+          "score": "43-79"
+        },
+        {
+          "result": "L",
+          "opponent": "Stony Brook",
+          "score": "72-79"
+        },
+        {
+          "result": "L",
+          "opponent": "Charleston",
+          "score": "71-85"
+        },
+        {
+          "result": "W",
+          "opponent": "Northeastern",
+          "score": "76-65"
+        },
+        {
+          "result": "L",
+          "opponent": "William & Mary",
+          "score": "85-94"
+        }
+      ],
+      "nextGame": {
+        "opponent": "Towson",
+        "date": "Mar 7"
       }
     },
     "Michigan State": {
@@ -15007,47 +15048,6 @@
         "date": "Mar 8"
       }
     },
-    "Hampton": {
-      "confW": 7,
-      "nonConfW": 6,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 20,
-      "recentGames": [
-        {
-          "result": "L",
-          "opponent": "Hofstra",
-          "score": "43-79"
-        },
-        {
-          "result": "L",
-          "opponent": "Stony Brook",
-          "score": "72-79"
-        },
-        {
-          "result": "L",
-          "opponent": "Charleston",
-          "score": "71-85"
-        },
-        {
-          "result": "W",
-          "opponent": "Northeastern",
-          "score": "76-65"
-        },
-        {
-          "result": "L",
-          "opponent": "William & Mary",
-          "score": "85-94"
-        }
-      ],
-      "nextGame": {
-        "opponent": "Towson",
-        "date": "Mar 7"
-      }
-    },
     "Kansas State": {
       "confW": 3,
       "nonConfW": 9,
@@ -15120,126 +15120,6 @@
           "result": "L",
           "opponent": "Morehead St",
           "score": "61-66"
-        }
-      ],
-      "nextGame": null
-    },
-    "Towson": {
-      "confW": 9,
-      "nonConfW": 8,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 26,
-      "recentGames": [
-        {
-          "result": "L",
-          "opponent": "Monmouth",
-          "score": "71-72"
-        },
-        {
-          "result": "L",
-          "opponent": "Drexel",
-          "score": "62-68"
-        },
-        {
-          "result": "W",
-          "opponent": "Elon",
-          "score": "58-56"
-        },
-        {
-          "result": "W",
-          "opponent": "Campbell",
-          "score": "71-67"
-        },
-        {
-          "result": "W",
-          "opponent": "Stony Brook",
-          "score": "69-57"
-        }
-      ],
-      "nextGame": {
-        "opponent": "Hampton",
-        "date": "Mar 7"
-      }
-    },
-    "Northern Iowa": {
-      "confW": 11,
-      "nonConfW": 10,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 32,
-      "recentGames": [
-        {
-          "result": "L",
-          "opponent": "S Illinois",
-          "score": "57-59"
-        },
-        {
-          "result": "L",
-          "opponent": "Illinois St",
-          "score": "69-71"
-        },
-        {
-          "result": "W",
-          "opponent": "Drake",
-          "score": "75-53"
-        },
-        {
-          "result": "W",
-          "opponent": "Evansville",
-          "score": "68-59"
-        },
-        {
-          "result": "W",
-          "opponent": "Illinois St",
-          "score": "74-52"
-        }
-      ],
-      "nextGame": {
-        "opponent": "Bradley",
-        "date": "Mar 7"
-      }
-    },
-    "Gardner-Webb": {
-      "confW": 1,
-      "nonConfW": 3,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 5,
-      "recentGames": [
-        {
-          "result": "L",
-          "opponent": "Radford",
-          "score": "70-82"
-        },
-        {
-          "result": "L",
-          "opponent": "UNC Asheville",
-          "score": "71-77"
-        },
-        {
-          "result": "L",
-          "opponent": "SC Upstate",
-          "score": "61-71"
-        },
-        {
-          "result": "W",
-          "opponent": "SC Upstate",
-          "score": "65-64"
-        },
-        {
-          "result": "L",
-          "opponent": "High Point",
-          "score": "59-81"
         }
       ],
       "nextGame": null
@@ -15361,6 +15241,88 @@
       ],
       "nextGame": null
     },
+    "Northern Iowa": {
+      "confW": 11,
+      "nonConfW": 10,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 32,
+      "recentGames": [
+        {
+          "result": "L",
+          "opponent": "S Illinois",
+          "score": "57-59"
+        },
+        {
+          "result": "L",
+          "opponent": "Illinois St",
+          "score": "69-71"
+        },
+        {
+          "result": "W",
+          "opponent": "Drake",
+          "score": "75-53"
+        },
+        {
+          "result": "W",
+          "opponent": "Evansville",
+          "score": "68-59"
+        },
+        {
+          "result": "W",
+          "opponent": "Illinois St",
+          "score": "74-52"
+        }
+      ],
+      "nextGame": {
+        "opponent": "Bradley",
+        "date": "Mar 7"
+      }
+    },
+    "Towson": {
+      "confW": 9,
+      "nonConfW": 8,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 26,
+      "recentGames": [
+        {
+          "result": "L",
+          "opponent": "Monmouth",
+          "score": "71-72"
+        },
+        {
+          "result": "L",
+          "opponent": "Drexel",
+          "score": "62-68"
+        },
+        {
+          "result": "W",
+          "opponent": "Elon",
+          "score": "58-56"
+        },
+        {
+          "result": "W",
+          "opponent": "Campbell",
+          "score": "71-67"
+        },
+        {
+          "result": "W",
+          "opponent": "Stony Brook",
+          "score": "69-57"
+        }
+      ],
+      "nextGame": {
+        "opponent": "Hampton",
+        "date": "Mar 7"
+      }
+    },
     "Drake": {
       "confW": 6,
       "nonConfW": 8,
@@ -15478,6 +15440,44 @@
       ],
       "nextGame": null
     },
+    "Gardner-Webb": {
+      "confW": 1,
+      "nonConfW": 3,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 5,
+      "recentGames": [
+        {
+          "result": "L",
+          "opponent": "Radford",
+          "score": "70-82"
+        },
+        {
+          "result": "L",
+          "opponent": "UNC Asheville",
+          "score": "71-77"
+        },
+        {
+          "result": "L",
+          "opponent": "SC Upstate",
+          "score": "61-71"
+        },
+        {
+          "result": "W",
+          "opponent": "SC Upstate",
+          "score": "65-64"
+        },
+        {
+          "result": "L",
+          "opponent": "High Point",
+          "score": "59-81"
+        }
+      ],
+      "nextGame": null
+    },
     "Evansville": {
       "confW": 3,
       "nonConfW": 4,
@@ -15515,47 +15515,6 @@
         }
       ],
       "nextGame": null
-    },
-    "Bethune-Cookman": {
-      "confW": 14,
-      "nonConfW": 3,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 31,
-      "recentGames": [
-        {
-          "result": "W",
-          "opponent": "Alabama St",
-          "score": "82-71"
-        },
-        {
-          "result": "W",
-          "opponent": "Alabama A&M",
-          "score": "85-76"
-        },
-        {
-          "result": "W",
-          "opponent": "Grambling",
-          "score": "76-71"
-        },
-        {
-          "result": "W",
-          "opponent": "Southern",
-          "score": "82-79"
-        },
-        {
-          "result": "L",
-          "opponent": "Florida A&M",
-          "score": "77-81"
-        }
-      ],
-      "nextGame": {
-        "opponent": "TBD",
-        "date": "Mar 11"
-      }
     },
     "Stanford": {
       "confW": 8,
@@ -15791,6 +15750,47 @@
         "date": "Mar 12"
       }
     },
+    "Bethune-Cookman": {
+      "confW": 14,
+      "nonConfW": 3,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 31,
+      "recentGames": [
+        {
+          "result": "W",
+          "opponent": "Alabama St",
+          "score": "82-71"
+        },
+        {
+          "result": "W",
+          "opponent": "Alabama A&M",
+          "score": "85-76"
+        },
+        {
+          "result": "W",
+          "opponent": "Grambling",
+          "score": "76-71"
+        },
+        {
+          "result": "W",
+          "opponent": "Southern",
+          "score": "82-79"
+        },
+        {
+          "result": "L",
+          "opponent": "Florida A&M",
+          "score": "77-81"
+        }
+      ],
+      "nextGame": {
+        "opponent": "TBD",
+        "date": "Mar 11"
+      }
+    },
     "Columbia": {
       "confW": 5,
       "nonConfW": 11,
@@ -15825,85 +15825,6 @@
           "result": "L",
           "opponent": "Harvard",
           "score": "71-81"
-        }
-      ],
-      "nextGame": null
-    },
-    "Grand Canyon": {
-      "confW": 12,
-      "nonConfW": 7,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 31,
-      "recentGames": [
-        {
-          "result": "W",
-          "opponent": "San Diego St",
-          "score": "73-63"
-        },
-        {
-          "result": "L",
-          "opponent": "Wyoming",
-          "score": "65-70"
-        },
-        {
-          "result": "W",
-          "opponent": "UNLV",
-          "score": "80-67"
-        },
-        {
-          "result": "L",
-          "opponent": "Utah State",
-          "score": "69-74"
-        },
-        {
-          "result": "W",
-          "opponent": "Air Force",
-          "score": "86-60"
-        }
-      ],
-      "nextGame": {
-        "opponent": "Fresno St",
-        "date": "Mar 8"
-      }
-    },
-    "Holy Cross": {
-      "confW": 5,
-      "nonConfW": 6,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 16,
-      "recentGames": [
-        {
-          "result": "W",
-          "opponent": "Bucknell",
-          "score": "72-63"
-        },
-        {
-          "result": "L",
-          "opponent": "Boston U",
-          "score": "63-78"
-        },
-        {
-          "result": "L",
-          "opponent": "Loyola MD",
-          "score": "62-76"
-        },
-        {
-          "result": "W",
-          "opponent": "Lafayette",
-          "score": "82-77"
-        },
-        {
-          "result": "L",
-          "opponent": "Lehigh",
-          "score": "66-69"
         }
       ],
       "nextGame": null
@@ -16104,6 +16025,164 @@
         "date": "Mar 8"
       }
     },
+    "Grand Canyon": {
+      "confW": 12,
+      "nonConfW": 7,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 31,
+      "recentGames": [
+        {
+          "result": "W",
+          "opponent": "San Diego St",
+          "score": "73-63"
+        },
+        {
+          "result": "L",
+          "opponent": "Wyoming",
+          "score": "65-70"
+        },
+        {
+          "result": "W",
+          "opponent": "UNLV",
+          "score": "80-67"
+        },
+        {
+          "result": "L",
+          "opponent": "Utah State",
+          "score": "69-74"
+        },
+        {
+          "result": "W",
+          "opponent": "Air Force",
+          "score": "86-60"
+        }
+      ],
+      "nextGame": {
+        "opponent": "Fresno St",
+        "date": "Mar 8"
+      }
+    },
+    "Holy Cross": {
+      "confW": 5,
+      "nonConfW": 6,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 16,
+      "recentGames": [
+        {
+          "result": "W",
+          "opponent": "Bucknell",
+          "score": "72-63"
+        },
+        {
+          "result": "L",
+          "opponent": "Boston U",
+          "score": "63-78"
+        },
+        {
+          "result": "L",
+          "opponent": "Loyola MD",
+          "score": "62-76"
+        },
+        {
+          "result": "W",
+          "opponent": "Lafayette",
+          "score": "82-77"
+        },
+        {
+          "result": "L",
+          "opponent": "Lehigh",
+          "score": "66-69"
+        }
+      ],
+      "nextGame": null
+    },
+    "Memphis": {
+      "confW": 7,
+      "nonConfW": 5,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 19,
+      "recentGames": [
+        {
+          "result": "L",
+          "opponent": "South Florida",
+          "score": "66-87"
+        },
+        {
+          "result": "L",
+          "opponent": "UAB",
+          "score": "67-78"
+        },
+        {
+          "result": "L",
+          "opponent": "Wichita St",
+          "score": "82-88"
+        },
+        {
+          "result": "L",
+          "opponent": "East Carolina",
+          "score": "68-84"
+        },
+        {
+          "result": "L",
+          "opponent": "South Florida",
+          "score": "89-96"
+        }
+      ],
+      "nextGame": {
+        "opponent": "Tulane",
+        "date": "Mar 8"
+      }
+    },
+    "Louisiana Tech": {
+      "confW": 11,
+      "nonConfW": 7,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 29,
+      "recentGames": [
+        {
+          "result": "L",
+          "opponent": "Kennesaw St",
+          "score": "55-58"
+        },
+        {
+          "result": "W",
+          "opponent": "Missouri St",
+          "score": "72-70"
+        },
+        {
+          "result": "L",
+          "opponent": "FIU",
+          "score": "76-84"
+        },
+        {
+          "result": "W",
+          "opponent": "Liberty",
+          "score": "76-71"
+        },
+        {
+          "result": "W",
+          "opponent": "Delaware",
+          "score": "81-38"
+        }
+      ],
+      "nextGame": null
+    },
     "St Thomas MN": {
       "confW": 12,
       "nonConfW": 12,
@@ -16303,85 +16382,6 @@
         "date": "Mar 8"
       }
     },
-    "Memphis": {
-      "confW": 7,
-      "nonConfW": 5,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 19,
-      "recentGames": [
-        {
-          "result": "L",
-          "opponent": "South Florida",
-          "score": "66-87"
-        },
-        {
-          "result": "L",
-          "opponent": "UAB",
-          "score": "67-78"
-        },
-        {
-          "result": "L",
-          "opponent": "Wichita St",
-          "score": "82-88"
-        },
-        {
-          "result": "L",
-          "opponent": "East Carolina",
-          "score": "68-84"
-        },
-        {
-          "result": "L",
-          "opponent": "South Florida",
-          "score": "89-96"
-        }
-      ],
-      "nextGame": {
-        "opponent": "Tulane",
-        "date": "Mar 8"
-      }
-    },
-    "Louisiana Tech": {
-      "confW": 11,
-      "nonConfW": 7,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 29,
-      "recentGames": [
-        {
-          "result": "L",
-          "opponent": "Kennesaw St",
-          "score": "55-58"
-        },
-        {
-          "result": "W",
-          "opponent": "Missouri St",
-          "score": "72-70"
-        },
-        {
-          "result": "L",
-          "opponent": "FIU",
-          "score": "76-84"
-        },
-        {
-          "result": "W",
-          "opponent": "Liberty",
-          "score": "76-71"
-        },
-        {
-          "result": "W",
-          "opponent": "Delaware",
-          "score": "81-38"
-        }
-      ],
-      "nextGame": null
-    },
     "Georgetown": {
       "confW": 5,
       "nonConfW": 8,
@@ -16422,6 +16422,44 @@
         "opponent": "Providence",
         "date": "Mar 8"
       }
+    },
+    "Marquette": {
+      "confW": 6,
+      "nonConfW": 5,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 17,
+      "recentGames": [
+        {
+          "result": "L",
+          "opponent": "Xavier",
+          "score": "88-96"
+        },
+        {
+          "result": "L",
+          "opponent": "St John's",
+          "score": "70-76"
+        },
+        {
+          "result": "W",
+          "opponent": "Georgetown",
+          "score": "76-60"
+        },
+        {
+          "result": "L",
+          "opponent": "DePaul",
+          "score": "51-62"
+        },
+        {
+          "result": "W",
+          "opponent": "Providence",
+          "score": "78-56"
+        }
+      ],
+      "nextGame": null
     },
     "Auburn": {
       "confW": 7,
@@ -16584,44 +16622,6 @@
         "date": "Mar 8"
       }
     },
-    "Marquette": {
-      "confW": 6,
-      "nonConfW": 5,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 17,
-      "recentGames": [
-        {
-          "result": "L",
-          "opponent": "Xavier",
-          "score": "88-96"
-        },
-        {
-          "result": "L",
-          "opponent": "St John's",
-          "score": "70-76"
-        },
-        {
-          "result": "W",
-          "opponent": "Georgetown",
-          "score": "76-60"
-        },
-        {
-          "result": "L",
-          "opponent": "DePaul",
-          "score": "51-62"
-        },
-        {
-          "result": "W",
-          "opponent": "Providence",
-          "score": "78-56"
-        }
-      ],
-      "nextGame": null
-    },
     "Delaware State": {
       "confW": 2,
       "nonConfW": 5,
@@ -16661,47 +16661,6 @@
       "nextGame": {
         "opponent": "Morgan St",
         "date": "Mar 11"
-      }
-    },
-    "Minnesota": {
-      "confW": 7,
-      "nonConfW": 7,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 21,
-      "recentGames": [
-        {
-          "result": "W",
-          "opponent": "Oregon",
-          "score": "61-44"
-        },
-        {
-          "result": "W",
-          "opponent": "Rutgers",
-          "score": "80-61"
-        },
-        {
-          "result": "L",
-          "opponent": "Michigan",
-          "score": "67-77"
-        },
-        {
-          "result": "W",
-          "opponent": "UCLA",
-          "score": "78-73"
-        },
-        {
-          "result": "L",
-          "opponent": "Indiana",
-          "score": "47-77"
-        }
-      ],
-      "nextGame": {
-        "opponent": "Northwestern",
-        "date": "Mar 8"
       }
     },
     "Colorado State": {
@@ -16745,6 +16704,85 @@
         "date": "Mar 7"
       }
     },
+    "Minnesota": {
+      "confW": 7,
+      "nonConfW": 7,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 21,
+      "recentGames": [
+        {
+          "result": "W",
+          "opponent": "Oregon",
+          "score": "61-44"
+        },
+        {
+          "result": "W",
+          "opponent": "Rutgers",
+          "score": "80-61"
+        },
+        {
+          "result": "L",
+          "opponent": "Michigan",
+          "score": "67-77"
+        },
+        {
+          "result": "W",
+          "opponent": "UCLA",
+          "score": "78-73"
+        },
+        {
+          "result": "L",
+          "opponent": "Indiana",
+          "score": "47-77"
+        }
+      ],
+      "nextGame": {
+        "opponent": "Northwestern",
+        "date": "Mar 8"
+      }
+    },
+    "Manhattan": {
+      "confW": 8,
+      "nonConfW": 4,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 20,
+      "recentGames": [
+        {
+          "result": "W",
+          "opponent": "Canisius",
+          "score": "69-65"
+        },
+        {
+          "result": "L",
+          "opponent": "Marist",
+          "score": "70-84"
+        },
+        {
+          "result": "L",
+          "opponent": "Saint Peter's",
+          "score": "65-75"
+        },
+        {
+          "result": "L",
+          "opponent": "Iona",
+          "score": "65-69"
+        },
+        {
+          "result": "L",
+          "opponent": "Fairfield",
+          "score": "60-71"
+        }
+      ],
+      "nextGame": null
+    },
     "Canisius": {
       "confW": 5,
       "nonConfW": 5,
@@ -16779,85 +16817,6 @@
           "result": "L",
           "opponent": "Quinnipiac",
           "score": "63-67"
-        }
-      ],
-      "nextGame": null
-    },
-    "Siena": {
-      "confW": 13,
-      "nonConfW": 7,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 33,
-      "recentGames": [
-        {
-          "result": "W",
-          "opponent": "Marist",
-          "score": "67-63"
-        },
-        {
-          "result": "L",
-          "opponent": "Merrimack",
-          "score": "72-79"
-        },
-        {
-          "result": "W",
-          "opponent": "Saint Peter's",
-          "score": "72-63"
-        },
-        {
-          "result": "L",
-          "opponent": "Fairfield",
-          "score": "58-72"
-        },
-        {
-          "result": "W",
-          "opponent": "Rider",
-          "score": "76-61"
-        }
-      ],
-      "nextGame": {
-        "opponent": "Mount St Marys",
-        "date": "Mar 8"
-      }
-    },
-    "Brown": {
-      "confW": 3,
-      "nonConfW": 6,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 12,
-      "recentGames": [
-        {
-          "result": "W",
-          "opponent": "Dartmouth",
-          "score": "79-76"
-        },
-        {
-          "result": "W",
-          "opponent": "Princeton",
-          "score": "80-71"
-        },
-        {
-          "result": "L",
-          "opponent": "Columbia",
-          "score": "62-80"
-        },
-        {
-          "result": "L",
-          "opponent": "Cornell",
-          "score": "80-86"
-        },
-        {
-          "result": "L",
-          "opponent": "Penn",
-          "score": "61-82"
         }
       ],
       "nextGame": null
@@ -16902,44 +16861,6 @@
         "opponent": "Georgetown",
         "date": "Mar 8"
       }
-    },
-    "Manhattan": {
-      "confW": 8,
-      "nonConfW": 4,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 20,
-      "recentGames": [
-        {
-          "result": "W",
-          "opponent": "Canisius",
-          "score": "69-65"
-        },
-        {
-          "result": "L",
-          "opponent": "Marist",
-          "score": "70-84"
-        },
-        {
-          "result": "L",
-          "opponent": "Saint Peter's",
-          "score": "65-75"
-        },
-        {
-          "result": "L",
-          "opponent": "Iona",
-          "score": "65-69"
-        },
-        {
-          "result": "L",
-          "opponent": "Fairfield",
-          "score": "60-71"
-        }
-      ],
-      "nextGame": null
     },
     "UTEP": {
       "confW": 7,
@@ -17060,6 +16981,85 @@
         "opponent": "TBD",
         "date": "Mar 10"
       }
+    },
+    "Siena": {
+      "confW": 13,
+      "nonConfW": 7,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 33,
+      "recentGames": [
+        {
+          "result": "W",
+          "opponent": "Marist",
+          "score": "67-63"
+        },
+        {
+          "result": "L",
+          "opponent": "Merrimack",
+          "score": "72-79"
+        },
+        {
+          "result": "W",
+          "opponent": "Saint Peter's",
+          "score": "72-63"
+        },
+        {
+          "result": "L",
+          "opponent": "Fairfield",
+          "score": "58-72"
+        },
+        {
+          "result": "W",
+          "opponent": "Rider",
+          "score": "76-61"
+        }
+      ],
+      "nextGame": {
+        "opponent": "Mount St Marys",
+        "date": "Mar 8"
+      }
+    },
+    "Brown": {
+      "confW": 3,
+      "nonConfW": 6,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 12,
+      "recentGames": [
+        {
+          "result": "W",
+          "opponent": "Dartmouth",
+          "score": "79-76"
+        },
+        {
+          "result": "W",
+          "opponent": "Princeton",
+          "score": "80-71"
+        },
+        {
+          "result": "L",
+          "opponent": "Columbia",
+          "score": "62-80"
+        },
+        {
+          "result": "L",
+          "opponent": "Cornell",
+          "score": "80-86"
+        },
+        {
+          "result": "L",
+          "opponent": "Penn",
+          "score": "61-82"
+        }
+      ],
+      "nextGame": null
     },
     "Washington": {
       "confW": 7,
@@ -17532,44 +17532,6 @@
       ],
       "nextGame": null
     },
-    "Southern Indiana": {
-      "confW": 4,
-      "nonConfW": 3,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 11,
-      "recentGames": [
-        {
-          "result": "L",
-          "opponent": "Tennessee Tech",
-          "score": "74-82"
-        },
-        {
-          "result": "W",
-          "opponent": "W Illinois",
-          "score": "77-70"
-        },
-        {
-          "result": "W",
-          "opponent": "E Illinois",
-          "score": "70-68"
-        },
-        {
-          "result": "L",
-          "opponent": "Morehead St",
-          "score": "63-64"
-        },
-        {
-          "result": "L",
-          "opponent": "Little Rock",
-          "score": "70-89"
-        }
-      ],
-      "nextGame": null
-    },
     "Northern Arizona": {
       "confW": 4,
       "nonConfW": 6,
@@ -17610,6 +17572,44 @@
         "opponent": "Idaho St",
         "date": "Mar 8"
       }
+    },
+    "Southern Indiana": {
+      "confW": 4,
+      "nonConfW": 3,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 11,
+      "recentGames": [
+        {
+          "result": "L",
+          "opponent": "Tennessee Tech",
+          "score": "74-82"
+        },
+        {
+          "result": "W",
+          "opponent": "W Illinois",
+          "score": "77-70"
+        },
+        {
+          "result": "W",
+          "opponent": "E Illinois",
+          "score": "70-68"
+        },
+        {
+          "result": "L",
+          "opponent": "Morehead St",
+          "score": "63-64"
+        },
+        {
+          "result": "L",
+          "opponent": "Little Rock",
+          "score": "70-89"
+        }
+      ],
+      "nextGame": null
     }
   }
 }
