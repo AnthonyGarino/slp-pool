@@ -335,10 +335,26 @@ async function calcPostSeasonPoints(espnId, gid, standingsCache) {
     gid && standingsCache[gid] ? Object.keys(standingsCache[gid]) : []
   );
 
-  const postSeasonEvents = sched.events.filter(e => e.seasonType && e.seasonType.id === '3');
+  // Find post-season events: ESPN seasonType 3, OR regular-season events
+  // with notes indicating a conference championship (ESPN sometimes classifies
+  // conf tournament games as seasonType 2 with "Championship" in the notes).
+  // Date filter: only count "Championship" notes after Feb 15 to avoid
+  // early-season non-conference tournaments (e.g. "Baha Mar Championship").
+  const confTournCutoff = new Date(`${SEASON}-02-15`);
+  const postSeasonEvents = sched.events.filter(e => {
+    if (e.seasonType && e.seasonType.id === '3') return true;
+    // Check notes for conference championship indicators (after Feb 15 only)
+    if (new Date(e.date) >= confTournCutoff) {
+      const notes = (e.competitions && e.competitions[0] && e.competitions[0].notes &&
+                     e.competitions[0].notes[0] && e.competitions[0].notes[0].headline) || '';
+      if (/championship/i.test(notes)) return true;
+    }
+    return false;
+  });
 
   let confTournWins  = 0;
   let confTournLast  = null; // 'W' or 'L' for last conf-tourn game
+  let wonChampGame   = false; // true only if won a game with "Final" or "Championship Game" in notes
   let ncaaWins       = 0;
   let ncaaSeed       = 0;
 
@@ -353,9 +369,9 @@ async function calcPostSeasonPoints(espnId, gid, standingsCache) {
     const oppId   = opp.id;
     const iWon    = me.winner === true;
 
-    // Classify: check event name for "NCAA" to distinguish from conf tournament
+    // Classify: check event name/notes for "NCAA" to distinguish from conf tournament
     const evName  = (ev.name || '').toLowerCase();
-    const evNotes = ((ev.competitions[0] && ev.competitions[0].notes && ev.competitions[0].notes[0] && ev.competitions[0].notes[0].headline) || '').toLowerCase();
+    const evNotes = ((comp.notes && comp.notes[0] && comp.notes[0].headline) || '').toLowerCase();
     const isNCAA  = evName.includes('ncaa') || evNotes.includes('ncaa');
 
     if (isNCAA) {
@@ -366,18 +382,27 @@ async function calcPostSeasonPoints(espnId, gid, standingsCache) {
         if (me.curatedRank && me.curatedRank.current) ncaaSeed = me.curatedRank.current;
         else if (me.seed) ncaaSeed = me.seed;
       }
-    } else if (confTeamIds.has(oppId)) {
-      // Conference tournament game (post-season + same-conf opponent + not NCAA)
-      if (iWon) confTournWins++;
+    } else if (confTeamIds.has(oppId) || evNotes.includes('championship')) {
+      // Conference tournament game: either same-conf opponent in post-season,
+      // or notes explicitly say "championship" (covers ESPN mislabeled seasonType)
+      if (iWon) {
+        confTournWins++;
+        // Check if this was the championship/final game
+        // Match "Final" as a standalone word (not "Semifinal" or "Quarterfinal")
+        if (/\bfinal\b/i.test(evNotes) || evNotes.includes('championship game')) {
+          wonChampGame = true;
+        }
+      }
       confTournLast = iWon ? 'W' : 'L';
     }
     // else: other post-season games (NIT, CBI, etc.) — no points
   }
 
-  // Conf tournament title: won their last conf tournament game AND had the most wins
-  // We track this per-team; the actual title determination is done in the main loop
-  // by comparing confTournWins across all teams in the conference group
-  const confTournTitle = confTournLast === 'W' && confTournWins >= 1;
+  // Conf tournament title: won the championship game (Final) of the tournament.
+  // wonChampGame is set when the team wins a game with "Final" or "Championship Game"
+  // in the notes. Fallback: confTournLast === 'W' for seasonType 3 events that
+  // may not have descriptive notes (combined with most-wins check in main loop).
+  const confTournTitle = wonChampGame;
 
   // NCAA seeding points (only if we actually have a seed, i.e. tournament started)
   const seedPts = ncaaSeed === 0 ? 0 :
@@ -473,49 +498,104 @@ async function main() {
   }
 
   // ── Determine conference regular-season title holders per group ──────
-  // For each conference group that appears, find highest confWPct
+  // Use full standings data — not just picked teams — so the true conference
+  // leader is found even if that team wasn't picked by anyone.
   const confLeaders = {};   // gid → maxWPct
-  for (const [name, sc] of Object.entries(teamScore)) {
-    const gid = sc.gid;
-    if (!gid) continue;
-    if (!confLeaders[gid] || sc.confWPct > confLeaders[gid]) {
-      confLeaders[gid] = sc.confWPct;
+  for (const [gidStr, teams] of Object.entries(standingsCache)) {
+    const gid = Number(gidStr);
+    for (const [tid, rec] of Object.entries(teams)) {
+      if (rec.confWPct > 0 && (!confLeaders[gid] || rec.confWPct > confLeaders[gid])) {
+        confLeaders[gid] = rec.confWPct;
+      }
     }
   }
 
-  // Check if conference tournament has started (any team with confTournWins > 0)
-  // Only award +5 title bonus after regular season is clinched
+  // Count ALL teams in each conference that share the lead (not just picked teams),
+  // so tie-breaking (+3 vs +2) reflects the actual conference standings.
+  const confTitleCount = {};   // gid → number of teams tied for best WPct
+  for (const [gidStr, teams] of Object.entries(standingsCache)) {
+    const gid = Number(gidStr);
+    if (!confLeaders[gid]) continue;
+    for (const [tid, rec] of Object.entries(teams)) {
+      if (rec.confWPct > 0 && rec.confWPct === confLeaders[gid]) {
+        confTitleCount[gid] = (confTitleCount[gid] || 0) + 1;
+      }
+    }
+  }
+
+  // Clinch detection: award title points when the outcome is decided.
+  // Uses max games played in the conference as a proxy for total schedule length.
+  // Two cases: (A) sole leader who can't be caught even in worst case,
+  //            (B) tied leaders who have all finished their conference schedule.
+  const confClinched = {};
+  for (const [gidStr, teams] of Object.entries(standingsCache)) {
+    const gid = Number(gidStr);
+    if (!confLeaders[gid]) { confClinched[gid] = false; continue; }
+
+    const leaderWPct = confLeaders[gid];
+    const tiedCount  = confTitleCount[gid] || 1;
+    let maxGamesPlayed = 0;
+    for (const rec of Object.values(teams)) {
+      const gp = rec.confW + rec.confL;
+      if (gp > maxGamesPlayed) maxGamesPlayed = gp;
+    }
+
+    if (tiedCount > 1) {
+      // Multiple teams tied for the lead — clinch only if ALL tied leaders
+      // have completed their conference schedule (no remaining games)
+      let allDone = true;
+      for (const [tid, rec] of Object.entries(teams)) {
+        if (rec.confWPct === leaderWPct) {
+          const gp = rec.confW + rec.confL;
+          if (gp < maxGamesPlayed) { allDone = false; break; }
+        }
+      }
+      confClinched[gid] = allDone;
+    } else {
+      // Sole leader — clinch if no chaser can catch the leader's WORST case.
+      // Leader's worst case: they lose all remaining games.
+      const leaderRec = Object.values(teams).find(r => r.confWPct === leaderWPct);
+      const leaderGP  = leaderRec.confW + leaderRec.confL;
+      const leaderWorstW = leaderRec.confW;  // loses all remaining
+      // Leader's worst WPct when all teams have played maxGamesPlayed games
+      const leaderWorstWPct = maxGamesPlayed > 0 ? leaderWorstW / maxGamesPlayed : 0;
+
+      let anyoneCanCatch = false;
+      for (const [tid, rec] of Object.entries(teams)) {
+        if (rec.confWPct === leaderWPct) continue;
+        const gp        = rec.confW + rec.confL;
+        const remaining = Math.max(0, maxGamesPlayed - gp);
+        const bestPossible = maxGamesPlayed > 0 ? (rec.confW + remaining) / maxGamesPlayed : 0;
+        if (bestPossible >= leaderWorstWPct) { anyoneCanCatch = true; break; }
+      }
+      confClinched[gid] = !anyoneCanCatch;
+    }
+  }
+
+  // Check if conference tournament has started (any picked team with confTournWins > 0)
   const confTournStarted = {};
   for (const [name, sc] of Object.entries(teamScore)) {
     if (sc.gid && (sc.confTournWins || 0) > 0) {
       confTournStarted[sc.gid] = true;
     }
   }
+  console.log('  Conf titles clinched (group IDs):', Object.keys(confClinched).filter(g => confClinched[Number(g)]).join(', ') || 'none');
   console.log('  Conf tournaments started (group IDs):', Object.keys(confTournStarted).join(', ') || 'none');
 
-  // Count how many teams share the lead in each conference group
-  const confTitleCount = {};   // gid → number of teams tied for best WPct
-  for (const [name, sc] of Object.entries(teamScore)) {
-    const gid = sc.gid;
-    if (!gid) continue;
-    const isTitle = sc.confWPct > 0 && sc.confWPct === confLeaders[gid];
-    if (isTitle) confTitleCount[gid] = (confTitleCount[gid] || 0) + 1;
-  }
-
-  // Award conf title bonus — only if conf tournament has started
+  // Award conf title bonus if clinched OR tournament has started.
   // Tie rules: sole winner = +5, 2-way tie = +3 each, 3+ way tie = +2 each
   for (const [name, sc] of Object.entries(teamScore)) {
-    const gid    = sc.gid;
-    const isTitle = gid && sc.confWPct > 0 && sc.confWPct === confLeaders[gid];
-    const tournOver = confTournStarted[gid] || false;
+    const gid        = sc.gid;
+    const isTitle    = gid && sc.confWPct > 0 && sc.confWPct === confLeaders[gid];
+    const titleLocked = confClinched[gid] || confTournStarted[gid] || false;
 
-    if (isTitle && tournOver) {
+    if (isTitle && titleLocked) {
       const tiedCount = confTitleCount[gid] || 1;
       sc.confTitlePts = tiedCount === 1 ? 5 : tiedCount === 2 ? 3 : 2;
       console.log(`  🏆 Conf title: ${name} (group ${gid}, WPct ${sc.confWPct.toFixed(3)}, ${tiedCount}-way${tiedCount > 1 ? ' tie → +' + sc.confTitlePts : ' → +5'})`);
     } else {
       sc.confTitlePts = 0;
-      if (isTitle && !tournOver && Object.values(CONF_GROUPS).includes(sc.gid)) {
+      if (isTitle && !titleLocked && Object.values(CONF_GROUPS).includes(sc.gid)) {
         console.log(`  ⏳ Conf leader (pending): ${name} (group ${gid}, WPct ${sc.confWPct.toFixed(3)})`);
       }
     }
