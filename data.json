@@ -871,7 +871,7 @@
     {
       "name": "Cohnmelo",
       "totalValue": 100,
-      "score": 362,
+      "score": 364,
       "picks": {
         "ACC": {
           "team": "Duke",
@@ -915,7 +915,7 @@
         {
           "team": "South Florida",
           "value": 9,
-          "points": 41,
+          "points": 43,
           "counts": true
         },
         {
@@ -1084,7 +1084,7 @@
     {
       "name": "DelKo LLP",
       "totalValue": 100,
-      "score": 352,
+      "score": 354,
       "picks": {
         "ACC": {
           "team": "Miami",
@@ -1128,7 +1128,7 @@
         {
           "team": "South Florida",
           "value": 9,
-          "points": 41,
+          "points": 43,
           "counts": true
         },
         {
@@ -4918,7 +4918,7 @@
     {
       "name": "TommyL",
       "totalValue": 100,
-      "score": 312,
+      "score": 314,
       "picks": {
         "ACC": {
           "team": "Virginia",
@@ -4956,7 +4956,7 @@
         {
           "team": "South Florida",
           "value": 9,
-          "points": 41,
+          "points": 43,
           "counts": true
         },
         {
@@ -6691,6 +6691,77 @@
       "previousRank": 87
     },
     {
+      "name": "Logger Scoots 1",
+      "totalValue": 100,
+      "score": 292,
+      "picks": {
+        "ACC": {
+          "team": "Georgia Tech",
+          "value": 9,
+          "points": 13
+        },
+        "Big East": {
+          "team": "Uconn",
+          "value": 15,
+          "points": 44
+        },
+        "Big Ten": {
+          "team": "Purdue",
+          "value": 16,
+          "points": 36
+        },
+        "Big 12": {
+          "team": "Houston",
+          "value": 16,
+          "points": 40
+        },
+        "SEC": {
+          "team": "Texas A&M",
+          "value": 7,
+          "points": 32
+        }
+      },
+      "wildcards": [
+        {
+          "team": "South Florida",
+          "value": 9,
+          "points": 43,
+          "counts": true
+        },
+        {
+          "team": "Tarleton",
+          "value": 7,
+          "points": 19,
+          "counts": true
+        },
+        {
+          "team": "Delaware State",
+          "value": 6,
+          "points": 9,
+          "counts": false
+        },
+        {
+          "team": "Mercer",
+          "value": 5,
+          "points": 30,
+          "counts": true
+        },
+        {
+          "team": "Denver",
+          "value": 5,
+          "points": 23,
+          "counts": true
+        },
+        {
+          "team": "Chicago State",
+          "value": 5,
+          "points": 12,
+          "counts": true
+        }
+      ],
+      "previousRank": 89
+    },
+    {
       "name": "Domsey",
       "totalValue": 100,
       "score": 291,
@@ -6828,77 +6899,6 @@
           "value": 5,
           "points": 13,
           "counts": false
-        }
-      ],
-      "previousRank": 89
-    },
-    {
-      "name": "Logger Scoots 1",
-      "totalValue": 100,
-      "score": 290,
-      "picks": {
-        "ACC": {
-          "team": "Georgia Tech",
-          "value": 9,
-          "points": 13
-        },
-        "Big East": {
-          "team": "Uconn",
-          "value": 15,
-          "points": 44
-        },
-        "Big Ten": {
-          "team": "Purdue",
-          "value": 16,
-          "points": 36
-        },
-        "Big 12": {
-          "team": "Houston",
-          "value": 16,
-          "points": 40
-        },
-        "SEC": {
-          "team": "Texas A&M",
-          "value": 7,
-          "points": 32
-        }
-      },
-      "wildcards": [
-        {
-          "team": "South Florida",
-          "value": 9,
-          "points": 41,
-          "counts": true
-        },
-        {
-          "team": "Tarleton",
-          "value": 7,
-          "points": 19,
-          "counts": true
-        },
-        {
-          "team": "Delaware State",
-          "value": 6,
-          "points": 9,
-          "counts": false
-        },
-        {
-          "team": "Mercer",
-          "value": 5,
-          "points": 30,
-          "counts": true
-        },
-        {
-          "team": "Denver",
-          "value": 5,
-          "points": 23,
-          "counts": true
-        },
-        {
-          "team": "Chicago State",
-          "value": 5,
-          "points": 12,
-          "counts": true
         }
       ],
       "previousRank": 89
@@ -10163,20 +10163,15 @@
       }
     },
     "South Florida": {
-      "confW": 14,
+      "confW": 15,
       "nonConfW": 8,
       "confTitlePts": 5,
       "confTournWinPts": 0,
       "confTournTitlePts": 0,
       "ncaaSeedPts": 0,
       "ncaaWinPts": 0,
-      "totalPoints": 41,
+      "totalPoints": 43,
       "recentGames": [
-        {
-          "result": "W",
-          "opponent": "FAU",
-          "score": "83-81"
-        },
         {
           "result": "W",
           "opponent": "Memphis",
@@ -10196,6 +10191,11 @@
           "result": "W",
           "opponent": "Memphis",
           "score": "96-89"
+        },
+        {
+          "result": "W",
+          "opponent": "Charlotte",
+          "score": "83-60"
         }
       ],
       "nextGame": null
@@ -10353,10 +10353,7 @@
           "score": "71-68"
         }
       ],
-      "nextGame": {
-        "opponent": "Michigan St",
-        "date": "Mar 8"
-      }
+      "nextGame": null
     },
     "TCU": {
       "confW": 11,
@@ -13426,10 +13423,7 @@
           "score": "83-76"
         }
       ],
-      "nextGame": {
-        "opponent": "W Carolina",
-        "date": "Mar 8"
-      }
+      "nextGame": null
     },
     "Delaware": {
       "confW": 6,
@@ -13502,7 +13496,7 @@
         {
           "result": "W",
           "opponent": "Brown",
-          "score": "82-61"
+          "score": "82-15"
         }
       ],
       "nextGame": {
@@ -14162,11 +14156,6 @@
       "totalPoints": 24,
       "recentGames": [
         {
-          "result": "L",
-          "opponent": "Tulsa",
-          "score": "74-79"
-        },
-        {
           "result": "W",
           "opponent": "East Carolina",
           "score": "68-56"
@@ -14185,6 +14174,11 @@
           "result": "L",
           "opponent": "UAB",
           "score": "74-80"
+        },
+        {
+          "result": "L",
+          "opponent": "South Florida",
+          "score": "60-83"
         }
       ],
       "nextGame": null
@@ -14766,10 +14760,7 @@
           "score": "91-87"
         }
       ],
-      "nextGame": {
-        "opponent": "Michigan",
-        "date": "Mar 8"
-      }
+      "nextGame": null
     },
     "Merrimack": {
       "confW": 17,
@@ -17463,11 +17454,6 @@
       "recentGames": [
         {
           "result": "W",
-          "opponent": "Lehigh",
-          "score": "72-49"
-        },
-        {
-          "result": "W",
           "opponent": "Army",
           "score": "81-63"
         },
@@ -17485,6 +17471,11 @@
           "result": "W",
           "opponent": "Bucknell",
           "score": "74-69"
+        },
+        {
+          "result": "L",
+          "opponent": "Boston U",
+          "score": "72-73"
         }
       ],
       "nextGame": null
