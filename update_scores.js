@@ -336,18 +336,22 @@ async function calcPostSeasonPoints(espnId, gid, standingsCache) {
   );
 
   // Find post-season events: ESPN seasonType 3, OR regular-season events
-  // with notes indicating a conference championship (ESPN sometimes classifies
-  // conf tournament games as seasonType 2 with "Championship" in the notes).
-  // Date filter: only count "Championship" notes after Feb 15 to avoid
-  // early-season non-conference tournaments (e.g. "Baha Mar Championship").
+  // with notes indicating a conference tournament/championship (ESPN often classifies
+  // conf tournament games as seasonType 2). Notes patterns seen in practice:
+  //   "West Coast Conference Tournament - Semifinal"
+  //   "ACC Men's Basketball Tournament - Quarterfinal"
+  //   "Big East Tournament - Final"
+  // Date filter: only after Feb 15 to avoid early-season events like "Baha Mar Championship".
   const confTournCutoff = new Date(`${SEASON}-02-15`);
   const postSeasonEvents = sched.events.filter(e => {
     if (e.seasonType && e.seasonType.id === '3') return true;
-    // Check notes for conference championship indicators (after Feb 15 only)
+    // Check notes for conference tournament/championship indicators (after Feb 15 only)
     if (new Date(e.date) >= confTournCutoff) {
       const notes = (e.competitions && e.competitions[0] && e.competitions[0].notes &&
                      e.competitions[0].notes[0] && e.competitions[0].notes[0].headline) || '';
-      if (/championship/i.test(notes)) return true;
+      // Match "championship" OR "Tournament -" (the dash distinguishes conf tournaments
+      // from the National Invitation Tournament which has no dash in its notes)
+      if (/championship|tournament\s*[-–]/i.test(notes)) return true;
     }
     return false;
   });
@@ -382,9 +386,9 @@ async function calcPostSeasonPoints(espnId, gid, standingsCache) {
         if (me.curatedRank && me.curatedRank.current) ncaaSeed = me.curatedRank.current;
         else if (me.seed) ncaaSeed = me.seed;
       }
-    } else if (confTeamIds.has(oppId) || evNotes.includes('championship')) {
+    } else if (confTeamIds.has(oppId) || /championship|tournament\s*[-–]/i.test(evNotes)) {
       // Conference tournament game: either same-conf opponent in post-season,
-      // or notes explicitly say "championship" (covers ESPN mislabeled seasonType)
+      // or notes indicate a conference tournament/championship game
       if (iWon) {
         confTournWins++;
         // Check if this was the championship/final game
