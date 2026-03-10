@@ -7971,12 +7971,12 @@
     {
       "name": "Allan Li",
       "totalValue": 100,
-      "score": 276,
+      "score": 279,
       "picks": {
         "ACC": {
           "team": "SMU",
           "value": 13,
-          "points": 27
+          "points": 30
         },
         "Big East": {
           "team": "Xavier",
@@ -8910,10 +8910,7 @@
           "score": "63-75"
         }
       ],
-      "nextGame": {
-        "opponent": "FIU",
-        "date": "Mar 10"
-      }
+      "nextGame": null
     },
     "Virginia Tech": {
       "confW": 8,
@@ -13885,11 +13882,6 @@
       "recentGames": [
         {
           "result": "L",
-          "opponent": "Duke",
-          "score": "64-101"
-        },
-        {
-          "result": "L",
           "opponent": "North Carolina",
           "score": "64-77"
         },
@@ -13907,6 +13899,11 @@
           "result": "L",
           "opponent": "Pitt",
           "score": "69-71"
+        },
+        {
+          "result": "L",
+          "opponent": "SMU",
+          "score": "69-86"
         }
       ],
       "nextGame": null
@@ -17494,19 +17491,14 @@
     },
     "SMU": {
       "confW": 8,
-      "nonConfW": 11,
+      "nonConfW": 12,
       "confTitlePts": 0,
-      "confTournWinPts": 0,
+      "confTournWinPts": 2,
       "confTournTitlePts": 0,
       "ncaaSeedPts": 0,
       "ncaaWinPts": 0,
-      "totalPoints": 27,
+      "totalPoints": 30,
       "recentGames": [
-        {
-          "result": "W",
-          "opponent": "Boston College",
-          "score": "94-70"
-        },
         {
           "result": "L",
           "opponent": "California",
@@ -17526,6 +17518,11 @@
           "result": "L",
           "opponent": "Florida St",
           "score": "78-91"
+        },
+        {
+          "result": "W",
+          "opponent": "Syracuse",
+          "score": "86-69"
         }
       ],
       "nextGame": null
