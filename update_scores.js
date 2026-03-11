@@ -11,13 +11,39 @@ const HTML_PATH = path.join(__dirname, 'index.html');
 const SEASON    = '2026';
 
 // ── ESPN Conference Group IDs ──────────────────────────────────────────
-// Discovered by probing the standings API
+// All 31 active D1 conferences — pre-load standings for conf tournament detection
 const CONF_GROUPS = {
-  ACC:        2,
-  'Big East': 4,
-  'Big Ten':  7,
-  'Big 12':   8,
-  SEC:        23,
+  'America East':   1,
+  ACC:              2,
+  'A-10':           3,
+  'Big East':       4,
+  'Big Sky':        5,
+  'Big South':      6,
+  'Big Ten':        7,
+  'Big 12':         8,
+  'Big West':       9,
+  CAA:              10,
+  'C-USA':          11,
+  'Ivy League':     12,
+  MAAC:             13,
+  MAC:              14,
+  MEAC:             16,
+  MVC:              18,
+  NEC:              19,
+  OVC:              20,
+  'Patriot League': 22,
+  SEC:              23,
+  SoCon:            24,
+  Southland:        25,
+  SWAC:             26,
+  'Sun Belt':       27,
+  WCC:              29,
+  WAC:              30,
+  'Mountain West':  44,
+  'Horizon League': 45,
+  ASUN:             46,
+  'Summit League':  49,
+  AAC:              62,
 };
 
 // ── Manual name map: data.json name → ESPN team ID ────────────────────
@@ -36,6 +62,7 @@ const MANUAL_MAP = {
   'CS Northridge':       '2463',
   'Cal Poly':            '13',
   'SE Louisiana':        '2545',
+  'Missouri State':      '2623',
   'SE Missouri State':   '2546',
   'SIU Edwardsville':    '2565',
   'Middle Tenn State':   '2393',
@@ -451,7 +478,7 @@ async function main() {
   const idMap = await buildTeamIdMap(allNames);
 
   // Pre-load standings for the 5 contest conferences
-  console.log('📊 Fetching conference standings for ACC, Big East, Big Ten, Big 12, SEC...');
+  console.log('📊 Fetching conference standings for all 31 D1 conferences...');
   const standingsCache = await buildStandingsCache(Object.values(CONF_GROUPS));
 
   // Calculate score for each unique team
