@@ -314,7 +314,7 @@ async function calcTeamScore(dataName, espnId, standingsCache) {
 // Conf tournament: wins vs same-conf opponents in non-NCAA post-season games
 // NCAA tournament: seeding + per-round win bonuses
 async function calcPostSeasonPoints(espnId, gid, standingsCache) {
-  const empty = { confTournWins: 0, confTournTitle: false, ncaaSeeding: 0, ncaaWins: 0, recentGames: [], nextGame: null };
+  const empty = { confTournWins: 0, confTournTitle: false, ncaaSeeding: 0, ncaaWins: 0, ncaaWinCount: 0, recentGames: [], nextGame: null };
   if (!espnId) return empty;
 
   const sched = await get(
@@ -452,6 +452,7 @@ async function calcPostSeasonPoints(espnId, gid, standingsCache) {
     confTournTitle,
     ncaaSeeding: seedPts,
     ncaaWins:    ncaaWinPts,
+    ncaaWinCount: ncaaWins,   // raw count (for deducting from base)
     ncaaSeed,
     recentGames,
     nextGame,
@@ -496,7 +497,7 @@ async function main() {
     const gid    = reg.gid || null;
 
     // Post-season (conf tournament + NCAA) — only fetch if needed
-    let post = { confTournWins: 0, confTournTitle: false, ncaaSeeding: 0, ncaaWins: 0 };
+    let post = { confTournWins: 0, confTournTitle: false, ncaaSeeding: 0, ncaaWins: 0, ncaaWinCount: 0 };
     if (espnId) {
       post = await calcPostSeasonPoints(espnId, gid, standingsCache);
       await sleep(60);   // gentle rate limiting
@@ -505,14 +506,20 @@ async function main() {
     const confTournWinPts = post.confTournWins * 2;  // +2 per conf tourn win
     const ncaaPts         = post.ncaaSeeding + post.ncaaWins;
 
+    // ESPN overallW includes post-season wins (conf tournament + NCAA),
+    // so subtract them from base to avoid double-counting with bonus pts.
+    // Post-season wins should ONLY score via their bonus categories, not also as regular wins.
+    const postSeasonWins = post.confTournWins + post.ncaaWinCount;
+    const adjustedBase = reg.points - (postSeasonWins * 1);  // remove 1pt per post-season win
+
     teamScore[name] = {
-      basePoints:     reg.points,
+      basePoints:     adjustedBase,
       confTournWinPts,
       confTournTitlePts: 0,   // determined per-conference below
       ncaaPts,
       ncaaSeedPts:    post.ncaaSeeding,   // separated for breakdown tooltip
       ncaaWinPts:     post.ncaaWins,      // separated for breakdown tooltip
-      totalPreTitle:  reg.points + confTournWinPts + ncaaPts,
+      totalPreTitle:  adjustedBase + confTournWinPts + ncaaPts,
       confW:          reg.confW  || 0,
       confL:          reg.confL  || 0,
       confWPct:       reg.confWPct || 0,
