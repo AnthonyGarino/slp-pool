@@ -516,7 +516,7 @@
     {
       "name": "Donut Holes",
       "totalValue": 100,
-      "score": 402,
+      "score": 404,
       "picks": {
         "ACC": {
           "team": "Florida State",
@@ -560,7 +560,7 @@
         {
           "team": "Akron",
           "value": 10,
-          "points": 43,
+          "points": 45,
           "counts": true
         },
         {
@@ -1579,6 +1579,77 @@
       "previousRank": 15
     },
     {
+      "name": "Dr C TX Entry B",
+      "totalValue": 100,
+      "score": 352,
+      "picks": {
+        "ACC": {
+          "team": "Florida State",
+          "value": 6,
+          "points": 29
+        },
+        "Big East": {
+          "team": "Seton Hall",
+          "value": 6,
+          "points": 32
+        },
+        "Big Ten": {
+          "team": "Northwestern",
+          "value": 7,
+          "points": 22
+        },
+        "Big 12": {
+          "team": "Houston",
+          "value": 16,
+          "points": 40
+        },
+        "SEC": {
+          "team": "Arkansas",
+          "value": 13,
+          "points": 36
+        }
+      },
+      "wildcards": [
+        {
+          "team": "Weber State",
+          "value": 5,
+          "points": 26,
+          "counts": true
+        },
+        {
+          "team": "UC Santa Barbara",
+          "value": 9,
+          "points": 18,
+          "counts": false
+        },
+        {
+          "team": "UNC Wilmington",
+          "value": 10,
+          "points": 46,
+          "counts": true
+        },
+        {
+          "team": "Rice",
+          "value": 5,
+          "points": 20,
+          "counts": true
+        },
+        {
+          "team": "Akron",
+          "value": 10,
+          "points": 45,
+          "counts": true
+        },
+        {
+          "team": "Gonzaga",
+          "value": 13,
+          "points": 56,
+          "counts": true
+        }
+      ],
+      "previousRank": 17
+    },
+    {
       "name": "ODog2",
       "totalValue": 100,
       "score": 351,
@@ -1786,77 +1857,6 @@
           "team": "Green Bay",
           "value": 5,
           "points": 31,
-          "counts": true
-        }
-      ],
-      "previousRank": 17
-    },
-    {
-      "name": "Dr C TX Entry B",
-      "totalValue": 100,
-      "score": 350,
-      "picks": {
-        "ACC": {
-          "team": "Florida State",
-          "value": 6,
-          "points": 29
-        },
-        "Big East": {
-          "team": "Seton Hall",
-          "value": 6,
-          "points": 32
-        },
-        "Big Ten": {
-          "team": "Northwestern",
-          "value": 7,
-          "points": 22
-        },
-        "Big 12": {
-          "team": "Houston",
-          "value": 16,
-          "points": 40
-        },
-        "SEC": {
-          "team": "Arkansas",
-          "value": 13,
-          "points": 36
-        }
-      },
-      "wildcards": [
-        {
-          "team": "Weber State",
-          "value": 5,
-          "points": 26,
-          "counts": true
-        },
-        {
-          "team": "UC Santa Barbara",
-          "value": 9,
-          "points": 18,
-          "counts": false
-        },
-        {
-          "team": "UNC Wilmington",
-          "value": 10,
-          "points": 46,
-          "counts": true
-        },
-        {
-          "team": "Rice",
-          "value": 5,
-          "points": 20,
-          "counts": true
-        },
-        {
-          "team": "Akron",
-          "value": 10,
-          "points": 43,
-          "counts": true
-        },
-        {
-          "team": "Gonzaga",
-          "value": 13,
-          "points": 56,
           "counts": true
         }
       ],
@@ -5768,6 +5768,77 @@
       "previousRank": 74
     },
     {
+      "name": "Nash's Squad",
+      "totalValue": 100,
+      "score": 312,
+      "picks": {
+        "ACC": {
+          "team": "Duke",
+          "value": 16,
+          "points": 51
+        },
+        "Big East": {
+          "team": "Creighton",
+          "value": 14,
+          "points": 24
+        },
+        "Big Ten": {
+          "team": "USC",
+          "value": 10,
+          "points": 25
+        },
+        "Big 12": {
+          "team": "UCF",
+          "value": 7,
+          "points": 31
+        },
+        "SEC": {
+          "team": "LSU",
+          "value": 6,
+          "points": 18
+        }
+      },
+      "wildcards": [
+        {
+          "team": "Akron",
+          "value": 10,
+          "points": 45,
+          "counts": true
+        },
+        {
+          "team": "UC Santa Barbara",
+          "value": 9,
+          "points": 18,
+          "counts": true
+        },
+        {
+          "team": "Troy",
+          "value": 9,
+          "points": 46,
+          "counts": true
+        },
+        {
+          "team": "Virginia Tech",
+          "value": 8,
+          "points": 27,
+          "counts": true
+        },
+        {
+          "team": "Pacific",
+          "value": 6,
+          "points": 27,
+          "counts": true
+        },
+        {
+          "team": "Southern Utah",
+          "value": 5,
+          "points": 16,
+          "counts": false
+        }
+      ],
+      "previousRank": 78
+    },
+    {
       "name": "WCS",
       "totalValue": 100,
       "score": 311,
@@ -5979,77 +6050,6 @@
         }
       ],
       "previousRank": 75
-    },
-    {
-      "name": "Nash's Squad",
-      "totalValue": 100,
-      "score": 310,
-      "picks": {
-        "ACC": {
-          "team": "Duke",
-          "value": 16,
-          "points": 51
-        },
-        "Big East": {
-          "team": "Creighton",
-          "value": 14,
-          "points": 24
-        },
-        "Big Ten": {
-          "team": "USC",
-          "value": 10,
-          "points": 25
-        },
-        "Big 12": {
-          "team": "UCF",
-          "value": 7,
-          "points": 31
-        },
-        "SEC": {
-          "team": "LSU",
-          "value": 6,
-          "points": 18
-        }
-      },
-      "wildcards": [
-        {
-          "team": "Akron",
-          "value": 10,
-          "points": 43,
-          "counts": true
-        },
-        {
-          "team": "UC Santa Barbara",
-          "value": 9,
-          "points": 18,
-          "counts": true
-        },
-        {
-          "team": "Troy",
-          "value": 9,
-          "points": 46,
-          "counts": true
-        },
-        {
-          "team": "Virginia Tech",
-          "value": 8,
-          "points": 27,
-          "counts": true
-        },
-        {
-          "team": "Pacific",
-          "value": 6,
-          "points": 27,
-          "counts": true
-        },
-        {
-          "team": "Southern Utah",
-          "value": 5,
-          "points": 16,
-          "counts": false
-        }
-      ],
-      "previousRank": 78
     },
     {
       "name": "The NEW NEW Ant-Dentites",
@@ -6334,6 +6334,77 @@
         }
       ],
       "previousRank": 82
+    },
+    {
+      "name": "Callan",
+      "totalValue": 100,
+      "score": 302,
+      "picks": {
+        "ACC": {
+          "team": "Virginia",
+          "value": 12,
+          "points": 44
+        },
+        "Big East": {
+          "team": "Georgetown",
+          "value": 10,
+          "points": 22
+        },
+        "Big Ten": {
+          "team": "USC",
+          "value": 10,
+          "points": 25
+        },
+        "Big 12": {
+          "team": "Cincinnati",
+          "value": 11,
+          "points": 28
+        },
+        "SEC": {
+          "team": "Arkansas",
+          "value": 13,
+          "points": 36
+        }
+      },
+      "wildcards": [
+        {
+          "team": "Akron",
+          "value": 10,
+          "points": 45,
+          "counts": true
+        },
+        {
+          "team": "Missouri",
+          "value": 10,
+          "points": 30,
+          "counts": true
+        },
+        {
+          "team": "Maryland",
+          "value": 8,
+          "points": 17,
+          "counts": false
+        },
+        {
+          "team": "Florida State",
+          "value": 6,
+          "points": 29,
+          "counts": true
+        },
+        {
+          "team": "Elon",
+          "value": 5,
+          "points": 20,
+          "counts": true
+        },
+        {
+          "team": "Rhode Island",
+          "value": 5,
+          "points": 23,
+          "counts": true
+        }
+      ],
+      "previousRank": 86
     },
     {
       "name": "Hemdawg",
@@ -6750,77 +6821,6 @@
           "team": "New Mexico",
           "value": 7,
           "points": 35,
-          "counts": true
-        },
-        {
-          "team": "Rhode Island",
-          "value": 5,
-          "points": 23,
-          "counts": true
-        }
-      ],
-      "previousRank": 86
-    },
-    {
-      "name": "Callan",
-      "totalValue": 100,
-      "score": 300,
-      "picks": {
-        "ACC": {
-          "team": "Virginia",
-          "value": 12,
-          "points": 44
-        },
-        "Big East": {
-          "team": "Georgetown",
-          "value": 10,
-          "points": 22
-        },
-        "Big Ten": {
-          "team": "USC",
-          "value": 10,
-          "points": 25
-        },
-        "Big 12": {
-          "team": "Cincinnati",
-          "value": 11,
-          "points": 28
-        },
-        "SEC": {
-          "team": "Arkansas",
-          "value": 13,
-          "points": 36
-        }
-      },
-      "wildcards": [
-        {
-          "team": "Akron",
-          "value": 10,
-          "points": 43,
-          "counts": true
-        },
-        {
-          "team": "Missouri",
-          "value": 10,
-          "points": 30,
-          "counts": true
-        },
-        {
-          "team": "Maryland",
-          "value": 8,
-          "points": 17,
-          "counts": false
-        },
-        {
-          "team": "Florida State",
-          "value": 6,
-          "points": 29,
-          "counts": true
-        },
-        {
-          "team": "Elon",
-          "value": 5,
-          "points": 20,
           "counts": true
         },
         {
@@ -8585,10 +8585,7 @@
           "score": "93-97"
         }
       ],
-      "nextGame": {
-        "opponent": "Northwestern",
-        "date": "Mar 12"
-      }
+      "nextGame": null
     },
     "Houston": {
       "confW": 14,
@@ -8752,17 +8749,12 @@
       "confW": 17,
       "nonConfW": 9,
       "confTitlePts": 0,
-      "confTournWinPts": 0,
+      "confTournWinPts": 2,
       "confTournTitlePts": 0,
       "ncaaSeedPts": 0,
       "ncaaWinPts": 0,
-      "totalPoints": 43,
+      "totalPoints": 45,
       "recentGames": [
-        {
-          "result": "W",
-          "opponent": "Ball State",
-          "score": "78-65"
-        },
         {
           "result": "W",
           "opponent": "Buffalo",
@@ -8782,9 +8774,17 @@
           "result": "W",
           "opponent": "N Illinois",
           "score": "94-55"
+        },
+        {
+          "result": "W",
+          "opponent": "Buffalo",
+          "score": "73-70"
         }
       ],
-      "nextGame": null
+      "nextGame": {
+        "opponent": "TBD",
+        "date": "Mar 13"
+      }
     },
     "Stephen F Austin": {
       "confW": 20,
@@ -11126,11 +11126,6 @@
       "totalPoints": 24,
       "recentGames": [
         {
-          "result": "W",
-          "opponent": "UMass",
-          "score": "86-82"
-        },
-        {
           "result": "L",
           "opponent": "Akron",
           "score": "85-99"
@@ -11149,6 +11144,11 @@
           "result": "L",
           "opponent": "Toledo",
           "score": "78-99"
+        },
+        {
+          "result": "L",
+          "opponent": "Akron",
+          "score": "70-73"
         }
       ],
       "nextGame": null
@@ -12309,10 +12309,7 @@
           "score": "74-61"
         }
       ],
-      "nextGame": {
-        "opponent": "Purdue",
-        "date": "Mar 12"
-      }
+      "nextGame": null
     },
     "UC Santa Barbara": {
       "confW": 5,
@@ -15313,10 +15310,7 @@
           "score": "75-63"
         }
       ],
-      "nextGame": {
-        "opponent": "Louisiana Tech",
-        "date": "Mar 12"
-      }
+      "nextGame": null
     },
     "Toledo": {
       "confW": 11,
@@ -16085,10 +16079,7 @@
           "score": "81-38"
         }
       ],
-      "nextGame": {
-        "opponent": "MTSU",
-        "date": "Mar 12"
-      }
+      "nextGame": null
     },
     "Kansas State": {
       "confW": 3,
