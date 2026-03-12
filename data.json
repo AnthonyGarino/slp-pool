@@ -3993,6 +3993,77 @@
       "previousRank": 49
     },
     {
+      "name": "JLee1964",
+      "totalValue": 100,
+      "score": 329,
+      "picks": {
+        "ACC": {
+          "team": "Virginia",
+          "value": 12,
+          "points": 42
+        },
+        "Big East": {
+          "team": "Butler",
+          "value": 8,
+          "points": 23
+        },
+        "Big Ten": {
+          "team": "Michigan",
+          "value": 15,
+          "points": 53
+        },
+        "Big 12": {
+          "team": "Arizona State",
+          "value": 6,
+          "points": 25
+        },
+        "SEC": {
+          "team": "Kentucky",
+          "value": 15,
+          "points": 31
+        }
+      },
+      "wildcards": [
+        {
+          "team": "UNC Wilmington",
+          "value": 10,
+          "points": 46,
+          "counts": true
+        },
+        {
+          "team": "Iowa",
+          "value": 10,
+          "points": 32,
+          "counts": true
+        },
+        {
+          "team": "Umass",
+          "value": 7,
+          "points": 25,
+          "counts": true
+        },
+        {
+          "team": "LSU",
+          "value": 6,
+          "points": 18,
+          "counts": false
+        },
+        {
+          "team": "Rhode Island",
+          "value": 5,
+          "points": 23,
+          "counts": true
+        },
+        {
+          "team": "Florida State",
+          "value": 6,
+          "points": 29,
+          "counts": true
+        }
+      ],
+      "previousRank": 52
+    },
+    {
       "name": "Runaway2",
       "totalValue": 100,
       "score": 328,
@@ -4342,77 +4413,6 @@
           "team": "Charlotte",
           "value": 5,
           "points": 24,
-          "counts": true
-        }
-      ],
-      "previousRank": 52
-    },
-    {
-      "name": "JLee1964",
-      "totalValue": 100,
-      "score": 327,
-      "picks": {
-        "ACC": {
-          "team": "Virginia",
-          "value": 12,
-          "points": 42
-        },
-        "Big East": {
-          "team": "Butler",
-          "value": 8,
-          "points": 23
-        },
-        "Big Ten": {
-          "team": "Michigan",
-          "value": 15,
-          "points": 53
-        },
-        "Big 12": {
-          "team": "Arizona State",
-          "value": 6,
-          "points": 25
-        },
-        "SEC": {
-          "team": "Kentucky",
-          "value": 15,
-          "points": 31
-        }
-      },
-      "wildcards": [
-        {
-          "team": "UNC Wilmington",
-          "value": 10,
-          "points": 46,
-          "counts": true
-        },
-        {
-          "team": "Iowa",
-          "value": 10,
-          "points": 32,
-          "counts": true
-        },
-        {
-          "team": "Umass",
-          "value": 7,
-          "points": 23,
-          "counts": true
-        },
-        {
-          "team": "LSU",
-          "value": 6,
-          "points": 18,
-          "counts": false
-        },
-        {
-          "team": "Rhode Island",
-          "value": 5,
-          "points": 23,
-          "counts": true
-        },
-        {
-          "team": "Florida State",
-          "value": 6,
-          "points": 29,
           "counts": true
         }
       ],
@@ -5983,7 +5983,7 @@
     {
       "name": "Ashton",
       "totalValue": 100,
-      "score": 307,
+      "score": 309,
       "picks": {
         "ACC": {
           "team": "Syracuse",
@@ -6027,7 +6027,7 @@
         {
           "team": "Umass",
           "value": 7,
-          "points": 23,
+          "points": 25,
           "counts": true
         },
         {
@@ -10855,11 +10855,6 @@
       "recentGames": [
         {
           "result": "W",
-          "opponent": "Bowling Green",
-          "score": "91-77"
-        },
-        {
-          "result": "W",
           "opponent": "E Michigan",
           "score": "74-64"
         },
@@ -10877,6 +10872,11 @@
           "result": "W",
           "opponent": "Ohio",
           "score": "110-108"
+        },
+        {
+          "result": "L",
+          "opponent": "UMass",
+          "score": "83-87"
         }
       ],
       "nextGame": null
@@ -14740,17 +14740,12 @@
       "confW": 7,
       "nonConfW": 9,
       "confTitlePts": 0,
-      "confTournWinPts": 0,
+      "confTournWinPts": 2,
       "confTournTitlePts": 0,
       "ncaaSeedPts": 0,
       "ncaaWinPts": 0,
-      "totalPoints": 23,
+      "totalPoints": 25,
       "recentGames": [
-        {
-          "result": "L",
-          "opponent": "Miami OH",
-          "score": "77-86"
-        },
         {
           "result": "L",
           "opponent": "Buffalo",
@@ -14770,9 +14765,17 @@
           "result": "W",
           "opponent": "Ohio",
           "score": "94-82"
+        },
+        {
+          "result": "W",
+          "opponent": "Miami OH",
+          "score": "87-83"
         }
       ],
-      "nextGame": null
+      "nextGame": {
+        "opponent": "TBD",
+        "date": "Mar 13"
+      }
     },
     "Loyola Marymount": {
       "confW": 6,
@@ -15588,10 +15591,7 @@
           "score": "99-78"
         }
       ],
-      "nextGame": {
-        "opponent": "Bowling Green",
-        "date": "Mar 12"
-      }
+      "nextGame": null
     },
     "Idaho": {
       "confW": 9,
