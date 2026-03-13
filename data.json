@@ -3919,7 +3919,7 @@
           "counts": true
         }
       ],
-      "previousRank": 51
+      "previousRank": 48
     },
     {
       "name": "Uconn't Touch This",
@@ -3990,7 +3990,7 @@
           "counts": true
         }
       ],
-      "previousRank": 48
+      "previousRank": 49
     },
     {
       "name": "JLee1964",
@@ -4061,7 +4061,7 @@
           "counts": true
         }
       ],
-      "previousRank": 48
+      "previousRank": 49
     },
     {
       "name": "D Fries",
@@ -4132,7 +4132,7 @@
           "counts": true
         }
       ],
-      "previousRank": 48
+      "previousRank": 49
     },
     {
       "name": "Moose, CPAs",
@@ -4203,7 +4203,7 @@
           "counts": true
         }
       ],
-      "previousRank": 51
+      "previousRank": 52
     },
     {
       "name": "Coco 1",
@@ -4771,7 +4771,7 @@
           "counts": false
         }
       ],
-      "previousRank": 61
+      "previousRank": 58
     },
     {
       "name": "Briggs 2",
@@ -4842,7 +4842,7 @@
           "counts": false
         }
       ],
-      "previousRank": 60
+      "previousRank": 61
     },
     {
       "name": "Survive and Advance",
@@ -5836,7 +5836,7 @@
           "counts": false
         }
       ],
-      "previousRank": 76
+      "previousRank": 72
     },
     {
       "name": "Some Sort of Rothstein-ism",
@@ -5907,7 +5907,7 @@
           "counts": true
         }
       ],
-      "previousRank": 75
+      "previousRank": 76
     },
     {
       "name": "Josh Peter",
@@ -14304,6 +14304,47 @@
       ],
       "nextGame": null
     },
+    "Wisconsin": {
+      "confW": 14,
+      "nonConfW": 8,
+      "confTitlePts": 0,
+      "confTournWinPts": 4,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 40,
+      "recentGames": [
+        {
+          "result": "W",
+          "opponent": "Washington",
+          "score": "90-73"
+        },
+        {
+          "result": "W",
+          "opponent": "Maryland",
+          "score": "78-45"
+        },
+        {
+          "result": "W",
+          "opponent": "Purdue",
+          "score": "97-93"
+        },
+        {
+          "result": "W",
+          "opponent": "Washington",
+          "score": "85-82"
+        },
+        {
+          "result": "W",
+          "opponent": "Illinois",
+          "score": "91-88"
+        }
+      ],
+      "nextGame": {
+        "opponent": "Michigan",
+        "date": "Mar 14"
+      }
+    },
     "Umass": {
       "confW": 7,
       "nonConfW": 9,
@@ -14420,47 +14461,6 @@
         }
       ],
       "nextGame": null
-    },
-    "Wisconsin": {
-      "confW": 14,
-      "nonConfW": 8,
-      "confTitlePts": 0,
-      "confTournWinPts": 4,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 40,
-      "recentGames": [
-        {
-          "result": "W",
-          "opponent": "Washington",
-          "score": "90-73"
-        },
-        {
-          "result": "W",
-          "opponent": "Maryland",
-          "score": "78-45"
-        },
-        {
-          "result": "W",
-          "opponent": "Purdue",
-          "score": "97-93"
-        },
-        {
-          "result": "W",
-          "opponent": "Washington",
-          "score": "85-82"
-        },
-        {
-          "result": "W",
-          "opponent": "Illinois",
-          "score": "91-88"
-        }
-      ],
-      "nextGame": {
-        "opponent": "Michigan",
-        "date": "Mar 14"
-      }
     },
     "West Virginia": {
       "confW": 9,
@@ -15927,44 +15927,6 @@
         "date": "Mar 15"
       }
     },
-    "Bethune-Cookman": {
-      "confW": 14,
-      "nonConfW": 3,
-      "confTitlePts": 5,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 36,
-      "recentGames": [
-        {
-          "result": "W",
-          "opponent": "Alabama A&M",
-          "score": "85-76"
-        },
-        {
-          "result": "W",
-          "opponent": "Grambling",
-          "score": "76-71"
-        },
-        {
-          "result": "W",
-          "opponent": "Southern",
-          "score": "82-79"
-        },
-        {
-          "result": "L",
-          "opponent": "Florida A&M",
-          "score": "77-81"
-        },
-        {
-          "result": "L",
-          "opponent": "Prairie View",
-          "score": "67-71"
-        }
-      ],
-      "nextGame": null
-    },
     "Kansas State": {
       "confW": 3,
       "nonConfW": 9,
@@ -16037,6 +15999,44 @@
           "result": "L",
           "opponent": "Morehead St",
           "score": "61-66"
+        }
+      ],
+      "nextGame": null
+    },
+    "Bethune-Cookman": {
+      "confW": 14,
+      "nonConfW": 3,
+      "confTitlePts": 5,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 36,
+      "recentGames": [
+        {
+          "result": "W",
+          "opponent": "Alabama A&M",
+          "score": "85-76"
+        },
+        {
+          "result": "W",
+          "opponent": "Grambling",
+          "score": "76-71"
+        },
+        {
+          "result": "W",
+          "opponent": "Southern",
+          "score": "82-79"
+        },
+        {
+          "result": "L",
+          "opponent": "Florida A&M",
+          "score": "77-81"
+        },
+        {
+          "result": "L",
+          "opponent": "Prairie View",
+          "score": "67-71"
         }
       ],
       "nextGame": null
