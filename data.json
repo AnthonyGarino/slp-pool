@@ -3995,7 +3995,7 @@
     {
       "name": "Moose, CPAs",
       "totalValue": 100,
-      "score": 338,
+      "score": 339,
       "picks": {
         "ACC": {
           "team": "Syracuse",
@@ -4033,7 +4033,7 @@
         {
           "team": "Yale",
           "value": 10,
-          "points": 39,
+          "points": 40,
           "counts": true
         },
         {
@@ -6054,7 +6054,7 @@
     {
       "name": "The NEW NEW Ant-Dentites",
       "totalValue": 100,
-      "score": 315,
+      "score": 316,
       "picks": {
         "ACC": {
           "team": "North Carolina State",
@@ -6086,7 +6086,7 @@
         {
           "team": "Yale",
           "value": 10,
-          "points": 39,
+          "points": 40,
           "counts": true
         },
         {
@@ -9050,10 +9050,7 @@
           "score": "88-81"
         }
       ],
-      "nextGame": {
-        "opponent": "Dayton",
-        "date": "Mar 14"
-      }
+      "nextGame": null
     },
     "Murray State": {
       "confW": 12,
@@ -9521,10 +9518,7 @@
           "score": "75-68"
         }
       ],
-      "nextGame": {
-        "opponent": "Florida",
-        "date": "Mar 14"
-      }
+      "nextGame": null
     },
     "High Point": {
       "confW": 15,
@@ -10299,10 +10293,7 @@
           "score": "71-67"
         }
       ],
-      "nextGame": {
-        "opponent": "Wisconsin",
-        "date": "Mar 14"
-      }
+      "nextGame": null
     },
     "TCU": {
       "confW": 11,
@@ -12307,11 +12298,6 @@
       "recentGames": [
         {
           "result": "L",
-          "opponent": "Penn",
-          "score": "76-82"
-        },
-        {
-          "result": "L",
           "opponent": "Harvard",
           "score": "54-73"
         },
@@ -12329,6 +12315,11 @@
           "result": "W",
           "opponent": "Dartmouth",
           "score": "111-90"
+        },
+        {
+          "result": "L",
+          "opponent": "Yale",
+          "score": "76-88"
         }
       ],
       "nextGame": null
@@ -12749,10 +12740,7 @@
           "score": "71-63"
         }
       ],
-      "nextGame": {
-        "opponent": "Vanderbilt",
-        "date": "Mar 14"
-      }
+      "nextGame": null
     },
     "Illinois State": {
       "confW": 12,
@@ -13439,10 +13427,7 @@
           "score": "68-63"
         }
       ],
-      "nextGame": {
-        "opponent": "Saint Louis",
-        "date": "Mar 14"
-      }
+      "nextGame": null
     },
     "East Tennessee State": {
       "confW": 13,
@@ -13532,11 +13517,6 @@
       "recentGames": [
         {
           "result": "W",
-          "opponent": "NJIT",
-          "score": "70-64"
-        },
-        {
-          "result": "W",
           "opponent": "UMass Lowell",
           "score": "66-64"
         },
@@ -13554,6 +13534,11 @@
           "result": "W",
           "opponent": "NJIT",
           "score": "63-54"
+        },
+        {
+          "result": "L",
+          "opponent": "UMBC",
+          "score": "59-74"
         }
       ],
       "nextGame": null
@@ -14319,26 +14304,18 @@
           "score": "91-88"
         }
       ],
-      "nextGame": {
-        "opponent": "Michigan",
-        "date": "Mar 14"
-      }
+      "nextGame": null
     },
     "Yale": {
       "confW": 11,
-      "nonConfW": 12,
+      "nonConfW": 13,
       "confTitlePts": 5,
       "confTournWinPts": 0,
       "confTournTitlePts": 0,
       "ncaaSeedPts": 0,
       "ncaaWinPts": 0,
-      "totalPoints": 39,
+      "totalPoints": 40,
       "recentGames": [
-        {
-          "result": "W",
-          "opponent": "Harvard",
-          "score": "76-75"
-        },
         {
           "result": "W",
           "opponent": "Penn",
@@ -14358,9 +14335,17 @@
           "result": "W",
           "opponent": "Princeton",
           "score": "78-53"
+        },
+        {
+          "result": "W",
+          "opponent": "Cornell",
+          "score": "88-76"
         }
       ],
-      "nextGame": null
+      "nextGame": {
+        "opponent": "TBD",
+        "date": "Mar 15"
+      }
     },
     "Army": {
       "confW": 5,
