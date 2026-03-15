@@ -388,6 +388,8 @@ async function calcPostSeasonPoints(espnId, gid, standingsCache) {
   let wonChampGame   = false; // true only if won a game with "Final" or "Championship Game" in notes
   let ncaaWins       = 0;
   let ncaaSeed       = 0;
+  let isPlayInTeam   = false; // true if team played in First Four
+  let wonPlayIn      = false; // true if team won their First Four game
 
   for (const ev of postSeasonEvents) {
     const comp    = ev.competitions[0];
@@ -404,14 +406,22 @@ async function calcPostSeasonPoints(espnId, gid, standingsCache) {
     const evName  = (ev.name || '').toLowerCase();
     const evNotes = ((comp.notes && comp.notes[0] && comp.notes[0].headline) || '').toLowerCase();
     const isNCAA  = evName.includes('ncaa') || evNotes.includes('ncaa');
+    const isFirstFour = isNCAA && evNotes.includes('first four');
 
     if (isNCAA) {
-      // NCAA tournament game
-      if (iWon) ncaaWins++;
       // Get seed — check multiple possible ESPN fields
       if (!ncaaSeed) {
         if (me.curatedRank && me.curatedRank.current) ncaaSeed = me.curatedRank.current;
         else if (me.seed) ncaaSeed = me.seed;
+      }
+
+      if (isFirstFour) {
+        // Play-in game: no win points, but track result for seeding eligibility
+        isPlayInTeam = true;
+        if (iWon) wonPlayIn = true;
+      } else {
+        // Regular NCAA tournament game
+        if (iWon) ncaaWins++;
       }
     } else if (confTeamIds.has(oppId) || /championship|tournament\s*[-–]/i.test(evNotes)) {
       // Conference tournament game: either same-conf opponent in post-season,
@@ -436,7 +446,9 @@ async function calcPostSeasonPoints(espnId, gid, standingsCache) {
   const confTournTitle = wonChampGame;
 
   // NCAA seeding points (only if we actually have a seed, i.e. tournament started)
+  // Play-in teams only get seeding points if they won their First Four game
   const seedPts = ncaaSeed === 0 ? 0 :
+                  (isPlayInTeam && !wonPlayIn) ? 0 :
                   ncaaSeed === 1 ? 8 :
                   ncaaSeed <= 4  ? 6 :
                   ncaaSeed <= 8  ? 4 :
