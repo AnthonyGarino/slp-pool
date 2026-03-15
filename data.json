@@ -1,6 +1,6 @@
 {
   "season": "2025-26",
-  "lastUpdated": "2026-03-14",
+  "lastUpdated": "2026-03-15",
   "prizePool": {
     "entry": 75
   },
@@ -656,6 +656,77 @@
       "previousRank": 2
     },
     {
+      "name": "Wirk",
+      "totalValue": 100,
+      "score": 394,
+      "picks": {
+        "ACC": {
+          "team": "Virginia Tech",
+          "value": 8,
+          "points": 27
+        },
+        "Big East": {
+          "team": "St Johns",
+          "value": 16,
+          "points": 52
+        },
+        "Big Ten": {
+          "team": "Iowa",
+          "value": 10,
+          "points": 32
+        },
+        "Big 12": {
+          "team": "Arizona",
+          "value": 14,
+          "points": 54
+        },
+        "SEC": {
+          "team": "Vanderbilt",
+          "value": 9,
+          "points": 39
+        }
+      },
+      "wildcards": [
+        {
+          "team": "High Point",
+          "value": 10,
+          "points": 58,
+          "counts": true
+        },
+        {
+          "team": "New Mexico",
+          "value": 7,
+          "points": 37,
+          "counts": true
+        },
+        {
+          "team": "Fairfield",
+          "value": 6,
+          "points": 34,
+          "counts": true
+        },
+        {
+          "team": "Wichita State",
+          "value": 7,
+          "points": 36,
+          "counts": true
+        },
+        {
+          "team": "Portland",
+          "value": 5,
+          "points": 23,
+          "counts": false
+        },
+        {
+          "team": "New Mexico State",
+          "value": 8,
+          "points": 25,
+          "counts": true
+        }
+      ],
+      "previousRank": 4
+    },
+    {
       "name": "Glazed Donuts",
       "totalValue": 100,
       "score": 393,
@@ -725,77 +796,6 @@
         }
       ],
       "previousRank": 3
-    },
-    {
-      "name": "Wirk",
-      "totalValue": 100,
-      "score": 392,
-      "picks": {
-        "ACC": {
-          "team": "Virginia Tech",
-          "value": 8,
-          "points": 27
-        },
-        "Big East": {
-          "team": "St Johns",
-          "value": 16,
-          "points": 52
-        },
-        "Big Ten": {
-          "team": "Iowa",
-          "value": 10,
-          "points": 32
-        },
-        "Big 12": {
-          "team": "Arizona",
-          "value": 14,
-          "points": 54
-        },
-        "SEC": {
-          "team": "Vanderbilt",
-          "value": 9,
-          "points": 39
-        }
-      },
-      "wildcards": [
-        {
-          "team": "High Point",
-          "value": 10,
-          "points": 58,
-          "counts": true
-        },
-        {
-          "team": "New Mexico",
-          "value": 7,
-          "points": 37,
-          "counts": true
-        },
-        {
-          "team": "Fairfield",
-          "value": 6,
-          "points": 34,
-          "counts": true
-        },
-        {
-          "team": "Wichita State",
-          "value": 7,
-          "points": 34,
-          "counts": true
-        },
-        {
-          "team": "Portland",
-          "value": 5,
-          "points": 23,
-          "counts": false
-        },
-        {
-          "team": "New Mexico State",
-          "value": 8,
-          "points": 25,
-          "counts": true
-        }
-      ],
-      "previousRank": 4
     },
     {
       "name": "GHILL",
@@ -2575,7 +2575,7 @@
     {
       "name": "3 Irishman",
       "totalValue": 100,
-      "score": 353,
+      "score": 355,
       "picks": {
         "ACC": {
           "team": "Duke",
@@ -2613,7 +2613,7 @@
         {
           "team": "Wichita State",
           "value": 7,
-          "points": 34,
+          "points": 36,
           "counts": true
         },
         {
@@ -5415,7 +5415,7 @@
     {
       "name": "Shafts and Balls",
       "totalValue": 100,
-      "score": 325,
+      "score": 327,
       "picks": {
         "ACC": {
           "team": "Syracuse",
@@ -5459,7 +5459,7 @@
         {
           "team": "Wichita State",
           "value": 7,
-          "points": 34,
+          "points": 36,
           "counts": true
         },
         {
@@ -7758,7 +7758,7 @@
     {
       "name": "Allan Li",
       "totalValue": 100,
-      "score": 294,
+      "score": 296,
       "picks": {
         "ACC": {
           "team": "SMU",
@@ -7802,7 +7802,7 @@
         {
           "team": "Wichita State",
           "value": 7,
-          "points": 34,
+          "points": 36,
           "counts": true
         },
         {
@@ -8772,10 +8772,7 @@
           "score": "75-68"
         }
       ],
-      "nextGame": {
-        "opponent": "Toledo",
-        "date": "Mar 15"
-      }
+      "nextGame": null
     },
     "Stephen F Austin": {
       "confW": 20,
@@ -9629,17 +9626,12 @@
       "confW": 13,
       "nonConfW": 8,
       "confTitlePts": 0,
-      "confTournWinPts": 0,
+      "confTournWinPts": 2,
       "confTournTitlePts": 0,
       "ncaaSeedPts": 0,
       "ncaaWinPts": 0,
-      "totalPoints": 34,
+      "totalPoints": 36,
       "recentGames": [
-        {
-          "result": "W",
-          "opponent": "East Carolina",
-          "score": "92-89"
-        },
         {
           "result": "W",
           "opponent": "Temple",
@@ -9659,6 +9651,11 @@
           "result": "W",
           "opponent": "FAU",
           "score": "88-70"
+        },
+        {
+          "result": "W",
+          "opponent": "Tulsa",
+          "score": "81-68"
         }
       ],
       "nextGame": null
@@ -9906,11 +9903,6 @@
       "recentGames": [
         {
           "result": "W",
-          "opponent": "UTSA",
-          "score": "100-74"
-        },
-        {
-          "result": "W",
           "opponent": "Tulane",
           "score": "90-56"
         },
@@ -9928,6 +9920,11 @@
           "result": "W",
           "opponent": "North Texas",
           "score": "90-84"
+        },
+        {
+          "result": "L",
+          "opponent": "Wichita St",
+          "score": "68-81"
         }
       ],
       "nextGame": null
@@ -15350,10 +15347,7 @@
           "score": "77-67"
         }
       ],
-      "nextGame": {
-        "opponent": "Akron",
-        "date": "Mar 15"
-      }
+      "nextGame": null
     },
     "Kansas State": {
       "confW": 3,
