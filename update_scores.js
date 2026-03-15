@@ -317,10 +317,21 @@ async function calcPostSeasonPoints(espnId, gid, standingsCache) {
   const empty = { confTournWins: 0, confTournTitle: false, ncaaSeeding: 0, ncaaWins: 0, ncaaWinCount: 0, recentGames: [], nextGame: null };
   if (!espnId) return empty;
 
-  const sched = await get(
-    `https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/${espnId}/schedule?season=${SEASON}`
-  );
+  // Fetch both default schedule (includes conf tournament) and postseason schedule
+  // (ESPN doesn't always include unplayed NCAA tournament games in the default response)
+  const [sched, postSched] = await Promise.all([
+    get(`https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/${espnId}/schedule?season=${SEASON}`),
+    get(`https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/${espnId}/schedule?seasontype=3`),
+  ]);
   if (!sched || !sched.events) return empty;
+
+  // Merge postseason events (dedupe by event ID)
+  if (postSched && postSched.events) {
+    const existingIds = new Set(sched.events.map(e => e.id));
+    for (const ev of postSched.events) {
+      if (!existingIds.has(ev.id)) sched.events.push(ev);
+    }
+  }
 
   // ── Extract last 5 completed games + next upcoming game ──
   const allEvents = sched.events;
@@ -391,6 +402,32 @@ async function calcPostSeasonPoints(espnId, gid, standingsCache) {
   let isPlayInTeam   = false; // true if team played in First Four
   let wonPlayIn      = false; // true if team won their First Four game
 
+  // First pass: grab NCAA seed from any scheduled/completed NCAA game
+  // (so seeding points are awarded as soon as the bracket is set)
+  for (const ev of postSeasonEvents) {
+    const comp = ev.competitions[0];
+    if (!comp) continue;
+    const evName  = (ev.name || '').toLowerCase();
+    const evNotes = ((comp.notes && comp.notes[0] && comp.notes[0].headline) || '').toLowerCase();
+    const isNCAA  = evName.includes('ncaa') || evNotes.includes('ncaa');
+    if (!isNCAA) continue;
+
+    const me = comp.competitors.find(c => c.id === espnId);
+    if (!me) continue;
+
+    if (!ncaaSeed) {
+      if (me.curatedRank && me.curatedRank.current) ncaaSeed = me.curatedRank.current;
+      else if (me.seed) ncaaSeed = me.seed;
+    }
+
+    const isFirstFour = evNotes.includes('first four');
+    if (isFirstFour) {
+      isPlayInTeam = true;
+      if (comp.status && comp.status.type.completed && me.winner === true) wonPlayIn = true;
+    }
+  }
+
+  // Second pass: count wins from completed games
   for (const ev of postSeasonEvents) {
     const comp    = ev.competitions[0];
     if (!comp || !comp.status || !comp.status.type.completed) continue;
@@ -409,16 +446,8 @@ async function calcPostSeasonPoints(espnId, gid, standingsCache) {
     const isFirstFour = isNCAA && evNotes.includes('first four');
 
     if (isNCAA) {
-      // Get seed — check multiple possible ESPN fields
-      if (!ncaaSeed) {
-        if (me.curatedRank && me.curatedRank.current) ncaaSeed = me.curatedRank.current;
-        else if (me.seed) ncaaSeed = me.seed;
-      }
-
       if (isFirstFour) {
-        // Play-in game: no win points, but track result for seeding eligibility
-        isPlayInTeam = true;
-        if (iWon) wonPlayIn = true;
+        // Play-in win already tracked in first pass
       } else {
         // Regular NCAA tournament game
         if (iWon) ncaaWins++;
