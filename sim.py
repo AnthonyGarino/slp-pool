@@ -352,6 +352,11 @@ def main():
     donut_wins_given_champ = defaultdict(int)
     champ_total_given = defaultdict(int)
     team_round_counts = defaultdict(lambda: defaultdict(int))  # team -> round -> count
+    # Rooting guide: track ALL entries' wins conditioned on team advancing each round
+    # team_advance_count[team][round] = how many sims team won that round
+    # entry_wins_given_advance[entry][team][round] = count of entry wins when team won that round
+    team_advance_count = defaultdict(lambda: defaultdict(int))
+    entry_wins_given_advance = defaultdict(lambda: defaultdict(lambda: defaultdict(int)))
 
     print(f"\nRunning {NUM_SIMS:,} simulations...")
 
@@ -377,6 +382,12 @@ def main():
         ranked = sorted(final.items(), key=lambda x: (-x[1], x[0]))
         pool_winner = ranked[0][0]
         win_counts[pool_winner] += 1
+
+        # Rooting guide: for each team that won rounds, track pool winner
+        for team, rounds in all_wins.items():
+            for r in rounds:
+                team_advance_count[team][r] += 1
+                entry_wins_given_advance[pool_winner][team][r] += 1
 
         # Track individual finish positions 1-8
         for pos in range(min(8, len(ranked))):
@@ -570,6 +581,10 @@ def main():
     # Auto-update placements.html with fresh sim data
     update_placements_html(position_counts, NUM_SIMS)
 
+    # Build rooting guide page
+    update_rooting_html(team_advance_count, entry_wins_given_advance,
+                        win_counts, entries, NUM_SIMS)
+
 
 def update_placements_html(position_counts, NUM_SIMS):
     """Rewrite placements.html with fresh sim data."""
@@ -682,6 +697,182 @@ def update_placements_html(position_counts, NUM_SIMS):
     with open(html_path, "w", encoding="utf-8") as f:
         f.write(html)
     print(f"\nUpdated {html_path}")
+
+
+def update_rooting_html(team_advance_count, entry_wins_given_advance,
+                        win_counts, entries, NUM_SIMS):
+    """Build rooting guide HTML page — filterable by team."""
+    site_dir = os.path.dirname(os.path.abspath(__file__))
+    html_path = os.path.join(site_dir, "rooting.html")
+
+    # Get top 15 entries by overall win%
+    sorted_entries = sorted(win_counts.items(), key=lambda x: x[1], reverse=True)
+    top_entries = [name for name, _ in sorted_entries[:15]]
+    overall_pct = {name: count / NUM_SIMS * 100 for name, count in win_counts.items()}
+
+    # Get all tournament teams sorted by BPR
+    all_teams = sorted(team_advance_count.keys(),
+                       key=lambda t: EVANMIYA_RATINGS.get(t, 0), reverse=True)
+
+    round_labels = ["R64", "R32", "S16", "E8", "F4", "Champ"]
+
+    # Build JSON data for client-side filtering
+    # Structure: { team: { round: { entry: cond_pct, ... }, ... }, ... }
+    guide_data = {}
+    for team in all_teams:
+        team_data = {}
+        for r in range(6):
+            adv_count = team_advance_count[team].get(r, 0)
+            if adv_count < 50:  # skip rounds with too few samples
+                continue
+            not_adv_count = NUM_SIMS - adv_count
+            round_data = {}
+            for entry in top_entries:
+                wins_if_adv = entry_wins_given_advance[entry][team].get(r, 0)
+                wins_total = win_counts.get(entry, 0)
+                wins_if_not = wins_total - wins_if_adv
+                pct_if_adv = wins_if_adv / adv_count * 100 if adv_count > 0 else 0
+                pct_if_not = wins_if_not / not_adv_count * 100 if not_adv_count > 0 else 0
+                round_data[entry] = {
+                    "if_win": round(pct_if_adv, 2),
+                    "if_lose": round(pct_if_not, 2),
+                    "swing": round(pct_if_adv - pct_if_not, 2)
+                }
+            team_data[round_labels[r]] = round_data
+        if team_data:
+            guide_data[team] = team_data
+
+    # Build team options for dropdown
+    team_options = "\n".join(
+        f'<option value="{t}">{t} (BPR {EVANMIYA_RATINGS.get(t, 0):+.1f})</option>'
+        for t in all_teams if t in guide_data
+    )
+
+    # Pre-compute JSON strings to avoid f-string brace conflicts
+    data_json = json.dumps(guide_data)
+    overall_json = json.dumps({name: round(overall_pct.get(name, 0), 2) for name in top_entries})
+    entries_json = json.dumps(top_entries)
+    round_labels_json = json.dumps({"R64": "Round of 64", "R32": "Round of 32", "S16": "Sweet 16",
+                                     "E8": "Elite 8", "F4": "Final Four", "Champ": "Championship"})
+
+    html = f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SLP Pool \u2013 Rooting Guide</title>
+<style>
+  * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+  body {{ font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #0f1117; color: #e0e0e0; padding: 24px; }}
+  h1 {{ text-align: center; font-size: 1.6rem; margin-bottom: 4px; color: #fff; }}
+  .sub {{ text-align: center; font-size: 0.85rem; color: #888; margin-bottom: 20px; }}
+  .sub a {{ color: #4FC3F7; text-decoration: none; }}
+  .nav {{ text-align: center; margin-bottom: 20px; }}
+  .nav a {{ color: #4FC3F7; text-decoration: none; margin: 0 12px; font-size: 0.9rem; }}
+  .nav a:hover {{ text-decoration: underline; }}
+  .controls {{ text-align: center; margin-bottom: 20px; }}
+  select {{ font-size: 1rem; padding: 8px 16px; border-radius: 8px; border: 1px solid #444;
+           background: #1a1d27; color: #e0e0e0; cursor: pointer; min-width: 280px; }}
+  .table-wrap {{ max-width: 1100px; margin: 0 auto; overflow-x: auto; background: #1a1d27; border-radius: 12px; padding: 20px; }}
+  .round-section {{ margin-bottom: 24px; }}
+  .round-section h3 {{ color: #4FC3F7; font-size: 0.95rem; margin-bottom: 8px; }}
+  table {{ width: 100%; border-collapse: collapse; font-size: 0.82rem; }}
+  th, td {{ padding: 6px 10px; text-align: right; border-bottom: 1px solid #2a2d3a; }}
+  th {{ background: #1a1d27; color: #aaa; font-weight: 600; position: sticky; top: 0; }}
+  th:first-child, td:first-child {{ text-align: left; }}
+  tr:hover td {{ background: #1e2130; }}
+  .positive {{ color: #4CAF50; }}
+  .negative {{ color: #ef5350; }}
+  .neutral {{ color: #888; }}
+  .source {{ text-align: center; font-size: 0.75rem; color: #555; margin-top: 16px; }}
+  .source a {{ color: #4FC3F7; text-decoration: none; }}
+  .no-data {{ text-align: center; color: #666; padding: 40px; font-size: 0.9rem; }}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <a href="index.html">&larr; Standings</a>
+  <a href="placements.html">Placement Distribution</a>
+  <a href="championship.html">Championship Odds</a>
+</div>
+
+<h1>SLP Pool \u2013 Rooting Guide</h1>
+<p class="sub">How each team's tournament results affect pool win probability &bull; {NUM_SIMS:,} sims</p>
+
+<div class="controls">
+  <select id="teamSelect" onchange="renderTeam()">
+    <option value="">Select a team...</option>
+    {team_options}
+  </select>
+</div>
+
+<div id="content" class="table-wrap">
+  <p class="no-data">Select a team to see how their results impact pool standings</p>
+</div>
+
+<p class="source">
+  Powered by <a href="https://evanmiya.com" target="_blank">EvanMiya</a> BPR ratings
+</p>
+
+<script>
+const DATA = {data_json};
+const OVERALL = {overall_json};
+const ENTRIES = {entries_json};
+const ROUND_ORDER = ["R64", "R32", "S16", "E8", "F4", "Champ"];
+const ROUND_LABELS = {round_labels_json};
+
+function swingColor(v) {{
+  if (Math.abs(v) < 0.5) return 'transparent';
+  let intensity = Math.min(Math.abs(v) / 15, 1);
+  if (v > 0) return `rgba(76,175,80,${{(0.15 + intensity*0.55).toFixed(2)}})`;
+  return `rgba(239,83,80,${{(0.15 + intensity*0.55).toFixed(2)}})`;
+}}
+
+function renderTeam() {{
+  const team = document.getElementById('teamSelect').value;
+  const content = document.getElementById('content');
+  if (!team || !DATA[team]) {{
+    content.innerHTML = '<p class="no-data">Select a team to see how their results impact pool standings</p>';
+    return;
+  }}
+
+  const td = DATA[team];
+  let html = '';
+
+  for (const rnd of ROUND_ORDER) {{
+    if (!td[rnd]) continue;
+    const rd = td[rnd];
+
+    // Sort entries by absolute swing
+    const sorted = ENTRIES.filter(e => rd[e]).sort((a,b) => Math.abs(rd[b].swing) - Math.abs(rd[a].swing));
+
+    html += `<div class="round-section"><h3>${{ROUND_LABELS[rnd]}} (wins ${{rnd}})</h3>`;
+    html += '<table><thead><tr><th style="min-width:140px">Entry</th>';
+    html += '<th>Current</th><th>If ${{team}} wins</th><th>If ${{team}} loses</th><th>Swing</th></tr></thead><tbody>';
+
+    for (const entry of sorted) {{
+      const d = rd[entry];
+      const cls = d.swing > 0.5 ? 'positive' : d.swing < -0.5 ? 'negative' : 'neutral';
+      const arrow = d.swing > 0.5 ? '\u25B2' : d.swing < -0.5 ? '\u25BC' : '';
+      html += `<tr><td style="font-weight:600">${{entry}}</td>`;
+      html += `<td>${{OVERALL[entry].toFixed(1)}}%</td>`;
+      html += `<td style="background:${{swingColor(d.swing)}}">${{d.if_win.toFixed(1)}}%</td>`;
+      html += `<td style="background:${{swingColor(-d.swing)}}">${{d.if_lose.toFixed(1)}}%</td>`;
+      html += `<td class="${{cls}}">${{arrow}} ${{d.swing > 0 ? '+' : ''}}${{d.swing.toFixed(1)}}%</td></tr>`;
+    }}
+    html += '</tbody></table></div>';
+  }}
+
+  content.innerHTML = html;
+}}
+</script>
+</body>
+</html>'''
+
+    with open(html_path, "w", encoding="utf-8") as f:
+        f.write(html)
+    print(f"Updated {html_path}")
 
 
 if __name__ == "__main__":
