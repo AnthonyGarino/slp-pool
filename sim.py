@@ -688,7 +688,7 @@ def update_placements_html(position_counts, NUM_SIMS, cond_pos, cond_sims):
     <option value="">any team...</option>
     {team_options}
   </select>
-  <span class="filter-label">makes</span>
+  <span class="filter-label">wins</span>
   <select id="roundSelect" onchange="renderTable()">
     <option value="">select round...</option>
   </select>
@@ -764,7 +764,7 @@ function renderTable() {{
     const cd = COND[team][rnd];
     document.getElementById('tableBody').innerHTML = buildRows(cd.entries);
     info.textContent = `Showing ${{cd.n.toLocaleString()}} simulations where ${{team}} wins ${{ROUND_NAMES[rnd]}}`;
-    document.getElementById('tableTitle').textContent = `If ${{team}} makes ${{ROUND_NAMES[rnd]}}`;
+    document.getElementById('tableTitle').textContent = `If ${{team}} wins ${{ROUND_NAMES[rnd]}}`;
   }} else {{
     document.getElementById('tableBody').innerHTML = buildRows(BASELINE);
     info.textContent = '';
