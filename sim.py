@@ -352,10 +352,11 @@ def main():
     donut_wins_given_champ = defaultdict(int)
     champ_total_given = defaultdict(int)
     team_round_counts = defaultdict(lambda: defaultdict(int))  # team -> round -> count
-    # Conditional placements: cond_pos[team][round][entry][position] = count
-    # cond_sims[team][round] = number of sims where team won that round
-    cond_pos = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: defaultdict(int))))
-    cond_sims = defaultdict(lambda: defaultdict(int))
+    # Per-sim data for client-side multi-filter
+    all_team_list = sorted(EVANMIYA_RATINGS.keys())
+    team_to_idx = {t: i for i, t in enumerate(all_team_list)}
+    sim_adv = []   # team advancement strings (one char per team: '.'=no wins, '0'-'5'=max round won)
+    sim_top8 = []  # top-8 entry names per sim
 
     print(f"\nRunning {NUM_SIMS:,} simulations...")
 
@@ -391,13 +392,14 @@ def main():
         for name, _ in ranked[:8]:
             top8_counts[name] += 1
 
-        # Conditional placement tracking: for each team that advanced,
-        # record the top-8 positions in sims where that team won each round
+        # Per-sim storage for multi-filter
+        adv = ['.'] * len(all_team_list)
         for team, rounds in all_wins.items():
-            for r in rounds:
-                cond_sims[team][r] += 1
-                for pos in range(min(8, len(ranked))):
-                    cond_pos[team][r][ranked[pos][0]][pos] += 1
+            idx = team_to_idx.get(team)
+            if idx is not None:
+                adv[idx] = str(max(rounds))
+        sim_adv.append(''.join(adv))
+        sim_top8.append([ranked[i][0] for i in range(min(8, len(ranked)))])
 
         if pool_winner == "Donut Holes":
             donut_wins_given_champ[champion] += 1
@@ -580,15 +582,15 @@ def main():
     print("JSON_POSITION_DATA_END")
 
     # Auto-update placements.html with fresh sim data
-    update_placements_html(position_counts, NUM_SIMS, cond_pos, cond_sims)
+    update_placements_html(position_counts, NUM_SIMS, sim_adv, sim_top8, all_team_list)
 
 
-def update_placements_html(position_counts, NUM_SIMS, cond_pos, cond_sims):
-    """Rewrite placements.html with fresh sim data + conditional filter."""
+def update_placements_html(position_counts, NUM_SIMS, sim_adv, sim_top8, all_team_list):
+    """Rewrite placements.html with fresh sim data + multi-condition filter."""
     site_dir = os.path.dirname(os.path.abspath(__file__))
     html_path = os.path.join(site_dir, "placements.html")
 
-    # Build top-15 entries by top8 %
+    # Build baseline entries
     entries_data = []
     sorted_pos = sorted(position_counts.items(),
                         key=lambda x: sum(x[1].values()), reverse=True)
@@ -598,43 +600,38 @@ def update_placements_html(position_counts, NUM_SIMS, cond_pos, cond_sims):
         if top8 >= 1.0:
             entries_data.append({"name": name, "p": vals, "top8": top8})
     entries_data.sort(key=lambda x: x["top8"], reverse=True)
-    top_entry_names = [d["name"] for d in entries_data[:20]]
+    baseline_json = json.dumps(entries_data[:15])
 
-    # Build baseline JSON
-    baseline_json = json.dumps([d for d in entries_data[:15]])
-
-    # Build conditional data JSON
-    # Only include teams with enough sims and meaningful tournament presence
-    round_labels = ["R64", "R32", "S16", "E8", "F4", "Champ"]
-    cond_json_data = {}
-    all_cond_teams = sorted(cond_sims.keys(),
-                            key=lambda t: EVANMIYA_RATINGS.get(t, 0), reverse=True)
-    for team in all_cond_teams:
-        team_data = {}
-        for r in range(6):
-            n = cond_sims[team].get(r, 0)
-            if n < 100:
-                continue
-            round_entries = []
-            for entry_name in top_entry_names:
-                vals = [round(cond_pos[team][r][entry_name].get(p, 0) / n * 100, 2)
-                        for p in range(8)]
-                t8 = round(sum(cond_pos[team][r][entry_name].get(p, 0)
-                               for p in range(8)) / n * 100, 1)
-                if t8 >= 1.0:
-                    round_entries.append({"name": entry_name, "p": vals, "top8": t8})
-            round_entries.sort(key=lambda x: x["top8"], reverse=True)
-            team_data[round_labels[r]] = {"n": n, "entries": round_entries[:15]}
-        if team_data:
-            cond_json_data[team] = team_data
-
-    cond_data_json = json.dumps(cond_json_data)
-
-    # Build team options for filter dropdown (sorted by BPR)
-    team_options = "\n".join(
-        f'<option value="{t}">{t} (BPR {EVANMIYA_RATINGS.get(t, 0):+.1f})</option>'
-        for t in all_cond_teams if t in cond_json_data
+    # Build entry index for compact sim storage
+    entry_count = defaultdict(int)
+    for t8 in sim_top8:
+        for name in t8:
+            entry_count[name] += 1
+    relevant_entries = sorted(
+        [n for n, c in entry_count.items() if c / NUM_SIMS >= 0.005],
+        key=lambda n: entry_count[n], reverse=True
     )
+    entry_to_idx = {n: i for i, n in enumerate(relevant_entries)}
+
+    # Convert sim_top8 to index arrays
+    top8_idx = []
+    for t8 in sim_top8:
+        top8_idx.append([entry_to_idx.get(n, -1) for n in t8[:8]])
+
+    # JSON data for client-side filtering
+    teams_json = json.dumps(all_team_list)
+    entries_json = json.dumps(relevant_entries)
+    adv_json = json.dumps(sim_adv)
+    top8_json = json.dumps(top8_idx)
+
+    # Team options sorted by BPR for dropdown
+    teams_by_bpr = sorted(all_team_list,
+                          key=lambda t: EVANMIYA_RATINGS.get(t, 0), reverse=True)
+    team_opts_js = json.dumps([
+        {"idx": all_team_list.index(t), "name": t,
+         "bpr": round(EVANMIYA_RATINGS.get(t, 0), 1)}
+        for t in teams_by_bpr
+    ])
 
     html = f'''<!DOCTYPE html>
 <html lang="en">
@@ -648,12 +645,18 @@ def update_placements_html(position_counts, NUM_SIMS, cond_pos, cond_sims):
   h1 {{ text-align: center; font-size: 1.6rem; margin-bottom: 4px; color: #fff; }}
   .sub {{ text-align: center; font-size: 0.85rem; color: #888; margin-bottom: 16px; }}
   .sub a {{ color: #4FC3F7; text-decoration: none; }}
-  .filter-bar {{ max-width: 900px; margin: 0 auto 16px; display: flex; align-items: center;
-                 justify-content: center; gap: 10px; flex-wrap: wrap; }}
+  .filters {{ max-width: 900px; margin: 0 auto 16px; }}
+  .filter-row {{ display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }}
   select {{ font-size: 0.9rem; padding: 6px 12px; border-radius: 8px; border: 1px solid #444;
            background: #1a1d27; color: #e0e0e0; cursor: pointer; }}
   .filter-label {{ color: #888; font-size: 0.85rem; }}
   .filter-info {{ text-align: center; font-size: 0.8rem; color: #4FC3F7; margin-bottom: 12px; }}
+  .filter-btns {{ text-align: center; margin-bottom: 8px; }}
+  .add-btn, .reset-btn {{ font-size: 0.8rem; color: #888; cursor: pointer; background: none; border: 1px solid #444;
+               padding: 4px 10px; border-radius: 12px; margin: 0 4px; }}
+  .add-btn:hover, .reset-btn:hover {{ color: #e0e0e0; border-color: #888; }}
+  .remove-btn {{ font-size: 0.9rem; color: #666; cursor: pointer; background: none; border: none; padding: 2px 6px; }}
+  .remove-btn:hover {{ color: #ff6b6b; }}
   .table-wrap {{ max-width: 900px; margin: 0 auto; overflow-x: auto; background: #1a1d27; border-radius: 12px; padding: 20px; }}
   .table-wrap h2 {{ font-size: 1rem; color: #ccc; margin-bottom: 12px; }}
   table {{ width: 100%; border-collapse: collapse; font-size: 0.85rem; }}
@@ -667,9 +670,6 @@ def update_placements_html(position_counts, NUM_SIMS, cond_pos, cond_sims):
   .nav a:hover {{ text-decoration: underline; }}
   .source {{ text-align: center; font-size: 0.75rem; color: #555; margin-top: 16px; }}
   .source a {{ color: #4FC3F7; text-decoration: none; }}
-  .reset-btn {{ font-size: 0.8rem; color: #888; cursor: pointer; background: none; border: 1px solid #444;
-               padding: 4px 10px; border-radius: 12px; }}
-  .reset-btn:hover {{ color: #e0e0e0; border-color: #888; }}
 </style>
 </head>
 <body>
@@ -682,17 +682,12 @@ def update_placements_html(position_counts, NUM_SIMS, cond_pos, cond_sims):
 <h1>SLP Pool \u2013 Placement Distribution</h1>
 <p class="sub">{NUM_SIMS:,} Monte Carlo simulations using <a href="https://evanmiya.com" target="_blank" style="color:#4FC3F7;text-decoration:none">EvanMiya</a> BPR ratings &bull; NCAA 2-4-6-8-10-12 scoring</p>
 
-<div class="filter-bar">
-  <span class="filter-label">What if</span>
-  <select id="teamSelect" onchange="updateRounds()">
-    <option value="">any team...</option>
-    {team_options}
-  </select>
-  <span class="filter-label">wins</span>
-  <select id="roundSelect" onchange="renderTable()">
-    <option value="">select round...</option>
-  </select>
-  <button class="reset-btn" onclick="resetFilter()">Reset</button>
+<div class="filters">
+  <div id="filterRows"></div>
+  <div class="filter-btns">
+    <button class="add-btn" onclick="addFilter()">+ Add condition</button>
+    <button class="reset-btn" onclick="resetFilters()">Reset</button>
+  </div>
 </div>
 
 <div id="filterInfo" class="filter-info"></div>
@@ -718,9 +713,16 @@ def update_placements_html(position_counts, NUM_SIMS, cond_pos, cond_sims):
 
 <script>
 const BASELINE = {baseline_json};
-const COND = {cond_data_json};
+const TEAMS = {teams_json};
+const ENTRIES = {entries_json};
+const ADV = {adv_json};
+const TOP8 = {top8_json};
+const TEAM_OPTS = {team_opts_js};
+const ROUND_LABELS = ["R64","R32","S16","E8","F4","Champ"];
 const ROUND_NAMES = {{"R64":"Round of 64","R32":"Round of 32","S16":"Sweet 16",
                       "E8":"Elite 8","F4":"Final Four","Champ":"Championship"}};
+
+let filters = [];
 
 function heatColor(val) {{
   if (val === 0) return 'transparent';
@@ -740,46 +742,124 @@ function buildRows(data) {{
   }}).join('\\n');
 }}
 
-function updateRounds() {{
-  const team = document.getElementById('teamSelect').value;
-  const roundSel = document.getElementById('roundSelect');
-  roundSel.innerHTML = '<option value="">select round...</option>';
-  if (team && COND[team]) {{
-    const rounds = ["R64","R32","S16","E8","F4","Champ"];
-    for (const r of rounds) {{
-      if (COND[team][r]) {{
-        roundSel.innerHTML += `<option value="${{r}}">${{ROUND_NAMES[r]}} (${{COND[team][r].n.toLocaleString()}} sims)</option>`;
-      }}
-    }}
-  }}
-  renderTable();
+function teamOptions() {{
+  return '<option value="">select team...</option>' +
+    TEAM_OPTS.map(t => `<option value="${{t.idx}}">${{t.name}} (BPR ${{t.bpr >= 0 ? '+' : ''}}${{t.bpr}})</option>`).join('');
 }}
 
-function renderTable() {{
-  const team = document.getElementById('teamSelect').value;
-  const rnd = document.getElementById('roundSelect').value;
+function roundOptions() {{
+  return '<option value="">select round...</option>' +
+    ROUND_LABELS.map((r, i) => `<option value="${{i}}">${{ROUND_NAMES[r]}}</option>`).join('');
+}}
+
+function addFilter() {{
+  filters.push({{teamIdx: -1, type: 'wins', round: -1}});
+  renderFilterRows();
+}}
+
+function removeFilter(idx) {{
+  filters.splice(idx, 1);
+  renderFilterRows();
+  applyFilters();
+}}
+
+function updateFilter(idx, field, val) {{
+  filters[idx][field] = field === 'type' ? val : parseInt(val);
+  applyFilters();
+}}
+
+function renderFilterRows() {{
+  const container = document.getElementById('filterRows');
+  if (filters.length === 0) {{
+    container.innerHTML = '';
+    return;
+  }}
+  container.innerHTML = filters.map((f, i) => {{
+    return `<div class="filter-row">
+      <span class="filter-label">${{i === 0 ? 'What if' : 'AND'}}</span>
+      <select onchange="updateFilter(${{i}},'teamIdx',this.value)">${{teamOptions().replace('value="' + f.teamIdx + '"', 'value="' + f.teamIdx + '" selected')}}</select>
+      <select onchange="updateFilter(${{i}},'type',this.value)">
+        <option value="wins"${{f.type==='wins'?' selected':''}}>wins</option>
+        <option value="loses"${{f.type==='loses'?' selected':''}}>eliminated before</option>
+      </select>
+      <select onchange="updateFilter(${{i}},'round',this.value)">${{roundOptions().replace('value="' + f.round + '"', 'value="' + f.round + '" selected')}}</select>
+      <button class="remove-btn" onclick="removeFilter(${{i}})">\u2715</button>
+    </div>`;
+  }}).join('');
+}}
+
+function applyFilters() {{
+  const active = filters.filter(f => f.teamIdx >= 0 && f.round >= 0);
   const info = document.getElementById('filterInfo');
 
-  if (team && rnd && COND[team] && COND[team][rnd]) {{
-    const cd = COND[team][rnd];
-    document.getElementById('tableBody').innerHTML = buildRows(cd.entries);
-    info.textContent = `Showing ${{cd.n.toLocaleString()}} simulations where ${{team}} wins ${{ROUND_NAMES[rnd]}}`;
-    document.getElementById('tableTitle').textContent = `If ${{team}} wins ${{ROUND_NAMES[rnd]}}`;
-  }} else {{
+  if (active.length === 0) {{
     document.getElementById('tableBody').innerHTML = buildRows(BASELINE);
     info.textContent = '';
     document.getElementById('tableTitle').textContent = 'Top 8 Finish Probabilities (% of simulations)';
+    return;
   }}
+
+  // Filter sims
+  const counts = new Array(ENTRIES.length).fill(null).map(() => new Array(8).fill(0));
+  let n = 0;
+
+  for (let s = 0; s < ADV.length; s++) {{
+    let match = true;
+    for (const f of active) {{
+      const c = ADV[s].charAt(f.teamIdx);
+      const maxRound = c === '.' ? -1 : parseInt(c);
+      if (f.type === 'wins' && maxRound < f.round) {{ match = false; break; }}
+      if (f.type === 'loses' && maxRound >= f.round) {{ match = false; break; }}
+    }}
+    if (!match) continue;
+    n++;
+    for (let p = 0; p < 8; p++) {{
+      const ei = TOP8[s][p];
+      if (ei >= 0) counts[ei][p]++;
+    }}
+  }}
+
+  if (n === 0) {{
+    document.getElementById('tableBody').innerHTML = '<tr><td colspan="10" style="text-align:center;color:#888;padding:20px">No simulations match these conditions</td></tr>';
+    info.textContent = '0 matching simulations';
+    document.getElementById('tableTitle').textContent = 'No matching simulations';
+    return;
+  }}
+
+  const data = [];
+  for (let i = 0; i < ENTRIES.length; i++) {{
+    const total = counts[i].reduce((a,b) => a+b, 0);
+    if (total / n >= 0.01) {{
+      data.push({{
+        name: ENTRIES[i],
+        p: counts[i].map(v => +(v/n*100).toFixed(2)),
+        top8: +(total/n*100).toFixed(1)
+      }});
+    }}
+  }}
+  data.sort((a,b) => b.top8 - a.top8);
+  document.getElementById('tableBody').innerHTML = buildRows(data.slice(0, 15));
+
+  // Build description
+  const desc = active.map(f => {{
+    const tname = TEAMS[f.teamIdx];
+    const rname = ROUND_NAMES[ROUND_LABELS[f.round]];
+    return f.type === 'wins' ? `${{tname}} wins ${{rname}}` : `${{tname}} eliminated before ${{rname}}`;
+  }}).join(' + ');
+  info.textContent = `Showing ${{n.toLocaleString()}} simulations where ${{desc}}`;
+  document.getElementById('tableTitle').textContent = desc;
 }}
 
-function resetFilter() {{
-  document.getElementById('teamSelect').value = '';
-  document.getElementById('roundSelect').innerHTML = '<option value="">select round...</option>';
-  renderTable();
+function resetFilters() {{
+  filters = [];
+  renderFilterRows();
+  document.getElementById('tableBody').innerHTML = buildRows(BASELINE);
+  document.getElementById('filterInfo').textContent = '';
+  document.getElementById('tableTitle').textContent = 'Top 8 Finish Probabilities (% of simulations)';
 }}
 
 // Initial render
-renderTable();
+document.getElementById('tableBody').innerHTML = buildRows(BASELINE);
 </script>
 </body>
 </html>'''
