@@ -567,6 +567,122 @@ def main():
     print(json.dumps(pos_json))
     print("JSON_POSITION_DATA_END")
 
+    # Auto-update placements.html with fresh sim data
+    update_placements_html(position_counts, NUM_SIMS)
+
+
+def update_placements_html(position_counts, NUM_SIMS):
+    """Rewrite placements.html with fresh sim data."""
+    site_dir = os.path.dirname(os.path.abspath(__file__))
+    html_path = os.path.join(site_dir, "placements.html")
+
+    # Build top-15 entries by top8 %
+    entries_data = []
+    sorted_pos = sorted(position_counts.items(),
+                        key=lambda x: sum(x[1].values()), reverse=True)
+    for name, positions in sorted_pos:
+        vals = [round(positions.get(p, 0) / NUM_SIMS * 100, 2) for p in range(8)]
+        top8 = round(sum(positions.get(p, 0) for p in range(8)) / NUM_SIMS * 100, 1)
+        if top8 >= 10.0:
+            entries_data.append({"name": name, "p": vals, "top8": top8})
+    entries_data.sort(key=lambda x: x["top8"], reverse=True)
+    entries_data = entries_data[:15]
+
+    # Build JS data lines
+    js_lines = []
+    for d in entries_data:
+        p_str = ",".join(f"{v:.2f}" for v in d["p"])
+        js_lines.append(
+            f'  {{ name: "{d["name"]}", '
+            f'p: [{p_str}], top8: {d["top8"]:.1f} }}')
+    js_data = ",\n".join(js_lines)
+
+    # Build table rows with inline heatmap styling
+    def heat_color(val):
+        if val == 0:
+            return 'transparent'
+        intensity = min(val / 30, 1)
+        r = int(255 * intensity)
+        g = int(180 * intensity)
+        b = int(50 * intensity * 0.3)
+        return f'rgba({r},{g},{b},{0.15 + intensity * 0.55:.2f})'
+
+    table_rows = ""
+    for d in entries_data:
+        cells = ""
+        for v in d["p"]:
+            bg = heat_color(v)
+            display = f'{v:.1f}%' if v > 0 else '\u2014'
+            cells += f'<td class="heat-cell" style="background:{bg}">{display}</td>'
+        table_rows += (
+            f'<tr><td style="font-weight:600">{d["name"]}</td>'
+            f'{cells}'
+            f'<td style="font-weight:600">{d["top8"]:.1f}%</td></tr>\n'
+        )
+
+    html = f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SLP Pool \u2013 Placement Distribution</title>
+<style>
+  * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+  body {{ font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #0f1117; color: #e0e0e0; padding: 24px; }}
+  h1 {{ text-align: center; font-size: 1.6rem; margin-bottom: 4px; color: #fff; }}
+  .sub {{ text-align: center; font-size: 0.85rem; color: #888; margin-bottom: 24px; }}
+  .table-wrap {{ max-width: 900px; margin: 0 auto; overflow-x: auto; background: #1a1d27; border-radius: 12px; padding: 20px; }}
+  .table-wrap h2 {{ font-size: 1rem; color: #ccc; margin-bottom: 12px; }}
+  table {{ width: 100%; border-collapse: collapse; font-size: 0.85rem; }}
+  th, td {{ padding: 8px 12px; text-align: right; border-bottom: 1px solid #2a2d3a; }}
+  th {{ background: #1a1d27; color: #aaa; font-weight: 600; position: sticky; top: 0; }}
+  th:first-child, td:first-child {{ text-align: left; }}
+  tr:hover td {{ background: #1e2130; }}
+  .heat-cell {{ border-radius: 4px; }}
+  .nav {{ text-align: center; margin-bottom: 20px; }}
+  .nav a {{ color: #4FC3F7; text-decoration: none; margin: 0 12px; font-size: 0.9rem; }}
+  .nav a:hover {{ text-decoration: underline; }}
+  .source {{ text-align: center; font-size: 0.75rem; color: #555; margin-top: 16px; }}
+  .source a {{ color: #4FC3F7; text-decoration: none; }}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <a href="index.html">&larr; Standings</a>
+  <a href="championship.html">NCAA Championship Odds</a>
+</div>
+
+<h1>SLP Pool \u2013 Placement Distribution</h1>
+<p class="sub">{NUM_SIMS:,} Monte Carlo simulations &bull; NCAA 2-4-6-8-10-12 scoring</p>
+
+<div class="table-wrap">
+  <h2>Top 8 Finish Probabilities (% of simulations)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="min-width:160px">Entry</th>
+        <th>1st</th><th>2nd</th><th>3rd</th><th>4th</th>
+        <th>5th</th><th>6th</th><th>7th</th><th>8th</th>
+        <th>Top 8</th>
+      </tr>
+    </thead>
+    <tbody>
+{table_rows}    </tbody>
+  </table>
+</div>
+
+<p class="source">
+  Powered by <a href="https://evanmiya.com" target="_blank">EvanMiya</a> BPR ratings
+</p>
+
+</body>
+</html>'''
+
+    with open(html_path, "w", encoding="utf-8") as f:
+        f.write(html)
+    print(f"\nUpdated {html_path}")
+
 
 if __name__ == "__main__":
     main()

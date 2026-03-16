@@ -1,0 +1,36 @@
+name: Update Placement Sim
+
+on:
+  schedule:
+    - cron: '0 */3 * * *'   # Every 3 hours
+  workflow_dispatch:          # Allow manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  simulate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run Monte Carlo simulation
+        run: python sim.py
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "SLP Sim Bot"
+          git config user.email "bot@slp-pool.github.io"
+          git add placements.html
+          if git diff --cached --quiet; then
+            echo "No sim changes detected — skipping commit."
+          else
+            git commit -m "Auto-update placement sim $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
