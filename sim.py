@@ -701,7 +701,7 @@ def update_placements_html(position_counts, NUM_SIMS):
 
 def update_rooting_html(team_advance_count, entry_wins_given_advance,
                         win_counts, entries, NUM_SIMS):
-    """Build rooting guide HTML page — filterable by team."""
+    """Build rooting guide HTML page — filterable by entry."""
     site_dir = os.path.dirname(os.path.abspath(__file__))
     html_path = os.path.join(site_dir, "rooting.html")
 
@@ -716,44 +716,45 @@ def update_rooting_html(team_advance_count, entry_wins_given_advance,
 
     round_labels = ["R64", "R32", "S16", "E8", "F4", "Champ"]
 
-    # Build JSON data for client-side filtering
-    # Structure: { team: { round: { entry: cond_pct, ... }, ... }, ... }
+    # Build JSON data: { entry: { team: { round: {if_win, if_lose, swing} } } }
     guide_data = {}
-    for team in all_teams:
-        team_data = {}
-        for r in range(6):
-            adv_count = team_advance_count[team].get(r, 0)
-            if adv_count < 50:  # skip rounds with too few samples
-                continue
-            not_adv_count = NUM_SIMS - adv_count
-            round_data = {}
-            for entry in top_entries:
+    for entry in top_entries:
+        entry_data = {}
+        for team in all_teams:
+            team_rounds = {}
+            for r in range(6):
+                adv_count = team_advance_count[team].get(r, 0)
+                if adv_count < 50:
+                    continue
+                not_adv_count = NUM_SIMS - adv_count
                 wins_if_adv = entry_wins_given_advance[entry][team].get(r, 0)
                 wins_total = win_counts.get(entry, 0)
                 wins_if_not = wins_total - wins_if_adv
                 pct_if_adv = wins_if_adv / adv_count * 100 if adv_count > 0 else 0
                 pct_if_not = wins_if_not / not_adv_count * 100 if not_adv_count > 0 else 0
-                round_data[entry] = {
-                    "if_win": round(pct_if_adv, 2),
-                    "if_lose": round(pct_if_not, 2),
-                    "swing": round(pct_if_adv - pct_if_not, 2)
+                swing = pct_if_adv - pct_if_not
+                team_rounds[round_labels[r]] = {
+                    "w": round(pct_if_adv, 2),
+                    "l": round(pct_if_not, 2),
+                    "s": round(swing, 2)
                 }
-            team_data[round_labels[r]] = round_data
-        if team_data:
-            guide_data[team] = team_data
+            if team_rounds:
+                entry_data[team] = team_rounds
+        guide_data[entry] = entry_data
 
-    # Build team options for dropdown
-    team_options = "\n".join(
-        f'<option value="{t}">{t} (BPR {EVANMIYA_RATINGS.get(t, 0):+.1f})</option>'
-        for t in all_teams if t in guide_data
+    # Build entry options for dropdown
+    entry_options = "\n".join(
+        f'<option value="{e}">{e} ({overall_pct.get(e, 0):.1f}%)</option>'
+        for e in top_entries
     )
 
-    # Pre-compute JSON strings to avoid f-string brace conflicts
+    # Pre-compute JSON strings
     data_json = json.dumps(guide_data)
     overall_json = json.dumps({name: round(overall_pct.get(name, 0), 2) for name in top_entries})
-    entries_json = json.dumps(top_entries)
-    round_labels_json = json.dumps({"R64": "Round of 64", "R32": "Round of 32", "S16": "Sweet 16",
-                                     "E8": "Elite 8", "F4": "Final Four", "Champ": "Championship"})
+
+    # Get all teams list for JS
+    teams_in_data = [t for t in all_teams if any(t in guide_data[e] for e in top_entries)]
+    teams_json = json.dumps(teams_in_data)
 
     html = f'''<!DOCTYPE html>
 <html lang="en">
@@ -773,20 +774,19 @@ def update_rooting_html(team_advance_count, entry_wins_given_advance,
   .controls {{ text-align: center; margin-bottom: 20px; }}
   select {{ font-size: 1rem; padding: 8px 16px; border-radius: 8px; border: 1px solid #444;
            background: #1a1d27; color: #e0e0e0; cursor: pointer; min-width: 280px; }}
-  .table-wrap {{ max-width: 1100px; margin: 0 auto; overflow-x: auto; background: #1a1d27; border-radius: 12px; padding: 20px; }}
-  .round-section {{ margin-bottom: 24px; }}
-  .round-section h3 {{ color: #4FC3F7; font-size: 0.95rem; margin-bottom: 8px; }}
+  .table-wrap {{ max-width: 1000px; margin: 0 auto; overflow-x: auto; background: #1a1d27; border-radius: 12px; padding: 20px; }}
   table {{ width: 100%; border-collapse: collapse; font-size: 0.82rem; }}
-  th, td {{ padding: 6px 10px; text-align: right; border-bottom: 1px solid #2a2d3a; }}
+  th, td {{ padding: 6px 10px; text-align: right; border-bottom: 1px solid #2a2d3a; white-space: nowrap; }}
   th {{ background: #1a1d27; color: #aaa; font-weight: 600; position: sticky; top: 0; }}
   th:first-child, td:first-child {{ text-align: left; }}
   tr:hover td {{ background: #1e2130; }}
-  .positive {{ color: #4CAF50; }}
-  .negative {{ color: #ef5350; }}
-  .neutral {{ color: #888; }}
+  .positive {{ color: #4CAF50; font-weight: 600; }}
+  .negative {{ color: #ef5350; font-weight: 600; }}
+  .neutral {{ color: #555; }}
   .source {{ text-align: center; font-size: 0.75rem; color: #555; margin-top: 16px; }}
   .source a {{ color: #4FC3F7; text-decoration: none; }}
   .no-data {{ text-align: center; color: #666; padding: 40px; font-size: 0.9rem; }}
+  .entry-current {{ text-align: center; font-size: 1.1rem; margin-bottom: 16px; color: #4FC3F7; }}
 </style>
 </head>
 <body>
@@ -798,17 +798,17 @@ def update_rooting_html(team_advance_count, entry_wins_given_advance,
 </div>
 
 <h1>SLP Pool \u2013 Rooting Guide</h1>
-<p class="sub">How each team's tournament results affect pool win probability &bull; {NUM_SIMS:,} sims</p>
+<p class="sub">Select your entry to see which games matter most &bull; {NUM_SIMS:,} sims</p>
 
 <div class="controls">
-  <select id="teamSelect" onchange="renderTeam()">
-    <option value="">Select a team...</option>
-    {team_options}
+  <select id="entrySelect" onchange="renderEntry()">
+    <option value="">Select an entry...</option>
+    {entry_options}
   </select>
 </div>
 
 <div id="content" class="table-wrap">
-  <p class="no-data">Select a team to see how their results impact pool standings</p>
+  <p class="no-data">Select an entry to see which teams help or hurt your odds</p>
 </div>
 
 <p class="source">
@@ -818,51 +818,79 @@ def update_rooting_html(team_advance_count, entry_wins_given_advance,
 <script>
 const DATA = {data_json};
 const OVERALL = {overall_json};
-const ENTRIES = {entries_json};
-const ROUND_ORDER = ["R64", "R32", "S16", "E8", "F4", "Champ"];
-const ROUND_LABELS = {round_labels_json};
+const TEAMS = {teams_json};
+const ROUNDS = ["R64", "R32", "S16", "E8", "F4", "Champ"];
+const ROUND_NAMES = {{"R64": "R64", "R32": "R32", "S16": "S16", "E8": "E8", "F4": "F4", "Champ": "Title"}};
 
-function swingColor(v) {{
-  if (Math.abs(v) < 0.5) return 'transparent';
-  let intensity = Math.min(Math.abs(v) / 15, 1);
-  if (v > 0) return `rgba(76,175,80,${{(0.15 + intensity*0.55).toFixed(2)}})`;
-  return `rgba(239,83,80,${{(0.15 + intensity*0.55).toFixed(2)}})`;
+function swingBg(v) {{
+  if (Math.abs(v) < 0.3) return 'transparent';
+  let i = Math.min(Math.abs(v) / 12, 1);
+  if (v > 0) return `rgba(76,175,80,${{(0.12 + i*0.5).toFixed(2)}})`;
+  return `rgba(239,83,80,${{(0.12 + i*0.5).toFixed(2)}})`;
 }}
 
-function renderTeam() {{
-  const team = document.getElementById('teamSelect').value;
+function renderEntry() {{
+  const entry = document.getElementById('entrySelect').value;
   const content = document.getElementById('content');
-  if (!team || !DATA[team]) {{
-    content.innerHTML = '<p class="no-data">Select a team to see how their results impact pool standings</p>';
+  if (!entry || !DATA[entry]) {{
+    content.innerHTML = '<p class="no-data">Select an entry to see which teams help or hurt your odds</p>';
     return;
   }}
 
-  const td = DATA[team];
-  let html = '';
+  const ed = DATA[entry];
+  const cur = OVERALL[entry];
 
-  for (const rnd of ROUND_ORDER) {{
-    if (!td[rnd]) continue;
-    const rd = td[rnd];
-
-    // Sort entries by absolute swing
-    const sorted = ENTRIES.filter(e => rd[e]).sort((a,b) => Math.abs(rd[b].swing) - Math.abs(rd[a].swing));
-
-    html += `<div class="round-section"><h3>${{ROUND_LABELS[rnd]}} (wins ${{rnd}})</h3>`;
-    html += '<table><thead><tr><th style="min-width:140px">Entry</th>';
-    html += '<th>Current</th><th>If ${{team}} wins</th><th>If ${{team}} loses</th><th>Swing</th></tr></thead><tbody>';
-
-    for (const entry of sorted) {{
-      const d = rd[entry];
-      const cls = d.swing > 0.5 ? 'positive' : d.swing < -0.5 ? 'negative' : 'neutral';
-      const arrow = d.swing > 0.5 ? '\u25B2' : d.swing < -0.5 ? '\u25BC' : '';
-      html += `<tr><td style="font-weight:600">${{entry}}</td>`;
-      html += `<td>${{OVERALL[entry].toFixed(1)}}%</td>`;
-      html += `<td style="background:${{swingColor(d.swing)}}">${{d.if_win.toFixed(1)}}%</td>`;
-      html += `<td style="background:${{swingColor(-d.swing)}}">${{d.if_lose.toFixed(1)}}%</td>`;
-      html += `<td class="${{cls}}">${{arrow}} ${{d.swing > 0 ? '+' : ''}}${{d.swing.toFixed(1)}}%</td></tr>`;
+  // Build flat list of (team, round, swing) and find max swing per team
+  let teamSwings = {{}};
+  for (const team of TEAMS) {{
+    if (!ed[team]) continue;
+    let maxAbs = 0;
+    for (const rnd of ROUNDS) {{
+      if (ed[team][rnd]) {{
+        let a = Math.abs(ed[team][rnd].s);
+        if (a > maxAbs) maxAbs = a;
+      }}
     }}
-    html += '</tbody></table></div>';
+    teamSwings[team] = maxAbs;
   }}
+
+  // Sort teams by max absolute swing
+  const sortedTeams = Object.keys(teamSwings).sort((a,b) => teamSwings[b] - teamSwings[a]);
+
+  // Only show teams with meaningful swing (>0.3%)
+  const relevantTeams = sortedTeams.filter(t => teamSwings[t] >= 0.3);
+
+  let html = `<p class="entry-current">${{entry}}: ${{cur.toFixed(1)}}% win probability</p>`;
+  html += '<table><thead><tr><th style="min-width:130px">Team</th>';
+  for (const rnd of ROUNDS) {{
+    html += `<th>${{ROUND_NAMES[rnd]}}</th>`;
+  }}
+  html += '<th>Peak</th></tr></thead><tbody>';
+
+  for (const team of relevantTeams) {{
+    const td = ed[team];
+    html += `<tr><td style="font-weight:600">${{team}}</td>`;
+    let peak = 0;
+    for (const rnd of ROUNDS) {{
+      if (td[rnd]) {{
+        const s = td[rnd].s;
+        if (Math.abs(s) > Math.abs(peak)) peak = s;
+        const cls = s > 0.3 ? 'positive' : s < -0.3 ? 'negative' : 'neutral';
+        const arrow = s > 0.3 ? '\u25B2' : s < -0.3 ? '\u25BC' : '';
+        html += `<td class="${{cls}}" style="background:${{swingBg(s)}}" `;
+        html += `title="Win: ${{td[rnd].w.toFixed(1)}}% / Lose: ${{td[rnd].l.toFixed(1)}}%">`;
+        html += `${{arrow}}${{s > 0 ? '+' : ''}}${{s.toFixed(1)}}%</td>`;
+      }} else {{
+        html += '<td class="neutral">\u2014</td>';
+      }}
+    }}
+    const pcls = peak > 0.3 ? 'positive' : peak < -0.3 ? 'negative' : 'neutral';
+    html += `<td class="${{pcls}}" style="font-weight:700">${{peak > 0 ? '+' : ''}}${{peak.toFixed(1)}}%</td>`;
+    html += '</tr>';
+  }}
+
+  html += '</tbody></table>';
+  html += '<p style="color:#666;font-size:0.75rem;margin-top:8px">Hover cells for detail. Swing = your win% if team wins that round vs if they lose.</p>';
 
   content.innerHTML = html;
 }}
