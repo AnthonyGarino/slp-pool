@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SLP Pool – Placement Distribution</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #0f1117; color: #e0e0e0; padding: 24px; }
+  h1 { text-align: center; font-size: 1.6rem; margin-bottom: 4px; color: #fff; }
+  .sub { text-align: center; font-size: 0.85rem; color: #888; margin-bottom: 24px; }
+  .chart-wrap { background: #1a1d27; border-radius: 12px; padding: 20px; margin-bottom: 20px; max-width: 1100px; margin-left: auto; margin-right: auto; }
+  .chart-wrap h2 { font-size: 1rem; color: #ccc; margin-bottom: 12px; }
+  canvas { width: 100% !important; }
+  .table-wrap { max-width: 1100px; margin: 0 auto; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+  th, td { padding: 6px 10px; text-align: right; border-bottom: 1px solid #2a2d3a; }
+  th { background: #1a1d27; color: #aaa; font-weight: 600; position: sticky; top: 0; }
+  th:first-child, td:first-child { text-align: left; }
+  tr:hover td { background: #1e2130; }
+  .heat-cell { border-radius: 4px; }
+  .nav { text-align: center; margin-bottom: 20px; }
+  .nav a { color: #4FC3F7; text-decoration: none; margin: 0 12px; font-size: 0.9rem; }
+  .nav a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <a href="index.html">&larr; Standings</a>
+  <a href="championship.html">NCAA Championship Odds</a>
+</div>
+
+<h1>SLP Pool – Placement Distribution</h1>
+<p class="sub">50,000 Monte Carlo simulations using EvanMiya BPR ratings &bull; NCAA 2-4-6-8-10-12 scoring</p>
+
+<div class="chart-wrap">
+  <h2>Top 15 Entries – Finish Position Breakdown</h2>
+  <canvas id="stackedBar" height="420"></canvas>
+</div>
+
+<div class="chart-wrap">
+  <h2>Win Probability – Top Contenders</h2>
+  <canvas id="winChart" height="260"></canvas>
+</div>
+
+<div class="chart-wrap" style="padding-bottom:8px">
+  <h2>Full Placement Table (% of simulations)</h2>
+  <div class="table-wrap">
+    <table id="placementTable"></table>
+  </div>
+</div>
+
+<script>
+const data = [
+  { name: "Donut Holes",        p: [71.38,20.16,5.42,2.10,0.78,0.13,0.02,0.00], top8: 100.0 },
+  { name: "Jelly Donuts",       p: [0.34,15.62,14.04,12.02,10.57,9.46,8.38,7.97], top8: 78.4 },
+  { name: "Jester2Trife",       p: [2.08,7.79,11.46,10.05,9.61,9.45,9.57,9.13], top8: 69.1 },
+  { name: "Cohnmelo",           p: [5.18,11.03,11.02,9.76,8.82,7.62,7.68,7.26], top8: 68.4 },
+  { name: "Clip Team",          p: [3.59,9.64,12.45,12.57,10.04,7.27,6.28,6.01], top8: 67.9 },
+  { name: "Wirk",               p: [9.87,13.35,6.71,5.04,6.05,7.12,6.87,6.00], top8: 61.0 },
+  { name: "Glazed Donuts",      p: [0.94,2.11,5.89,10.67,9.84,7.75,7.02,7.27], top8: 51.5 },
+  { name: "HALLIN-1",           p: [2.66,4.98,6.37,5.51,5.06,5.05,4.97,4.53], top8: 39.1 },
+  { name: "Andrew Schwartz 2",  p: [1.36,4.02,4.58,5.13,5.82,6.34,6.05,5.46], top8: 38.8 },
+  { name: "Briggs 1",           p: [0.01,3.04,3.72,5.71,6.03,6.26,5.43,5.30], top8: 35.5 },
+  { name: "gHost",              p: [0.03,0.24,4.39,3.87,5.96,6.58,5.66,4.95], top8: 31.7 },
+  { name: "Crazyab",            p: [1.45,3.07,3.46,3.01,3.23,3.52,3.55,3.53], top8: 24.8 },
+  { name: "Faconal",            p: [0.44,1.55,1.94,2.00,2.36,2.27,2.52,2.26], top8: 15.3 },
+  { name: "GHILL",              p: [0.36,0.89,2.41,1.76,1.82,2.20,2.40,2.78], top8: 14.6 },
+  { name: "Remptorious 2",      p: [0.03,1.09,2.09,2.29,1.86,1.78,1.92,1.96], top8: 13.0 },
+];
+
+const posLabels = ['1st','2nd','3rd','4th','5th','6th','7th','8th'];
+const posColors = [
+  '#FFD700','#C0C0C0','#CD7F32','#4FC3F7','#81C784',
+  '#FFB74D','#BA68C8','#EF5350'
+];
+
+// Stacked horizontal bar
+const stackedCtx = document.getElementById('stackedBar').getContext('2d');
+new Chart(stackedCtx, {
+  type: 'bar',
+  data: {
+    labels: data.map(d => d.name),
+    datasets: posLabels.map((label, i) => ({
+      label,
+      data: data.map(d => d.p[i]),
+      backgroundColor: posColors[i],
+      borderWidth: 0,
+      borderRadius: 2,
+    }))
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'top',
+        labels: { color: '#bbb', font: { size: 11 }, boxWidth: 14, padding: 10 }
+      },
+      tooltip: {
+        callbacks: {
+          label: ctx => `${ctx.dataset.label}: ${ctx.parsed.x.toFixed(1)}%`
+        }
+      }
+    },
+    scales: {
+      x: {
+        stacked: true,
+        max: 100,
+        ticks: { color: '#888', callback: v => v + '%' },
+        grid: { color: '#2a2d3a' },
+        title: { display: true, text: '% of Simulations', color: '#888' }
+      },
+      y: {
+        stacked: true,
+        ticks: { color: '#ddd', font: { size: 12 } },
+        grid: { display: false }
+      }
+    }
+  }
+});
+
+// Win probability donut/bar
+const winCtx = document.getElementById('winChart').getContext('2d');
+const winners = data.filter(d => d.p[0] > 0).sort((a,b) => b.p[0] - a.p[0]);
+new Chart(winCtx, {
+  type: 'bar',
+  data: {
+    labels: winners.map(d => d.name),
+    datasets: [{
+      label: 'Win %',
+      data: winners.map(d => d.p[0]),
+      backgroundColor: winners.map((d,i) => i === 0 ? '#FFD700' : i === 1 ? '#4FC3F7' : '#81C784'),
+      borderRadius: 6,
+      barThickness: 36,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ctx.parsed.y.toFixed(1) + '%' } }
+    },
+    scales: {
+      y: { ticks: { color: '#888', callback: v => v + '%' }, grid: { color: '#2a2d3a' } },
+      x: { ticks: { color: '#ddd', font: { size: 12 } }, grid: { display: false } }
+    }
+  }
+});
+
+// Full table — top ~15 entries with realistic top-8 chances
+const allData = [...data];
+allData.sort((a,b) => b.top8 - a.top8);
+
+const tbl = document.getElementById('placementTable');
+let html = '<thead><tr><th style="min-width:160px">Entry</th>';
+posLabels.forEach(l => html += `<th>${l}</th>`);
+html += '<th>Top 8</th></tr></thead><tbody>';
+
+function heatColor(val) {
+  if (val === 0) return 'transparent';
+  const intensity = Math.min(val / 30, 1);
+  const r = Math.round(255 * intensity);
+  const g = Math.round(180 * intensity);
+  const b = Math.round(50 * intensity * 0.3);
+  return `rgba(${r},${g},${b},${0.15 + intensity * 0.55})`;
+}
+
+allData.forEach(d => {
+  html += `<tr><td style="font-weight:600">${d.name}</td>`;
+  d.p.forEach(v => {
+    const bg = heatColor(v);
+    html += `<td class="heat-cell" style="background:${bg}">${v > 0 ? v.toFixed(1) + '%' : '—'}</td>`;
+  });
+  html += `<td style="font-weight:600">${d.top8.toFixed(1)}%</td></tr>`;
+});
+html += '</tbody>';
+tbl.innerHTML = html;
+</script>
+</body>
+</html>
