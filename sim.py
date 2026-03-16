@@ -20,33 +20,33 @@ from collections import defaultdict
 # BPR = Bayesian Performance Rating — EvanMiya's team strength metric
 EVANMIYA_RATINGS = {
     # East Region
-    "Duke": 34.54, "UConn": 29.43, "Michigan St": 24.62, "Kansas": 22.40,
-    "St. John's": 25.48, "Louisville": 23.38, "UCLA": 18.83, "Ohio St": 19.84,
-    "TCU": 15.61, "UCF": 12.32, "South Florida": 12.68, "Northern Iowa": 8.73,
-    "Cal Baptist": -1.59, "North Dakota St": 4.12, "Furman": 0.89, "Siena": -0.09,
+    "Duke": 34.88, "UConn": 27.61, "Michigan St": 24.45, "Kansas": 22.24,
+    "St. John's": 25.51, "Louisville": 22.27, "UCLA": 20.34, "Ohio St": 20.93,
+    "TCU": 16.13, "UCF": 11.23, "South Florida": 15.82, "Northern Iowa": 10.59,
+    "Cal Baptist": 3.83, "North Dakota St": 4.21, "Furman": 0.97, "Siena": -0.06,
 
     # West Region
-    "Arizona": 32.06, "Purdue": 28.77, "Gonzaga": 27.71, "Arkansas": 22.89,
-    "Wisconsin": 21.43, "BYU": 21.51, "Miami FL": 17.24, "Villanova": 16.75,
-    "Utah St": 17.76, "Missouri": 12.88, "High Point": 7.76, "Texas": 16.43,
-    "NC State": 16.42, "Kennesaw St": 1.01, "Queens": -1.96, "LIU": -3.90,
+    "Arizona": 32.01, "Purdue": 30.26, "Gonzaga": 25.81, "Arkansas": 23.82,
+    "Wisconsin": 22.39, "BYU": 16.40, "Miami FL": 18.68, "Villanova": 15.36,
+    "Utah St": 18.02, "Missouri": 14.42, "High Point": 8.62, "Texas": 17.08,
+    "NC State": 16.30, "Kennesaw St": 0.77, "Queens": -1.80, "LIU": -3.30,
 
     # South Region
-    "Florida": 31.71, "Houston": 31.71, "Illinois": 29.97, "Nebraska": 23.69,
-    "Vanderbilt": 25.00, "North Carolina": 18.98, "Saint Mary's": 21.00, "Clemson": 16.80,
-    "Iowa": 19.79, "McNeese": 11.49, "VCU": 14.63, "Texas A&M": 16.03,
-    "Troy": 4.50, "Penn": 0.33, "Idaho": -0.03, "Prairie View": -10.12,
-    "Lehigh": -8.72,
+    "Florida": 31.39, "Houston": 30.94, "Illinois": 28.01, "Nebraska": 22.36,
+    "Vanderbilt": 24.02, "North Carolina": 14.76, "Saint Mary's": 20.56, "Clemson": 16.56,
+    "Iowa": 20.16, "McNeese": 10.67, "VCU": 16.18, "Texas A&M": 16.04,
+    "Troy": 4.52, "Penn": 0.93, "Idaho": 0.02, "Prairie View": -10.18,
+    "Lehigh": -8.64,
 
     # Midwest Region
-    "Michigan": 34.85, "Iowa St": 30.06, "Virginia": 24.48, "Alabama": 17.53,
-    "Texas Tech": 22.72, "Tennessee": 23.73, "Kentucky": 20.07, "Georgia": 18.06,
-    "Saint Louis": 15.46, "Akron": 10.27, "Santa Clara": 16.20, "SMU": 15.18,
-    "Miami OH": 7.13, "Hofstra": 8.27, "Wright St": 1.27, "Tennessee St": 0.32,
-    "UMBC": 0.01, "Howard": -1.02,
+    "Michigan": 34.52, "Iowa St": 29.50, "Virginia": 24.13, "Alabama": 23.23,
+    "Texas Tech": 18.28, "Tennessee": 23.53, "Kentucky": 20.22, "Georgia": 18.26,
+    "Saint Louis": 17.65, "Akron": 11.12, "Santa Clara": 16.83, "SMU": 16.50,
+    "Miami OH": 8.44, "Hofstra": 9.98, "Wright St": 1.27, "Tennessee St": 0.46,
+    "UMBC": 0.02, "Howard": -1.02,
 
     # Hawaii (West 4-13 matchup)
-    "Hawaii": -1.03,
+    "Hawaii": 3.34,
 }
 
 # ─── 2026 NCAA Tournament Bracket (REAL from ESPN/Yahoo) ─────────────────────
