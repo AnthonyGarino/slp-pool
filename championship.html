@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SLP Pool – NCAA Championship Odds</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #0f1117; color: #e0e0e0; padding: 24px; }
+  h1 { text-align: center; font-size: 1.6rem; margin-bottom: 4px; color: #fff; }
+  .sub { text-align: center; font-size: 0.85rem; color: #888; margin-bottom: 24px; }
+  .chart-wrap { background: #1a1d27; border-radius: 12px; padding: 20px; margin-bottom: 20px; max-width: 1100px; margin-left: auto; margin-right: auto; }
+  .chart-wrap h2 { font-size: 1rem; color: #ccc; margin-bottom: 12px; }
+  canvas { width: 100% !important; }
+  .table-wrap { max-width: 1100px; margin: 0 auto; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+  th, td { padding: 6px 10px; text-align: right; border-bottom: 1px solid #2a2d3a; }
+  th { background: #1a1d27; color: #aaa; font-weight: 600; position: sticky; top: 0; }
+  th:first-child, td:first-child { text-align: left; }
+  tr:hover td { background: #1e2130; }
+  .heat-cell { border-radius: 4px; }
+  .nav { text-align: center; margin-bottom: 20px; }
+  .nav a { color: #4FC3F7; text-decoration: none; margin: 0 12px; font-size: 0.9rem; }
+  .nav a:hover { text-decoration: underline; }
+  .region-tag { display: inline-block; font-size: 0.65rem; padding: 1px 6px; border-radius: 3px; margin-left: 6px; vertical-align: middle; }
+  .region-East { background: #2a3f5f; color: #7ab3ef; }
+  .region-West { background: #5f2a2a; color: #ef7a7a; }
+  .region-South { background: #2a5f2a; color: #7aef7a; }
+  .region-Midwest { background: #5f5f2a; color: #efef7a; }
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <a href="index.html">&larr; Standings</a>
+  <a href="placements.html">Pool Placement Odds</a>
+</div>
+
+<h1>NCAA Championship Odds</h1>
+<p class="sub">10,000 simulations using EvanMiya.com team ratings (accounts for current injuries)</p>
+
+<div class="chart-wrap">
+  <h2>Championship Probability – Top 16 Teams</h2>
+  <canvas id="champBar" height="380"></canvas>
+</div>
+
+<div class="chart-wrap">
+  <h2>Round-by-Round Advancement – Top 8 Contenders</h2>
+  <canvas id="funnelChart" height="320"></canvas>
+</div>
+
+<div class="chart-wrap" style="padding-bottom:8px">
+  <h2>Full Round Advancement Table (% of simulations)</h2>
+  <div class="table-wrap">
+    <table id="advTable"></table>
+  </div>
+</div>
+
+<script>
+const teamRegion = {
+  "Duke":"East","UConn":"East","Michigan St":"East","Kansas":"East",
+  "St. John's":"East","Louisville":"East","UCLA":"East","Ohio St":"East",
+  "TCU":"East","UCF":"East","South Florida":"East","Northern Iowa":"East",
+  "Cal Baptist":"East","North Dakota St":"East","Furman":"East","Siena":"East",
+  "Arizona":"West","Purdue":"West","Gonzaga":"West","Arkansas":"West",
+  "Wisconsin":"West","BYU":"West","Miami FL":"West","Villanova":"West",
+  "Utah St":"West","Missouri":"West","High Point":"West","Texas":"West",
+  "NC State":"West","Kennesaw St":"West","Queens":"West","LIU":"West",
+  "Florida":"South","Houston":"South","Illinois":"South","Nebraska":"South",
+  "Vanderbilt":"South","North Carolina":"South","Saint Mary's":"South","Clemson":"South",
+  "Iowa":"South","McNeese":"South","VCU":"South","Texas A&M":"South",
+  "Troy":"South","Penn":"South","Idaho":"South","Prairie View":"South","Lehigh":"South",
+  "Michigan":"Midwest","Iowa St":"Midwest","Virginia":"Midwest","Alabama":"Midwest",
+  "Texas Tech":"Midwest","Tennessee":"Midwest","Kentucky":"Midwest","Georgia":"Midwest",
+  "Saint Louis":"Midwest","Akron":"Midwest","Santa Clara":"Midwest","SMU":"Midwest",
+  "Miami OH":"Midwest","Hofstra":"Midwest","Wright St":"Midwest","Tennessee St":"Midwest",
+  "UMBC":"Midwest","Howard":"Midwest",
+  "Hawaii":"West"
+};
+
+const regionColors = { East: '#4a90d9', West: '#d94a4a', South: '#4ad94a', Midwest: '#d9d94a' };
+
+const teams = [
+  // Sorted by championship probability (EvanMiya data)
+  // East Region
+  { name: "Duke", rounds: [99.7, 88.5, 71.4, 55.9, 36.7, 18.8] },
+  { name: "Michigan", rounds: [99.7, 93.7, 86.3, 68.7, 46.6, 31.4] },
+  { name: "Arizona", rounds: [99.5, 90.8, 77.1, 58.5, 30.2, 17.4] },
+  { name: "Florida", rounds: [99.8, 86.4, 65.6, 39.9, 22.2, 10.6] },
+  { name: "Houston", rounds: [99.5, 83.1, 54.8, 30.6, 15.8, 6.4] },
+  { name: "Purdue", rounds: [99.8, 84.0, 57.4, 22.8, 8.4, 3.3] },
+  { name: "Iowa St", rounds: [98.8, 81.9, 54.8, 17.5, 7.6, 3.1] },
+  { name: "Illinois", rounds: [99.5, 86.5, 38.0, 17.0, 6.8, 2.2] },
+  { name: "UConn", rounds: [97.2, 73.5, 41.8, 14.7, 5.3, 1.6] },
+  { name: "Michigan St", rounds: [94.2, 63.7, 36.8, 12.7, 4.9, 1.6] },
+  { name: "St. John's", rounds: [85.8, 55.4, 16.2, 9.0, 3.6, 1.0] },
+  { name: "Vanderbilt", rounds: [86.7, 54.2, 17.9, 6.3, 2.1, 0.5] },
+  { name: "Virginia", rounds: [95.5, 53.6, 23.4, 6.0, 1.7, 0.4] },
+  { name: "Gonzaga", rounds: [97.3, 75.0, 32.4, 9.5, 2.1, 0.4] },
+  { name: "Arkansas", rounds: [95.3, 65.7, 14.5, 3.6, 1.0, 0.2] },
+  { name: "Kansas", rounds: [92.9, 40.3, 7.8, 3.0, 0.6, 0.2] },
+  { name: "Alabama", rounds: [87.1, 65.9, 8.3, 3.2, 0.9, 0.2] },
+  { name: "Tennessee", rounds: [78.0, 39.2, 14.4, 2.9, 0.8, 0.2] },
+  { name: "Wisconsin", rounds: [73.6, 28.8, 5.1, 1.5, 0.2, 0.1] },
+  { name: "Nebraska", rounds: [87.1, 41.6, 11.5, 3.6, 0.8, 0.1] },
+  { name: "Louisville", rounds: [73.1, 29.0, 11.5, 1.8, 0.2, 0.0] },
+  { name: "Texas Tech", rounds: [67.1, 23.9, 2.2, 0.5, 0.1, 0.0] },
+  { name: "UCLA", rounds: [72.3, 21.9, 7.1, 1.2, 0.2, 0.0] },
+  { name: "Ohio St", rounds: [64.4, 7.9, 3.3, 1.1, 0.3, 0.0] },
+  { name: "Kentucky", rounds: [60.6, 11.6, 4.2, 0.5, 0.0, 0.0] },
+  { name: "Miami FL", rounds: [67.5, 13.1, 4.5, 0.4, 0.0, 0.0] },
+  { name: "BYU", rounds: [49.4, 12.6, 2.8, 0.4, 0.0, 0.0] },
+  { name: "Saint Mary's", rounds: [63.4, 13.0, 4.5, 1.1, 0.3, 0.0] },
+  { name: "Iowa", rounds: [60.8, 9.0, 3.2, 0.4, 0.1, 0.0] },
+  { name: "North Carolina", rounds: [47.6, 5.7, 0.6, 0.1, 0.0, 0.0] },
+  { name: "VCU", rounds: [52.4, 7.7, 1.3, 0.3, 0.0, 0.0] },
+  { name: "Villanova", rounds: [39.8, 2.4, 0.6, 0.1, 0.0, 0.0] },
+  { name: "Georgia", rounds: [51.0, 2.5, 0.9, 0.1, 0.0, 0.0] },
+  { name: "Utah St", rounds: [60.2, 6.7, 2.5, 0.8, 0.1, 0.0] },
+  { name: "Santa Clara", rounds: [39.4, 6.4, 2.0, 0.2, 0.0, 0.0] },
+  { name: "Saint Louis", rounds: [49.0, 3.8, 1.8, 0.3, 0.1, 0.0] },
+  { name: "Clemson", rounds: [39.2, 4.5, 1.5, 0.3, 0.0, 0.0] },
+  { name: "Texas A&M", rounds: [36.6, 3.9, 0.8, 0.3, 0.0, 0.0] },
+  { name: "Texas", rounds: [25.8, 7.0, 1.5, 0.2, 0.0, 0.0] },
+  { name: "NC State", rounds: [24.7, 5.1, 0.8, 0.1, 0.0, 0.0] },
+  { name: "Missouri", rounds: [32.5, 2.9, 0.6, 0.1, 0.0, 0.0] },
+  { name: "TCU", rounds: [35.6, 3.6, 1.0, 0.3, 0.0, 0.0] },
+  { name: "South Florida", rounds: [26.9, 6.8, 0.2, 0.0, 0.0, 0.0] },
+  { name: "SMU", rounds: [19.4, 6.6, 1.3, 0.1, 0.0, 0.0] },
+  { name: "UCF", rounds: [27.7, 4.1, 0.7, 0.0, 0.0, 0.0] },
+  { name: "Akron", rounds: [32.9, 5.7, 0.2, 0.0, 0.0, 0.0] },
+  { name: "Northern Iowa", rounds: [14.2, 3.6, 0.2, 0.0, 0.0, 0.0] },
+  { name: "High Point", rounds: [26.4, 4.4, 0.2, 0.0, 0.0, 0.0] },
+  { name: "Hofstra", rounds: [12.9, 4.5, 0.3, 0.0, 0.0, 0.0] },
+  { name: "McNeese", rounds: [13.3, 3.0, 0.3, 0.0, 0.0, 0.0] },
+  { name: "Troy", rounds: [12.9, 1.2, 0.1, 0.0, 0.0, 0.0] },
+  { name: "Cal Baptist", rounds: [7.1, 0.6, 0.0, 0.0, 0.0, 0.0] },
+  { name: "North Dakota St", rounds: [5.8, 0.5, 0.1, 0.0, 0.0, 0.0] },
+  { name: "Hawaii", rounds: [4.7, 1.1, 0.0, 0.0, 0.0, 0.0] },
+  { name: "Wright St", rounds: [4.5, 0.2, 0.0, 0.0, 0.0, 0.0] },
+  { name: "Kennesaw St", rounds: [2.7, 0.3, 0.0, 0.0, 0.0, 0.0] },
+  { name: "Furman", rounds: [2.8, 0.5, 0.0, 0.0, 0.0, 0.0] },
+  { name: "Miami OH", rounds: [2.6, 0.4, 0.0, 0.0, 0.0, 0.0] },
+  { name: "Tennessee St", rounds: [1.2, 0.1, 0.0, 0.0, 0.0, 0.0] },
+  { name: "Penn", rounds: [0.5, 0.1, 0.0, 0.0, 0.0, 0.0] },
+  { name: "Idaho", rounds: [0.5, 0.0, 0.0, 0.0, 0.0, 0.0] },
+  { name: "LIU", rounds: [0.5, 0.1, 0.0, 0.0, 0.0, 0.0] },
+  { name: "Queens", rounds: [0.2, 0.0, 0.0, 0.0, 0.0, 0.0] },
+  { name: "Siena", rounds: [0.3, 0.0, 0.0, 0.0, 0.0, 0.0] },
+  { name: "Lehigh", rounds: [0.2, 0.0, 0.0, 0.0, 0.0, 0.0] },
+  { name: "Prairie View", rounds: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0] },
+  { name: "UMBC", rounds: [0.2, 0.0, 0.0, 0.0, 0.0, 0.0] },
+  { name: "Howard", rounds: [0.1, 0.0, 0.0, 0.0, 0.0, 0.0] },
+];
+
+// Sort by championship %, then title game %, then F4 %
+teams.sort((a, b) => (b.rounds[5] - a.rounds[5]) || (b.rounds[4] - a.rounds[4]) || (b.rounds[3] - a.rounds[3]));
+
+const roundLabels = ['R32','Sweet 16','Elite 8','Final Four','Title Game','Champion'];
+const roundColors = ['#78909C','#4FC3F7','#81C784','#FFB74D','#BA68C8','#FFD700'];
+
+// Championship bar chart - top 16
+const top16 = teams.slice(0, 16);
+const champCtx = document.getElementById('champBar').getContext('2d');
+new Chart(champCtx, {
+  type: 'bar',
+  data: {
+    labels: top16.map(t => t.name),
+    datasets: [{
+      label: 'Championship %',
+      data: top16.map(t => t.rounds[5]),
+      backgroundColor: top16.map(t => {
+        const r = teamRegion[t.name];
+        return regionColors[r] || '#888';
+      }),
+      borderRadius: 6,
+      barThickness: 32,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ctx.parsed.y.toFixed(1) + '%' } }
+    },
+    scales: {
+      y: {
+        ticks: { color: '#888', callback: v => v + '%' },
+        grid: { color: '#2a2d3a' },
+        title: { display: true, text: '% of Simulations', color: '#888' }
+      },
+      x: { ticks: { color: '#ddd', font: { size: 11 } }, grid: { display: false } }
+    }
+  }
+});
+
+// Funnel chart - top 8 teams, line chart showing advancement
+const top8 = teams.slice(0, 8);
+const funnelCtx = document.getElementById('funnelChart').getContext('2d');
+const lineColors = ['#FFD700','#4FC3F7','#EF5350','#81C784','#FF7043','#BA68C8','#26C6DA','#FFB74D'];
+new Chart(funnelCtx, {
+  type: 'line',
+  data: {
+    labels: roundLabels,
+    datasets: top8.map((t, i) => ({
+      label: t.name,
+      data: t.rounds,
+      borderColor: lineColors[i],
+      backgroundColor: lineColors[i] + '22',
+      borderWidth: 2.5,
+      pointRadius: 4,
+      pointBackgroundColor: lineColors[i],
+      tension: 0.3,
+      fill: false,
+    }))
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'top',
+        labels: { color: '#bbb', font: { size: 11 }, boxWidth: 14, padding: 10 }
+      },
+      tooltip: { callbacks: { label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y.toFixed(1)}%` } }
+    },
+    scales: {
+      y: {
+        max: 100,
+        ticks: { color: '#888', callback: v => v + '%' },
+        grid: { color: '#2a2d3a' },
+        title: { display: true, text: 'Probability', color: '#888' }
+      },
+      x: { ticks: { color: '#ddd', font: { size: 11 } }, grid: { color: '#2a2d3a44' } }
+    }
+  }
+});
+
+// Full table
+const tbl = document.getElementById('advTable');
+let html = '<thead><tr><th style="min-width:150px">Team</th><th>Region</th>';
+roundLabels.forEach(l => html += `<th>${l}</th>`);
+html += '</tr></thead><tbody>';
+
+function heatColor(val, maxVal) {
+  if (val === 0) return 'transparent';
+  const intensity = Math.min(val / (maxVal || 25), 1);
+  const r = Math.round(255 * intensity);
+  const g = Math.round(180 * intensity);
+  const b = Math.round(50 * intensity * 0.3);
+  return `rgba(${r},${g},${b},${0.15 + intensity * 0.55})`;
+}
+
+const regionTagClass = { East: 'region-East', West: 'region-West', South: 'region-South', Midwest: 'region-Midwest' };
+const maxVals = [100, 94, 87, 69, 47, 32]; // for heat scaling per column
+
+teams.forEach(t => {
+  const region = teamRegion[t.name] || '?';
+  html += `<tr><td style="font-weight:600">${t.name}</td>`;
+  html += `<td><span class="region-tag ${regionTagClass[region] || ''}">${region}</span></td>`;
+  t.rounds.forEach((v, i) => {
+    const bg = heatColor(v, maxVals[i]);
+    html += `<td class="heat-cell" style="background:${bg}">${v > 0 ? v.toFixed(1) + '%' : '—'}</td>`;
+  });
+  html += '</tr>';
+});
+html += '</tbody>';
+tbl.innerHTML = html;
+</script>
+</body>
+</html>
