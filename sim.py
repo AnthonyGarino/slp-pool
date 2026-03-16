@@ -654,7 +654,7 @@ def update_placements_html(position_counts, NUM_SIMS):
 </div>
 
 <h1>SLP Pool \u2013 Placement Distribution</h1>
-<p class="sub">{NUM_SIMS:,} Monte Carlo simulations &bull; NCAA 2-4-6-8-10-12 scoring</p>
+<p class="sub">{NUM_SIMS:,} Monte Carlo simulations using <a href="https://evanmiya.com" target="_blank" style="color:#4FC3F7;text-decoration:none">EvanMiya</a> BPR ratings &bull; NCAA 2-4-6-8-10-12 scoring</p>
 
 <div class="table-wrap">
   <h2>Top 8 Finish Probabilities (% of simulations)</h2>
