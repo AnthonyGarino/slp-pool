@@ -109,8 +109,8 @@ PLAY_IN_GAMES = [
 
 # All tournament teams should have BPR ratings from data.csv
 
-# Final Four pairings: East vs West, South vs Midwest
-FF_MATCHUPS = [("East", "West"), ("South", "Midwest")]
+# Final Four pairings: East vs South, West vs Midwest
+FF_MATCHUPS = [("East", "South"), ("West", "Midwest")]
 
 # ─── Scoring ─────────────────────────────────────────────────────────────────
 # Points for each round WIN. Seed points already in current scores.
