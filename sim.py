@@ -761,32 +761,55 @@ def update_rooting_html(team_advance_count, entry_wins_given_advance,
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SLP Pool \u2013 Rooting Guide</title>
+<title>SLP Pool \u2013 Scenario Builder</title>
 <style>
   * {{ margin: 0; padding: 0; box-sizing: border-box; }}
   body {{ font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #0f1117; color: #e0e0e0; padding: 24px; }}
   h1 {{ text-align: center; font-size: 1.6rem; margin-bottom: 4px; color: #fff; }}
   .sub {{ text-align: center; font-size: 0.85rem; color: #888; margin-bottom: 20px; }}
-  .sub a {{ color: #4FC3F7; text-decoration: none; }}
   .nav {{ text-align: center; margin-bottom: 20px; }}
   .nav a {{ color: #4FC3F7; text-decoration: none; margin: 0 12px; font-size: 0.9rem; }}
   .nav a:hover {{ text-decoration: underline; }}
-  .controls {{ text-align: center; margin-bottom: 20px; }}
+  .controls {{ text-align: center; margin-bottom: 16px; }}
   select {{ font-size: 1rem; padding: 8px 16px; border-radius: 8px; border: 1px solid #444;
            background: #1a1d27; color: #e0e0e0; cursor: pointer; min-width: 280px; }}
+
+  /* Scenario panel */
+  .scenario-panel {{ max-width: 1000px; margin: 0 auto 16px; background: #1a1d27; border-radius: 12px; padding: 16px 20px; }}
+  .scenario-header {{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }}
+  .scenario-header h2 {{ font-size: 1rem; color: #ccc; }}
+  .win-pct {{ font-size: 1.8rem; font-weight: 700; color: #4FC3F7; }}
+  .win-pct .delta {{ font-size: 1rem; margin-left: 8px; }}
+  .win-pct .delta.up {{ color: #4CAF50; }}
+  .win-pct .delta.down {{ color: #ef5350; }}
+  .scenarios-list {{ display: flex; flex-wrap: wrap; gap: 6px; min-height: 28px; }}
+  .scenario-chip {{ display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px;
+                    border-radius: 16px; font-size: 0.78rem; cursor: pointer; }}
+  .chip-positive {{ background: rgba(76,175,80,0.25); color: #4CAF50; border: 1px solid rgba(76,175,80,0.4); }}
+  .chip-negative {{ background: rgba(239,83,80,0.25); color: #ef5350; border: 1px solid rgba(239,83,80,0.4); }}
+  .chip-x {{ font-size: 0.7rem; opacity: 0.7; }}
+  .clear-btn {{ font-size: 0.78rem; color: #888; cursor: pointer; background: none; border: 1px solid #444;
+               padding: 4px 10px; border-radius: 12px; }}
+  .clear-btn:hover {{ color: #e0e0e0; border-color: #888; }}
+  .no-scenarios {{ color: #555; font-size: 0.82rem; font-style: italic; }}
+
+  /* Table */
   .table-wrap {{ max-width: 1000px; margin: 0 auto; overflow-x: auto; background: #1a1d27; border-radius: 12px; padding: 20px; }}
   table {{ width: 100%; border-collapse: collapse; font-size: 0.82rem; }}
   th, td {{ padding: 6px 10px; text-align: right; border-bottom: 1px solid #2a2d3a; white-space: nowrap; }}
   th {{ background: #1a1d27; color: #aaa; font-weight: 600; position: sticky; top: 0; }}
   th:first-child, td:first-child {{ text-align: left; }}
   tr:hover td {{ background: #1e2130; }}
+  td.clickable {{ cursor: pointer; border-radius: 4px; transition: outline 0.1s; }}
+  td.clickable:hover {{ outline: 2px solid #4FC3F7; }}
+  td.selected {{ outline: 2px solid #FFD54F !important; }}
   .positive {{ color: #4CAF50; font-weight: 600; }}
   .negative {{ color: #ef5350; font-weight: 600; }}
   .neutral {{ color: #555; }}
   .source {{ text-align: center; font-size: 0.75rem; color: #555; margin-top: 16px; }}
   .source a {{ color: #4FC3F7; text-decoration: none; }}
   .no-data {{ text-align: center; color: #666; padding: 40px; font-size: 0.9rem; }}
-  .entry-current {{ text-align: center; font-size: 1.1rem; margin-bottom: 16px; color: #4FC3F7; }}
+  .help {{ text-align: center; font-size: 0.75rem; color: #666; margin-top: 8px; }}
 </style>
 </head>
 <body>
@@ -797,18 +820,34 @@ def update_rooting_html(team_advance_count, entry_wins_given_advance,
   <a href="championship.html">Championship Odds</a>
 </div>
 
-<h1>SLP Pool \u2013 Rooting Guide</h1>
-<p class="sub">Select your entry to see which games matter most &bull; {NUM_SIMS:,} sims</p>
+<h1>SLP Pool \u2013 Scenario Builder</h1>
+<p class="sub">Click cells to build scenarios &bull; {NUM_SIMS:,} sims</p>
 
 <div class="controls">
-  <select id="entrySelect" onchange="renderEntry()">
+  <select id="entrySelect" onchange="resetAndRender()">
     <option value="">Select an entry...</option>
     {entry_options}
   </select>
 </div>
 
+<div id="scenarioPanel" style="display:none" class="scenario-panel">
+  <div class="scenario-header">
+    <h2>Win Probability</h2>
+    <div class="win-pct">
+      <span id="adjPct">--</span>
+      <span id="adjDelta" class="delta"></span>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px">
+    <div id="scenariosList" class="scenarios-list">
+      <span class="no-scenarios">Click any cell below to add a scenario</span>
+    </div>
+    <button id="clearBtn" class="clear-btn" onclick="clearScenarios()" style="display:none">Clear all</button>
+  </div>
+</div>
+
 <div id="content" class="table-wrap">
-  <p class="no-data">Select an entry to see which teams help or hurt your odds</p>
+  <p class="no-data">Select an entry to build scenarios</p>
 </div>
 
 <p class="source">
@@ -820,7 +859,10 @@ const DATA = {data_json};
 const OVERALL = {overall_json};
 const TEAMS = {teams_json};
 const ROUNDS = ["R64", "R32", "S16", "E8", "F4", "Champ"];
-const ROUND_NAMES = {{"R64": "R64", "R32": "R32", "S16": "S16", "E8": "E8", "F4": "F4", "Champ": "Title"}};
+const RN = {{"R64":"R64","R32":"R32","S16":"S16","E8":"E8","F4":"F4","Champ":"Title"}};
+
+let scenarios = [];  // [{{team, round, swing, win_pct}}]
+let currentEntry = '';
 
 function swingBg(v) {{
   if (Math.abs(v) < 0.3) return 'transparent';
@@ -829,18 +871,93 @@ function swingBg(v) {{
   return `rgba(239,83,80,${{(0.12 + i*0.5).toFixed(2)}})`;
 }}
 
+function scenarioKey(team, rnd) {{ return team + '|' + rnd; }}
+
+function toggleScenario(team, rnd) {{
+  const key = scenarioKey(team, rnd);
+  const idx = scenarios.findIndex(s => s.key === key);
+  if (idx >= 0) {{
+    scenarios.splice(idx, 1);
+  }} else {{
+    const ed = DATA[currentEntry];
+    if (!ed[team] || !ed[team][rnd]) return;
+    const d = ed[team][rnd];
+    scenarios.push({{ key, team, round: rnd, swing: d.s, win_pct: d.w }});
+  }}
+  updatePanel();
+  updateCellHighlights();
+}}
+
+function clearScenarios() {{
+  scenarios = [];
+  updatePanel();
+  updateCellHighlights();
+}}
+
+function updatePanel() {{
+  const base = OVERALL[currentEntry];
+  const totalSwing = scenarios.reduce((sum, s) => sum + s.swing, 0);
+  const adjusted = Math.max(0, Math.min(100, base + totalSwing));
+
+  document.getElementById('adjPct').textContent = adjusted.toFixed(1) + '%';
+  const deltaEl = document.getElementById('adjDelta');
+  if (scenarios.length > 0) {{
+    const sign = totalSwing >= 0 ? '+' : '';
+    deltaEl.textContent = `(${{sign}}${{totalSwing.toFixed(1)}}%)`;
+    deltaEl.className = 'delta ' + (totalSwing >= 0 ? 'up' : 'down');
+  }} else {{
+    deltaEl.textContent = '(baseline)';
+    deltaEl.className = 'delta';
+  }}
+
+  const listEl = document.getElementById('scenariosList');
+  const clearEl = document.getElementById('clearBtn');
+  if (scenarios.length === 0) {{
+    listEl.innerHTML = '<span class="no-scenarios">Click any cell below to add a scenario</span>';
+    clearEl.style.display = 'none';
+  }} else {{
+    clearEl.style.display = '';
+    listEl.innerHTML = scenarios.map(s => {{
+      const cls = s.swing >= 0 ? 'chip-positive' : 'chip-negative';
+      const sign = s.swing >= 0 ? '+' : '';
+      return `<span class="scenario-chip ${{cls}}" onclick="toggleScenario('${{s.team}}','${{s.round}}')" `
+        + `title="Click to remove">`
+        + `${{s.team}} ${{RN[s.round]}} (${{sign}}${{s.swing.toFixed(1)}}%) <span class="chip-x">\u2715</span></span>`;
+    }}).join('');
+    if (scenarios.length > 1) {{
+      listEl.innerHTML += '<span style="color:#888;font-size:0.7rem;margin-left:4px">(approx. for multiple)</span>';
+    }}
+  }}
+}}
+
+function updateCellHighlights() {{
+  document.querySelectorAll('td.clickable').forEach(td => {{
+    const key = td.dataset.key;
+    td.classList.toggle('selected', scenarios.some(s => s.key === key));
+  }});
+}}
+
+function resetAndRender() {{
+  scenarios = [];
+  renderEntry();
+}}
+
 function renderEntry() {{
-  const entry = document.getElementById('entrySelect').value;
+  currentEntry = document.getElementById('entrySelect').value;
   const content = document.getElementById('content');
-  if (!entry || !DATA[entry]) {{
-    content.innerHTML = '<p class="no-data">Select an entry to see which teams help or hurt your odds</p>';
+  const panel = document.getElementById('scenarioPanel');
+  if (!currentEntry || !DATA[currentEntry]) {{
+    content.innerHTML = '<p class="no-data">Select an entry to build scenarios</p>';
+    panel.style.display = 'none';
     return;
   }}
 
-  const ed = DATA[entry];
-  const cur = OVERALL[entry];
+  panel.style.display = '';
+  updatePanel();
 
-  // Build flat list of (team, round, swing) and find max swing per team
+  const ed = DATA[currentEntry];
+
+  // Find max swing per team
   let teamSwings = {{}};
   for (const team of TEAMS) {{
     if (!ed[team]) continue;
@@ -854,17 +971,11 @@ function renderEntry() {{
     teamSwings[team] = maxAbs;
   }}
 
-  // Sort teams by max absolute swing
   const sortedTeams = Object.keys(teamSwings).sort((a,b) => teamSwings[b] - teamSwings[a]);
-
-  // Only show teams with meaningful swing (>0.3%)
   const relevantTeams = sortedTeams.filter(t => teamSwings[t] >= 0.3);
 
-  let html = `<p class="entry-current">${{entry}}: ${{cur.toFixed(1)}}% win probability</p>`;
-  html += '<table><thead><tr><th style="min-width:130px">Team</th>';
-  for (const rnd of ROUNDS) {{
-    html += `<th>${{ROUND_NAMES[rnd]}}</th>`;
-  }}
+  let html = '<table><thead><tr><th style="min-width:130px">Team</th>';
+  for (const rnd of ROUNDS) html += `<th>${{RN[rnd]}}</th>`;
   html += '<th>Peak</th></tr></thead><tbody>';
 
   for (const team of relevantTeams) {{
@@ -877,8 +988,11 @@ function renderEntry() {{
         if (Math.abs(s) > Math.abs(peak)) peak = s;
         const cls = s > 0.3 ? 'positive' : s < -0.3 ? 'negative' : 'neutral';
         const arrow = s > 0.3 ? '\u25B2' : s < -0.3 ? '\u25BC' : '';
-        html += `<td class="${{cls}}" style="background:${{swingBg(s)}}" `;
-        html += `title="Win: ${{td[rnd].w.toFixed(1)}}% / Lose: ${{td[rnd].l.toFixed(1)}}%">`;
+        const key = scenarioKey(team, rnd);
+        const sel = scenarios.some(sc => sc.key === key) ? ' selected' : '';
+        html += `<td class="clickable ${{cls}}${{sel}}" style="background:${{swingBg(s)}}" `;
+        html += `data-key="${{key}}" onclick="toggleScenario('${{team}}','${{rnd}}')" `;
+        html += `title="${{team}} wins ${{RN[rnd]}}:  ${{td[rnd].w.toFixed(1)}}%&#10;${{team}} loses ${{RN[rnd]}}: ${{td[rnd].l.toFixed(1)}}%">`;
         html += `${{arrow}}${{s > 0 ? '+' : ''}}${{s.toFixed(1)}}%</td>`;
       }} else {{
         html += '<td class="neutral">\u2014</td>';
@@ -890,8 +1004,7 @@ function renderEntry() {{
   }}
 
   html += '</tbody></table>';
-  html += '<p style="color:#666;font-size:0.75rem;margin-top:8px">Hover cells for detail. Swing = your win% if team wins that round vs if they lose.</p>';
-
+  html += '<p class="help">Click cells to add/remove scenarios. Swings are additive estimates.</p>';
   content.innerHTML = html;
 }}
 </script>
