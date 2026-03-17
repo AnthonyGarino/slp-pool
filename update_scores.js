@@ -523,6 +523,9 @@ async function main() {
   console.log('📊 Fetching conference standings for all 31 D1 conferences...');
   const standingsCache = await buildStandingsCache(Object.values(CONF_GROUPS));
 
+  // Load conf tournament cache (persists points after ESPN drops conf tourn data)
+  const confTournCache = data.confTournCache || {};
+
   // Calculate score for each unique team
   console.log('⚙️  Calculating scores for all teams...');
   const teamScore  = {};   // name → { points, confTournTitle, ... }
@@ -544,19 +547,36 @@ async function main() {
       await sleep(60);   // gentle rate limiting
     }
 
-    const confTournWinPts = post.confTournWins * 2;  // +2 per conf tourn win
+    let confTournWinPts = post.confTournWins * 2;  // +2 per conf tourn win
+    let confTournTitlePts_cached = 0;
+    let confTournWins_effective = post.confTournWins;
+
+    // Fallback to cache if ESPN no longer returns conf tournament data
+    // (ESPN drops conf tourn games from schedules once the NCAA tournament starts)
+    if (post.confTournWins === 0 && confTournCache[name]) {
+      confTournWinPts = confTournCache[name].confTournWinPts || 0;
+      confTournTitlePts_cached = confTournCache[name].confTournTitlePts || 0;
+      confTournWins_effective = confTournWinPts / 2;  // reconstruct win count
+      console.log(`  📦 Cache fallback: ${name} → confTournWinPts=${confTournWinPts}, confTournTitlePts=${confTournTitlePts_cached}`);
+    } else if (post.confTournWins > 0) {
+      // ESPN still has data — update the cache
+      confTournCache[name] = { confTournWinPts, confTournTitlePts: 0 };  // title set later
+    }
+
     const ncaaPts         = post.ncaaSeeding + post.ncaaWins;
 
     // ESPN overallW includes post-season wins (conf tournament + NCAA),
     // so subtract them from base to avoid double-counting with bonus pts.
     // Post-season wins should ONLY score via their bonus categories, not also as regular wins.
-    const postSeasonWins = post.confTournWins + post.ncaaWinCount;
+    // When using cached conf tourn data, ESPN standings still include conf tourn wins
+    // in overallW, so we must subtract the cached count too.
+    const postSeasonWins = confTournWins_effective + post.ncaaWinCount;
     const adjustedBase = reg.points - (postSeasonWins * 1);  // remove 1pt per post-season win
 
     teamScore[name] = {
       basePoints:     adjustedBase,
       confTournWinPts,
-      confTournTitlePts: 0,   // determined per-conference below
+      confTournTitlePts: confTournTitlePts_cached,   // from cache; may be overridden below
       ncaaPts,
       ncaaSeedPts:    post.ncaaSeeding,   // separated for breakdown tooltip
       ncaaWinPts:     post.ncaaWins,      // separated for breakdown tooltip
@@ -566,7 +586,7 @@ async function main() {
       confWPct:       reg.confWPct || 0,
       gid,
       espnId,
-      confTournWins:  post.confTournWins,
+      confTournWins:  confTournWins_effective,
       confTournTitle: post.confTournTitle,  // per-team flag (won last + has wins)
       recentGames:    post.recentGames || [],
       nextGame:       post.nextGame || null,
@@ -692,12 +712,25 @@ async function main() {
       confTournChampions[gid] = { name, wins: sc.confTournWins };
     }
   }
-  // Award +5 conf tournament title to confirmed champions
+  // Award +5 conf tournament title to confirmed champions (from live ESPN data)
   for (const [gid, champ] of Object.entries(confTournChampions)) {
     const sc = teamScore[champ.name];
     sc.confTournTitlePts = 5;
     sc.totalPoints += 5;
+    // Update cache with title
+    confTournCache[champ.name] = confTournCache[champ.name] || {};
+    confTournCache[champ.name].confTournWinPts = sc.confTournWinPts;
+    confTournCache[champ.name].confTournTitlePts = 5;
     console.log(`  🏆 Conf tourn champ: ${champ.name} (group ${gid}, ${champ.wins} wins)`);
+  }
+
+  // For teams with cached confTournTitlePts but no live ESPN data,
+  // the title pts were already set from cache above — recalculate totalPoints
+  for (const [name, sc] of Object.entries(teamScore)) {
+    if (sc.confTournTitlePts > 0 && !confTournChampions[sc.gid]) {
+      // This came from cache — make sure totalPoints includes it
+      sc.totalPoints = sc.totalPreTitle + sc.confTitlePts + sc.confTournTitlePts;
+    }
   }
 
   // ── Build team breakdowns for frontend tooltip ─────────────────────
@@ -776,6 +809,9 @@ async function main() {
   data.lastUpdated = today.toISOString().slice(0, 10);
 
   console.log(`✅ Updated ${totalUpdated} entries`);
+
+  // ── Persist conf tournament cache ──────────────────────────────────────
+  data.confTournCache = confTournCache;
 
   // ── Save data.json ────────────────────────────────────────────────────
   const jsonStr = JSON.stringify(data);
