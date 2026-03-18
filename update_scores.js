@@ -401,6 +401,7 @@ async function calcPostSeasonPoints(espnId, gid, standingsCache) {
   let ncaaSeed       = 0;
   let isPlayInTeam   = false; // true if team played in First Four
   let wonPlayIn      = false; // true if team won their First Four game
+  let otherPostWins  = 0;     // NIT, CBI, CIT, etc. — no points, but must subtract from base
 
   // First pass: grab NCAA seed from any scheduled/completed NCAA game
   // (so seeding points are awarded as soon as the bracket is set)
@@ -464,8 +465,10 @@ async function calcPostSeasonPoints(espnId, gid, standingsCache) {
         }
       }
       confTournLast = iWon ? 'W' : 'L';
+    } else {
+      // NIT, CBI, CIT, etc. — no bonus points, but track wins to subtract from base
+      if (iWon) otherPostWins++;
     }
-    // else: other post-season games (NIT, CBI, etc.) — no points
   }
 
   // Conf tournament title: won the championship game (Final) of the tournament.
@@ -495,6 +498,7 @@ async function calcPostSeasonPoints(espnId, gid, standingsCache) {
     ncaaWins:    ncaaWinPts,
     ncaaWinCount: ncaaWins,   // raw count (for deducting from base)
     ncaaSeed,
+    otherPostWins,            // NIT/CBI/etc wins (no points, deducted from base)
     recentGames,
     nextGame,
   };
@@ -570,7 +574,7 @@ async function main() {
     // Post-season wins should ONLY score via their bonus categories, not also as regular wins.
     // When using cached conf tourn data, ESPN standings still include conf tourn wins
     // in overallW, so we must subtract the cached count too.
-    const postSeasonWins = confTournWins_effective + post.ncaaWinCount;
+    const postSeasonWins = confTournWins_effective + post.ncaaWinCount + (post.otherPostWins || 0);
     const adjustedBase = reg.points - (postSeasonWins * 1);  // remove 1pt per post-season win
 
     teamScore[name] = {
