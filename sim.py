@@ -118,10 +118,10 @@ KNOWN_RESULTS = {
     frozenset({"Miami OH", "SMU"}): "Miami OH",
     frozenset({"Prairie View", "Lehigh"}): "Prairie View",
     # 1st Round
-    frozenset({"Vanderbilt", "McNeese"}): "Vanderbilt",
     frozenset({"Duke", "Siena"}): "Duke",
     frozenset({"Nebraska", "Troy"}): "Nebraska",
     frozenset({"High Point", "Wisconsin"}): "High Point",
+    frozenset({"Vanderbilt", "McNeese"}): "Vanderbilt",
     frozenset({"Louisville", "South Florida"}): "Louisville",
     frozenset({"TCU", "Ohio St"}): "TCU",
 }
