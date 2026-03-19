@@ -27,13 +27,22 @@ jobs:
         run: node update_scores.js
 
       - name: Commit and push if changed
+        id: commit
         run: |
           git config user.name "SLP Score Bot"
           git config user.email "bot@slp-pool.github.io"
           git add data.json index.html
           if git diff --cached --quiet; then
             echo "No score changes detected — skipping commit."
+            echo "changed=false" >> $GITHUB_OUTPUT
           else
             git commit -m "Auto-update scores $(date -u '+%Y-%m-%d %H:%M UTC')"
             git push
+            echo "changed=true" >> $GITHUB_OUTPUT
           fi
+
+      - name: Trigger sim re-run if scores changed
+        if: steps.commit.outputs.changed == 'true'
+        run: gh workflow run update-sim.yml
+        env:
+          GH_TOKEN: ${{ github.token }}

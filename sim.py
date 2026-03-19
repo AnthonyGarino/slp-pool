@@ -107,6 +107,18 @@ PLAY_IN_GAMES = [
     {"region": "Midwest", "slot": 0, "teams": ("UMBC", "Howard")},
 ]
 
+# ─── Known Results (completed games → treat as 100%) ──────────────────────────
+# Format: frozenset({team_a, team_b}) → winner
+# Add results here as games complete. The sim will use these instead of
+# simulating those matchups.
+KNOWN_RESULTS = {
+    # Play-in results (3/18)
+    frozenset({"Texas", "NC State"}): "Texas",
+    frozenset({"UMBC", "Howard"}): "Howard",
+    # Add first round results as they come in:
+    # frozenset({"Duke", "Siena"}): "Duke",
+}
+
 # All tournament teams should have BPR ratings from data.csv
 
 # Final Four pairings: East vs South, West vs Midwest
@@ -197,7 +209,10 @@ def win_prob(team_a, team_b):
 
 
 def sim_game(team_a, team_b, rng):
-    """Simulate one game, return winner."""
+    """Simulate one game, return winner. Uses known result if game already played."""
+    key = frozenset({team_a, team_b})
+    if key in KNOWN_RESULTS:
+        return KNOWN_RESULTS[key]
     return team_a if rng.random() < win_prob(team_a, team_b) else team_b
 
 
