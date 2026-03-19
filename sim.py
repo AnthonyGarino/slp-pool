@@ -300,11 +300,16 @@ def sim_tournament(rng):
     return champion, all_wins
 
 
-def calc_bonus(entry_teams, all_wins):
-    """Sum tournament round-win points for an entry's teams."""
+def calc_bonus(entry_teams, all_wins, known_wins=None):
+    """Sum tournament round-win points for an entry's teams.
+    Excludes wins from KNOWN_RESULTS since those points are already
+    baked into the entry's base score from update_scores.js."""
     pts = 0
     for team in entry_teams:
         for r in all_wins.get(team, []):
+            # Skip this round win if it came from a known result
+            if known_wins and team in known_wins and r in known_wins[team]:
+                continue
             pts += ROUND_POINTS[r]
     return pts
 
@@ -380,6 +385,42 @@ def main():
     sim_adv = []   # team advancement strings (one char per team: '.'=no wins, '0'-'5'=max round won)
     sim_top8 = []  # top-8 entry names per sim
 
+    # Pre-compute which round wins come from known results (already in base scores)
+    # Run one sim — since known results are deterministic, any win from a known
+    # matchup will appear identically in every sim.
+    known_wins = defaultdict(set)  # team -> set of round indices from known results
+    if KNOWN_RESULTS:
+        _rng = random.Random(0)
+        _, _all_wins = sim_tournament(_rng)
+        # A win is "known" if the matchup was in KNOWN_RESULTS
+        # We can identify these by running WITHOUT known results and comparing
+        # Simpler: just track which teams have known matchups and which rounds
+        # they'd win. Since known results are 100%, we just need one pass.
+        for team, rounds in _all_wins.items():
+            # Check each round: was this team's opponent in that round a known matchup?
+            # Simplification: any team that appears in KNOWN_RESULTS as a winner
+            # gets credit for the round(s) they won in the deterministic sim
+            for key, winner in KNOWN_RESULTS.items():
+                if team == winner and team in _all_wins:
+                    # The first win for this team in the bracket came from a known result
+                    # We need to figure out WHICH round. For play-in winners, no round
+                    # points. For R64 winners, round 0. Etc.
+                    break
+        # Better approach: just run sim with and without known results,
+        # the difference = known wins
+        # But simplest: the first N rounds where N = number of known non-playin
+        # wins for each team get excluded.
+        # Count how many non-play-in known wins each team has
+        playin_matchups = set()
+        for pi in PLAY_IN_GAMES:
+            playin_matchups.add(frozenset(pi["teams"]))
+        for key, winner in KNOWN_RESULTS.items():
+            if key not in playin_matchups:
+                # This is a bracket win (R64+), assign sequential rounds
+                # Each known win = one round removed from bonus
+                existing = len(known_wins[winner])
+                known_wins[winner].add(existing)  # round 0, then 1, etc.
+
     print(f"\nRunning {NUM_SIMS:,} simulations...")
 
     for sim in range(NUM_SIMS):
@@ -398,7 +439,7 @@ def main():
         # Score all entries
         final = {}
         for name, info in entries.items():
-            final[name] = info["score"] + calc_bonus(info["teams"], all_wins)
+            final[name] = info["score"] + calc_bonus(info["teams"], all_wins, known_wins)
 
         # Rank (break ties alphabetically for determinism)
         ranked = sorted(final.items(), key=lambda x: (-x[1], x[0]))
