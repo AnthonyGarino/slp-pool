@@ -112,11 +112,13 @@ PLAY_IN_GAMES = [
 # Add results here as games complete. The sim will use these instead of
 # simulating those matchups.
 KNOWN_RESULTS = {
-    # Championship results
+    # First Four (play-in)
     frozenset({"Texas", "NC State"}): "Texas",
     frozenset({"Howard", "UMBC"}): "Howard",
     frozenset({"Miami OH", "SMU"}): "Miami OH",
     frozenset({"Prairie View", "Lehigh"}): "Prairie View",
+    # 1st Round
+    frozenset({"Vanderbilt", "McNeese"}): "Vanderbilt",
     frozenset({"Duke", "Siena"}): "Duke",
     frozenset({"Nebraska", "Troy"}): "Nebraska",
     frozenset({"High Point", "Wisconsin"}): "High Point",

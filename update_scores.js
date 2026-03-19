@@ -971,10 +971,18 @@ async function updateSimKnownResults() {
           const loser = t1.winner ? t2.team.displayName : t1.team.displayName;
           const notes = (comp.notes && comp.notes[0] && comp.notes[0].headline) || '';
           if (notes.includes('NCAA')) {
+            let round = 'Tournament';
+            if (notes.includes('First Four')) round = 'First Four (play-in)';
+            else if (notes.includes('1st Round')) round = '1st Round';
+            else if (notes.includes('2nd Round')) round = '2nd Round';
+            else if (notes.includes('Sweet 16') || notes.includes('Regional Semi')) round = 'Sweet 16';
+            else if (notes.includes('Elite') || notes.includes('Regional Final')) round = 'Elite 8';
+            else if (notes.includes('Final Four') || notes.includes('National Semi')) round = 'Final Four';
+            else if (notes.includes('National Champ')) round = 'Championship';
             results.push({
               winner: espnToSim(winner),
               loser: espnToSim(loser),
-              notes,
+              round,
               date: dt.toISOString().slice(5, 10),
             });
           }
@@ -992,14 +1000,12 @@ async function updateSimKnownResults() {
 
   // Build new KNOWN_RESULTS block
   const lines = ['KNOWN_RESULTS = {'];
-  // Group by round from notes
+  // Group by round
   let currentRound = '';
   for (const r of results) {
-    const roundMatch = r.notes.match(/(Play-In|1st Round|2nd Round|Sweet 16|Elite 8|Final Four|Championship)/i);
-    const round = roundMatch ? roundMatch[1] : 'Tournament';
-    if (round !== currentRound) {
-      lines.push(`    # ${round} results`);
-      currentRound = round;
+    if (r.round !== currentRound) {
+      lines.push(`    # ${r.round}`);
+      currentRound = r.round;
     }
     lines.push(`    frozenset({"${r.winner}", "${r.loser}"}): "${r.winner}",`);
   }
