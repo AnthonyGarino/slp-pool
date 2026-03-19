@@ -112,11 +112,16 @@ PLAY_IN_GAMES = [
 # Add results here as games complete. The sim will use these instead of
 # simulating those matchups.
 KNOWN_RESULTS = {
-    # Play-in results (3/18)
+    # Championship results
     frozenset({"Texas", "NC State"}): "Texas",
-    frozenset({"UMBC", "Howard"}): "Howard",
-    # Add first round results as they come in:
-    # frozenset({"Duke", "Siena"}): "Duke",
+    frozenset({"Howard", "UMBC"}): "Howard",
+    frozenset({"Miami OH", "SMU"}): "Miami OH",
+    frozenset({"Prairie View", "Lehigh"}): "Prairie View",
+    frozenset({"Duke", "Siena"}): "Duke",
+    frozenset({"Nebraska", "Troy"}): "Nebraska",
+    frozenset({"High Point", "Wisconsin"}): "High Point",
+    frozenset({"Louisville", "South Florida"}): "Louisville",
+    frozenset({"TCU", "Ohio St"}): "TCU",
 }
 
 # All tournament teams should have BPR ratings from data.csv

@@ -858,4 +858,174 @@ async function main() {
   console.log(`\n✅ Done! Last updated: ${data.lastUpdated}\n`);
 }
 
-main().catch(err => { console.error('Fatal:', err); process.exit(1); });
+// ── Auto-update KNOWN_RESULTS in sim.py from ESPN NCAA tournament results ────
+async function updateSimKnownResults() {
+  const SIM_PATH = path.join(__dirname, 'sim.py');
+  if (!fs.existsSync(SIM_PATH)) return;
+
+  // ESPN name → sim.py name mapping
+  const ESPN_TO_SIM = {
+    'Michigan State Spartans': 'Michigan St',
+    'Ohio State Buckeyes': 'Ohio St',
+    'Iowa State Cyclones': 'Iowa St',
+    'NC State Wolfpack': 'NC State',
+    "St. John's Red Storm": "St. John's",
+    'UConn Huskies': 'UConn',
+    'McNeese Cowboys': 'McNeese',
+    'North Dakota State Bison': 'North Dakota St',
+    'Cal Baptist Lancers': 'Cal Baptist',
+    'South Florida Bulls': 'South Florida',
+    "Saint Mary's Gaels": "Saint Mary's",
+    'Utah State Aggies': 'Utah St',
+    'Kennesaw State Owls': 'Kennesaw St',
+    'Miami Hurricanes': 'Miami FL',
+    'Miami (OH) RedHawks': 'Miami OH',
+    'Texas A&M Aggies': 'Texas A&M',
+    'Texas Tech Red Raiders': 'Texas Tech',
+    'Tennessee State Tigers': 'Tennessee St',
+    'Wright State Raiders': 'Wright St',
+    'Northern Iowa Panthers': 'Northern Iowa',
+    'Saint Louis Billikens': 'Saint Louis',
+    'Santa Clara Broncos': 'Santa Clara',
+    "Hawai'i Rainbow Warriors": 'Hawaii',
+    'Prairie View A&M Panthers': 'Prairie View',
+    'High Point Panthers': 'High Point',
+    'North Carolina Tar Heels': 'North Carolina',
+    'Duke Blue Devils': 'Duke',
+    'TCU Horned Frogs': 'TCU',
+    'Lehigh Mountain Hawks': 'Lehigh',
+    'Siena Saints': 'Siena',
+    'Troy Trojans': 'Troy',
+    'Nebraska Cornhuskers': 'Nebraska',
+    'Louisville Cardinals': 'Louisville',
+    'Wisconsin Badgers': 'Wisconsin',
+    'Florida Gators': 'Florida',
+    'Houston Cougars': 'Houston',
+    'Illinois Fighting Illini': 'Illinois',
+    'Purdue Boilermakers': 'Purdue',
+    'Michigan Wolverines': 'Michigan',
+    'Arizona Wildcats': 'Arizona',
+    'Gonzaga Bulldogs': 'Gonzaga',
+    'Arkansas Razorbacks': 'Arkansas',
+    'Alabama Crimson Tide': 'Alabama',
+    'Kansas Jayhawks': 'Kansas',
+    'Virginia Cavaliers': 'Virginia',
+    'Tennessee Volunteers': 'Tennessee',
+    'Kentucky Wildcats': 'Kentucky',
+    'Vanderbilt Commodores': 'Vanderbilt',
+    'Clemson Tigers': 'Clemson',
+    'Iowa Hawkeyes': 'Iowa',
+    'UCLA Bruins': 'UCLA',
+    'BYU Cougars': 'BYU',
+    'Villanova Wildcats': 'Villanova',
+    'Georgia Bulldogs': 'Georgia',
+    'Missouri Tigers': 'Missouri',
+    'SMU Mustangs': 'SMU',
+    'UCF Knights': 'UCF',
+    'Furman Paladins': 'Furman',
+    'Hofstra Pride': 'Hofstra',
+    'Akron Zips': 'Akron',
+    'VCU Rams': 'VCU',
+    'Penn Quakers': 'Penn',
+    'Idaho Vandals': 'Idaho',
+    'Queens Royals': 'Queens',
+    'LIU Sharks': 'LIU',
+    'Howard Bison': 'Howard',
+    'UMBC Retrievers': 'UMBC',
+    'Texas Longhorns': 'Texas',
+    'Miami (OH) RedHawks': 'Miami OH',
+    'North Dakota State Bison': 'North Dakota St',
+  };
+
+  function espnToSim(espnName) {
+    if (ESPN_TO_SIM[espnName]) return ESPN_TO_SIM[espnName];
+    // Strip mascot: "Duke Blue Devils" → "Duke"
+    // Common pattern: first 1-2 words are the school name
+    const parts = espnName.split(' ');
+    // Try progressively shorter prefixes
+    for (let i = parts.length - 1; i >= 1; i--) {
+      const candidate = parts.slice(0, i).join(' ');
+      if (candidate.length >= 3) return candidate;
+    }
+    return espnName;
+  }
+
+  // Fetch NCAA tournament games from ESPN (groups=100 = NCAA tournament)
+  // Check multiple date ranges to cover all tournament days
+  const results = [];
+  const today = new Date();
+  for (let d = -7; d <= 1; d++) {
+    const dt = new Date(today);
+    dt.setDate(dt.getDate() + d);
+    const dateStr = dt.toISOString().slice(0, 10).replace(/-/g, '');
+    try {
+      const data = await get(`https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?groups=100&dates=${dateStr}&limit=50`);
+      if (data.events) {
+        for (const ev of data.events) {
+          const comp = ev.competitions[0];
+          const done = comp.status && comp.status.type && comp.status.type.completed;
+          if (!done) continue;
+          const t1 = comp.competitors[0];
+          const t2 = comp.competitors[1];
+          const winner = t1.winner ? t1.team.displayName : t2.team.displayName;
+          const loser = t1.winner ? t2.team.displayName : t1.team.displayName;
+          const notes = (comp.notes && comp.notes[0] && comp.notes[0].headline) || '';
+          if (notes.includes('NCAA')) {
+            results.push({
+              winner: espnToSim(winner),
+              loser: espnToSim(loser),
+              notes,
+              date: dt.toISOString().slice(5, 10),
+            });
+          }
+        }
+      }
+    } catch (e) {
+      // Skip dates with no data
+    }
+  }
+
+  if (results.length === 0) {
+    console.log('🏀 No completed NCAA tournament games found');
+    return;
+  }
+
+  // Build new KNOWN_RESULTS block
+  const lines = ['KNOWN_RESULTS = {'];
+  // Group by round from notes
+  let currentRound = '';
+  for (const r of results) {
+    const roundMatch = r.notes.match(/(Play-In|1st Round|2nd Round|Sweet 16|Elite 8|Final Four|Championship)/i);
+    const round = roundMatch ? roundMatch[1] : 'Tournament';
+    if (round !== currentRound) {
+      lines.push(`    # ${round} results`);
+      currentRound = round;
+    }
+    lines.push(`    frozenset({"${r.winner}", "${r.loser}"}): "${r.winner}",`);
+  }
+  lines.push('}');
+  const newBlock = lines.join('\n');
+
+  // Replace KNOWN_RESULTS block in sim.py
+  let sim = fs.readFileSync(SIM_PATH, 'utf8');
+  const startMarker = 'KNOWN_RESULTS = {';
+  const startIdx = sim.indexOf(startMarker);
+  if (startIdx < 0) {
+    console.log('⚠  Could not find KNOWN_RESULTS in sim.py');
+    return;
+  }
+  // Find matching closing brace
+  let depth = 0, pos = startIdx + startMarker.length - 1;
+  while (pos < sim.length) {
+    if (sim[pos] === '{') depth++;
+    else if (sim[pos] === '}') { depth--; if (depth === 0) { pos++; break; } }
+    pos++;
+  }
+  sim = sim.slice(0, startIdx) + newBlock + sim.slice(pos);
+  fs.writeFileSync(SIM_PATH, sim, 'utf8');
+  console.log(`🏀 Updated KNOWN_RESULTS in sim.py with ${results.length} completed NCAA games`);
+}
+
+main()
+  .then(() => updateSimKnownResults())
+  .catch(err => { console.error('Fatal:', err); process.exit(1); });
