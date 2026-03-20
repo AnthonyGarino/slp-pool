@@ -119,12 +119,16 @@ KNOWN_RESULTS = {
     frozenset({"Prairie View", "Lehigh"}): "Prairie View",
     # 1st Round
     frozenset({"Duke", "Siena"}): "Duke",
+    frozenset({"Michigan", "Howard"}): "Michigan",
     frozenset({"Michigan St", "North Dakota St"}): "Michigan St",
     frozenset({"Nebraska", "Troy"}): "Nebraska",
     frozenset({"Arkansas", "Hawaii"}): "Arkansas",
     frozenset({"High Point", "Wisconsin"}): "High Point",
     frozenset({"Vanderbilt", "McNeese"}): "Vanderbilt",
     frozenset({"Louisville", "South Florida"}): "Louisville",
+    frozenset({"VCU", "North Carolina"}): "VCU",
+    frozenset({"Texas", "BYU"}): "Texas",
+    frozenset({"Texas A&M", "Saint Mary's"}): "Texas A&M",
     frozenset({"TCU", "Ohio St"}): "TCU",
 }
 
