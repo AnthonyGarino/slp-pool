@@ -134,14 +134,14 @@ KNOWN_RESULTS = {
     frozenset({"Texas A&M", "Saint Mary's"}): "Texas A&M",
     frozenset({"TCU", "Ohio St"}): "TCU",
     frozenset({"Saint Louis", "Georgia"}): "Saint Louis",
-    frozenset({"Tennessee", "Miami OH"}): "Tennessee",
-    frozenset({"Utah St", "Villanova"}): "Utah St",
     frozenset({"Arizona", "Long Island University"}): "Arizona",
     frozenset({"Iowa St", "Tennessee St"}): "Iowa St",
     frozenset({"Virginia", "Wright St"}): "Virginia",
     frozenset({"Alabama", "Hofstra"}): "Alabama",
     frozenset({"Texas Tech", "Akron"}): "Texas Tech",
+    frozenset({"Tennessee", "Miami OH"}): "Tennessee",
     frozenset({"Kentucky", "Santa Clara"}): "Kentucky",
+    frozenset({"Utah St", "Villanova"}): "Utah St",
 }
 
 # All tournament teams should have BPR ratings from data.csv

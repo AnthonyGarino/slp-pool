@@ -1226,7 +1226,7 @@
     {
       "name": "Crazyab",
       "totalValue": 100,
-      "score": 408,
+      "score": 409,
       "picks": {
         "ACC": {
           "team": "Clemson",
@@ -1264,7 +1264,7 @@
         {
           "team": "Utah State",
           "value": 10,
-          "points": 59,
+          "points": 60,
           "counts": true
         },
         {
@@ -8768,10 +8768,7 @@
       "ncaaWinPts": 0,
       "totalPoints": 34,
       "recentGames": [],
-      "nextGame": {
-        "opponent": "Clemson",
-        "date": "Mar 20"
-      }
+      "nextGame": null
     },
     "Arizona": {
       "confW": 16,
@@ -8790,7 +8787,7 @@
         }
       ],
       "nextGame": {
-        "opponent": "TBD",
+        "opponent": "Utah State",
         "date": "Mar 22"
       }
     },
@@ -9297,7 +9294,7 @@
         }
       ],
       "nextGame": {
-        "opponent": "TBD",
+        "opponent": "Tennessee",
         "date": "Mar 22"
       }
     },
@@ -9473,10 +9470,7 @@
       "ncaaWinPts": 0,
       "totalPoints": 42,
       "recentGames": [],
-      "nextGame": {
-        "opponent": "Iowa",
-        "date": "Mar 20"
-      }
+      "nextGame": null
     },
     "Illinois": {
       "confW": 15,
@@ -9528,13 +9522,13 @@
     },
     "Utah State": {
       "confW": 15,
-      "nonConfW": 9,
+      "nonConfW": 10,
       "confTitlePts": 5,
       "confTournWinPts": 6,
       "confTournTitlePts": 5,
       "ncaaSeedPts": 2,
       "ncaaWinPts": 2,
-      "totalPoints": 59,
+      "totalPoints": 60,
       "recentGames": [
         {
           "result": "W",
@@ -9542,7 +9536,10 @@
           "score": "86-76"
         }
       ],
-      "nextGame": null
+      "nextGame": {
+        "opponent": "Arizona",
+        "date": "Mar 22"
+      }
     },
     "Ohio State": {
       "confW": 12,
@@ -9687,6 +9684,11 @@
           "result": "W",
           "opponent": "SMU",
           "score": "89-79"
+        },
+        {
+          "result": "L",
+          "opponent": "Tennessee",
+          "score": "56-78"
         }
       ],
       "nextGame": null
