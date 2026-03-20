@@ -135,7 +135,9 @@ KNOWN_RESULTS = {
     frozenset({"TCU", "Ohio St"}): "TCU",
     frozenset({"Saint Louis", "Georgia"}): "Saint Louis",
     frozenset({"Arizona", "Long Island University"}): "Arizona",
+    frozenset({"Iowa St", "Tennessee St"}): "Iowa St",
     frozenset({"Virginia", "Wright St"}): "Virginia",
+    frozenset({"Alabama", "Hofstra"}): "Alabama",
     frozenset({"Texas Tech", "Akron"}): "Texas Tech",
     frozenset({"Kentucky", "Santa Clara"}): "Kentucky",
 }
