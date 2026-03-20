@@ -1,6 +1,6 @@
 """
 NCAA Tournament Monte Carlo Simulation for SLP Pool
-Uses EvanMiya BPR (Bayesian Performance Rating) to simulate the 2026 NCAA
+Uses Blended Ratings (EvanMiya + KenPom + Torvik avg) to simulate the 2026 NCAA
 Tournament and estimate pool win probabilities for each entry.
 
 CORRECT 2026 bracket from ESPN/CBS:
@@ -17,36 +17,36 @@ import random
 from collections import defaultdict
 
 # ─── EvanMiya BPR Ratings (from data.csv) ─────────────────────────────────────
-# BPR = Bayesian Performance Rating — EvanMiya's team strength metric
-EVANMIYA_RATINGS = {
+# Blended = average of EvanMiya BPR, KenPom AdjEM, and Torvik AdjEM
+BLENDED_RATINGS = {
     # East Region
-    "Duke": 34.76, "UConn": 29.04, "Michigan St": 24.58, "Kansas": 21.86,
-    "St. John's": 25.51, "Louisville": 21.76, "UCLA": 20.34, "Ohio St": 21.20,
-    "TCU": 15.96, "UCF": 11.29, "South Florida": 15.78, "Northern Iowa": 10.58,
-    "Cal Baptist": 3.72, "North Dakota St": 4.15, "Furman": 0.91, "Siena": -0.12,
+    "Duke": 36.06, "UConn": 28.33, "Michigan St": 26.62, "Kansas": 23.17,
+    "St. John's": 25.66, "Louisville": 24.09, "UCLA": 21.48, "Ohio St": 21.89,
+    "TCU": 16.43, "UCF": 13.53, "South Florida": 15.88, "Northern Iowa": 11.07,
+    "Cal Baptist": 5.44, "North Dakota St": 4.39, "Furman": -0.99, "Siena": -0.33,
 
     # West Region
-    "Arizona": 32.03, "Purdue": 30.29, "Gonzaga": 27.72, "Arkansas": 23.78,
-    "Wisconsin": 21.68, "BYU": 16.54, "Miami FL": 18.63, "Villanova": 14.97,
-    "Utah St": 17.58, "Missouri": 14.43, "High Point": 8.59, "Texas": 17.09,
-    "NC State": 16.52, "Kennesaw St": 1.02, "Queens": -2.13, "LIU": -3.30,
+    "Arizona": 34.99, "Purdue": 31.37, "Gonzaga": 26.79, "Arkansas": 25.47,
+    "Wisconsin": 23.03, "BYU": 19.62, "Miami FL": 19.51, "Villanova": 17.93,
+    "Utah St": 19.81, "Missouri": 15.55, "High Point": 8.92, "Texas": 18.32,
+    "NC State": 18.19, "Kennesaw St": 1.36, "Queens": -1.98, "LIU": -4.40,
 
     # South Region
-    "Florida": 31.41, "Houston": 30.96, "Illinois": 28.93, "Nebraska": 22.34,
-    "Vanderbilt": 23.98, "North Carolina": 14.70, "Saint Mary's": 20.35, "Clemson": 16.57,
-    "Iowa": 20.10, "McNeese": 10.66, "VCU": 16.07, "Texas A&M": 16.35,
-    "Troy": 4.52, "Penn": 0.92, "Idaho": 0.10, "Prairie View": -9.77,
-    "Lehigh": -8.54,
+    "Florida": 32.94, "Houston": 32.59, "Illinois": 31.66, "Nebraska": 24.31,
+    "Vanderbilt": 26.38, "North Carolina": 18.61, "Saint Mary's": 20.79, "Clemson": 18.20,
+    "Iowa": 21.37, "McNeese": 11.55, "VCU": 16.99, "Texas A&M": 18.42,
+    "Troy": 2.27, "Penn": 1.12, "Idaho": 0.90, "Prairie View": -9.64,
+    "Lehigh": -10.03,
 
     # Midwest Region
-    "Michigan": 34.48, "Iowa St": 29.48, "Virginia": 24.09, "Alabama": 23.20,
-    "Texas Tech": 18.29, "Tennessee": 23.52, "Kentucky": 20.21, "Georgia": 18.22,
-    "Saint Louis": 17.70, "Akron": 11.16, "Santa Clara": 16.89, "SMU": 16.65,
-    "Miami OH": 8.13, "Hofstra": 10.00, "Wright St": 1.31, "Tennessee St": 0.40,
-    "UMBC": -0.09, "Howard": -1.11,
+    "Michigan": 35.83, "Iowa St": 30.93, "Virginia": 25.53, "Alabama": 25.16,
+    "Texas Tech": 23.56, "Tennessee": 25.14, "Kentucky": 20.47, "Georgia": 18.61,
+    "Saint Louis": 18.84, "Akron": 11.90, "Santa Clara": 18.97, "SMU": 16.87,
+    "Miami OH": 9.14, "Hofstra": 9.36, "Wright St": 1.31, "Tennessee St": 0.40,
+    "UMBC": -1.21, "Howard": -1.59,
 
     # Hawaii (West 4-13 matchup)
-    "Hawaii": 3.32,
+    "Hawaii": 3.68,
 }
 
 # ─── 2026 NCAA Tournament Bracket (REAL from ESPN/Yahoo) ─────────────────────
@@ -215,8 +215,8 @@ def win_prob(team_a, team_b):
       P(A wins) = Phi(expected_margin / game_sigma)
       game_sigma ≈ 11 is the std dev of actual scoring margins in CBB.
     """
-    a_bpr = EVANMIYA_RATINGS.get(team_a)
-    b_bpr = EVANMIYA_RATINGS.get(team_b)
+    a_bpr = BLENDED_RATINGS.get(team_a)
+    b_bpr = BLENDED_RATINGS.get(team_b)
     if a_bpr is None or b_bpr is None:
         return 0.5
     bpr_diff = a_bpr - b_bpr
@@ -344,7 +344,7 @@ def load_entries(data_path):
 def main():
     data_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data.json")
     entries = load_entries(data_path)
-    tourney_teams = set(EVANMIYA_RATINGS.keys())
+    tourney_teams = set(BLENDED_RATINGS.keys())
     # Also add play-in teams
     for pi in PLAY_IN_GAMES:
         for t in pi["teams"]:
@@ -363,7 +363,7 @@ def main():
         for t in pi["teams"]:
             all_bracket_teams.add(t)
 
-    missing = all_bracket_teams - set(EVANMIYA_RATINGS.keys())
+    missing = all_bracket_teams - set(BLENDED_RATINGS.keys())
     if missing:
         print(f"\n⚠ WARNING: Missing EvanMiya ratings for: {missing}")
         print("  These teams will use 50/50 win probability.")
@@ -390,7 +390,7 @@ def main():
     champ_total_given = defaultdict(int)
     team_round_counts = defaultdict(lambda: defaultdict(int))  # team -> round -> count
     # Per-sim data for client-side multi-filter
-    all_team_list = sorted(EVANMIYA_RATINGS.keys())
+    all_team_list = sorted(BLENDED_RATINGS.keys())
     team_to_idx = {t: i for i, t in enumerate(all_team_list)}
     sim_adv = []   # team advancement strings (one char per team: '.'=no wins, '0'-'5'=max round won)
     sim_top8 = []  # top-8 entry names per sim
@@ -524,7 +524,7 @@ def main():
     sorted_champs = sorted(champ_counts.items(), key=lambda x: x[1], reverse=True)
     for rank, (team, count) in enumerate(sorted_champs, 1):
         pct = count / NUM_SIMS * 100
-        em = EVANMIYA_RATINGS.get(team, 0)
+        em = BLENDED_RATINGS.get(team, 0)
         if pct >= 0.01:
             print(f"  {rank:>2}. {team:<20s} {pct:6.2f}%  (BPR: {em:+.2f})")
 
@@ -590,7 +590,7 @@ def main():
     sorted_pts = sorted(team_pts.items(), key=lambda x: x[1], reverse=True)
     for rank, (team, total) in enumerate(sorted_pts[:25], 1):
         avg = total / NUM_SIMS
-        em = EVANMIYA_RATINGS.get(team, 0)
+        em = BLENDED_RATINGS.get(team, 0)
         # Show which entries own this team
         owners = [n for n, info in entries.items()
                   if team in info["teams"]][:5]
@@ -699,10 +699,10 @@ def update_placements_html(position_counts, NUM_SIMS, sim_adv, sim_top8, all_tea
 
     # Team options sorted by BPR for dropdown
     teams_by_bpr = sorted(all_team_list,
-                          key=lambda t: EVANMIYA_RATINGS.get(t, 0), reverse=True)
+                          key=lambda t: BLENDED_RATINGS.get(t, 0), reverse=True)
     team_opts_js = json.dumps([
         {"idx": all_team_list.index(t), "name": t,
-         "bpr": round(EVANMIYA_RATINGS.get(t, 0), 1)}
+         "bpr": round(BLENDED_RATINGS.get(t, 0), 1)}
         for t in teams_by_bpr
     ])
 
