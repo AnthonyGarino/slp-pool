@@ -120,7 +120,10 @@ KNOWN_RESULTS = {
     # 1st Round
     frozenset({"Duke", "Siena"}): "Duke",
     frozenset({"Michigan", "Howard"}): "Michigan",
+    frozenset({"Houston", "Idaho"}): "Houston",
     frozenset({"Michigan St", "North Dakota St"}): "Michigan St",
+    frozenset({"Illinois", "Pennsylvania"}): "Illinois",
+    frozenset({"Gonzaga", "Kennesaw St"}): "Gonzaga",
     frozenset({"Nebraska", "Troy"}): "Nebraska",
     frozenset({"Arkansas", "Hawaii"}): "Arkansas",
     frozenset({"High Point", "Wisconsin"}): "High Point",
@@ -130,6 +133,7 @@ KNOWN_RESULTS = {
     frozenset({"Texas", "BYU"}): "Texas",
     frozenset({"Texas A&M", "Saint Mary's"}): "Texas A&M",
     frozenset({"TCU", "Ohio St"}): "TCU",
+    frozenset({"Saint Louis", "Georgia"}): "Saint Louis",
 }
 
 # All tournament teams should have BPR ratings from data.csv

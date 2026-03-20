@@ -42,8 +42,21 @@ jobs:
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
 
-      - name: Trigger sim re-run if scores changed
+      - name: Set up Python
         if: steps.commit.outputs.changed == 'true'
-        run: gh workflow run update-sim.yml
-        env:
-          GH_TOKEN: ${{ github.token }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Re-run sim if scores changed
+        if: steps.commit.outputs.changed == 'true'
+        run: |
+          git pull --rebase
+          python sim.py
+          git add placements.html sim.py
+          if git diff --cached --quiet; then
+            echo "No sim changes."
+          else
+            git commit -m "Auto-update placement sim $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
