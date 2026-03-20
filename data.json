@@ -658,7 +658,7 @@
     {
       "name": "Wirk",
       "totalValue": 100,
-      "score": 432,
+      "score": 434,
       "picks": {
         "ACC": {
           "team": "Virginia Tech",
@@ -678,7 +678,7 @@
         "Big 12": {
           "team": "Arizona",
           "value": 14,
-          "points": 69
+          "points": 71
         },
         "SEC": {
           "team": "Vanderbilt",
@@ -1437,6 +1437,77 @@
       "previousRank": 12
     },
     {
+      "name": "gHost",
+      "totalValue": 100,
+      "score": 402,
+      "picks": {
+        "ACC": {
+          "team": "Duke",
+          "value": 16,
+          "points": 72
+        },
+        "Big East": {
+          "team": "Seton Hall",
+          "value": 6,
+          "points": 32
+        },
+        "Big Ten": {
+          "team": "Rutgers",
+          "value": 6,
+          "points": 21
+        },
+        "Big 12": {
+          "team": "Arizona",
+          "value": 14,
+          "points": 71
+        },
+        "SEC": {
+          "team": "Missouri",
+          "value": 10,
+          "points": 32
+        }
+      },
+      "wildcards": [
+        {
+          "team": "Gonzaga",
+          "value": 13,
+          "points": 64,
+          "counts": true
+        },
+        {
+          "team": "CS Northridge",
+          "value": 8,
+          "points": 33,
+          "counts": true
+        },
+        {
+          "team": "Cal Poly",
+          "value": 7,
+          "points": 24,
+          "counts": true
+        },
+        {
+          "team": "California",
+          "value": 7,
+          "points": 30,
+          "counts": true
+        },
+        {
+          "team": "Cornell",
+          "value": 8,
+          "points": 23,
+          "counts": true
+        },
+        {
+          "team": "Central Michigan",
+          "value": 5,
+          "points": 16,
+          "counts": false
+        }
+      ],
+      "previousRank": 15
+    },
+    {
       "name": "Faconal",
       "totalValue": 100,
       "score": 401,
@@ -1573,77 +1644,6 @@
           "team": "UTSA",
           "value": 5,
           "points": 6,
-          "counts": false
-        }
-      ],
-      "previousRank": 15
-    },
-    {
-      "name": "gHost",
-      "totalValue": 100,
-      "score": 400,
-      "picks": {
-        "ACC": {
-          "team": "Duke",
-          "value": 16,
-          "points": 72
-        },
-        "Big East": {
-          "team": "Seton Hall",
-          "value": 6,
-          "points": 32
-        },
-        "Big Ten": {
-          "team": "Rutgers",
-          "value": 6,
-          "points": 21
-        },
-        "Big 12": {
-          "team": "Arizona",
-          "value": 14,
-          "points": 69
-        },
-        "SEC": {
-          "team": "Missouri",
-          "value": 10,
-          "points": 32
-        }
-      },
-      "wildcards": [
-        {
-          "team": "Gonzaga",
-          "value": 13,
-          "points": 64,
-          "counts": true
-        },
-        {
-          "team": "CS Northridge",
-          "value": 8,
-          "points": 33,
-          "counts": true
-        },
-        {
-          "team": "Cal Poly",
-          "value": 7,
-          "points": 24,
-          "counts": true
-        },
-        {
-          "team": "California",
-          "value": 7,
-          "points": 30,
-          "counts": true
-        },
-        {
-          "team": "Cornell",
-          "value": 8,
-          "points": 23,
-          "counts": true
-        },
-        {
-          "team": "Central Michigan",
-          "value": 5,
-          "points": 16,
           "counts": false
         }
       ],
@@ -8659,7 +8659,7 @@
       "recentGames": [],
       "nextGame": {
         "opponent": "Furman",
-        "date": "Mar 20"
+        "date": "Mar 21"
       }
     },
     "Indiana": {
@@ -8780,10 +8780,19 @@
       "confTournWinPts": 6,
       "confTournTitlePts": 5,
       "ncaaSeedPts": 8,
-      "ncaaWinPts": 0,
-      "totalPoints": 69,
-      "recentGames": [],
-      "nextGame": null
+      "ncaaWinPts": 2,
+      "totalPoints": 71,
+      "recentGames": [
+        {
+          "result": "W",
+          "opponent": "Long Island",
+          "score": "92-58"
+        }
+      ],
+      "nextGame": {
+        "opponent": "TBD",
+        "date": "Mar 22"
+      }
     },
     "Vanderbilt": {
       "confW": 11,
@@ -8803,7 +8812,7 @@
       ],
       "nextGame": {
         "opponent": "Nebraska",
-        "date": "Mar 21"
+        "date": "Mar 22"
       }
     },
     "High Point": {
@@ -8824,7 +8833,7 @@
       ],
       "nextGame": {
         "opponent": "Arkansas",
-        "date": "Mar 21"
+        "date": "Mar 22"
       }
     },
     "New Mexico": {
@@ -8845,7 +8854,7 @@
       ],
       "nextGame": {
         "opponent": "G Washington",
-        "date": "Mar 22"
+        "date": "Mar 23"
       }
     },
     "Fairfield": {
@@ -8878,7 +8887,7 @@
       ],
       "nextGame": {
         "opponent": "Oklahoma St",
-        "date": "Mar 22"
+        "date": "Mar 23"
       }
     },
     "Portland": {
@@ -8989,7 +8998,7 @@
       ],
       "nextGame": {
         "opponent": "Nevada",
-        "date": "Mar 21"
+        "date": "Mar 22"
       }
     },
     "Ball State": {
@@ -9166,7 +9175,7 @@
       ],
       "nextGame": {
         "opponent": "Wichita St",
-        "date": "Mar 22"
+        "date": "Mar 23"
       }
     },
     "Mississippi State": {
@@ -9337,7 +9346,7 @@
       "recentGames": [],
       "nextGame": {
         "opponent": "Colorado",
-        "date": "Apr 1"
+        "date": "Apr 2"
       }
     },
     "San Diego State": {
@@ -9493,7 +9502,7 @@
       "recentGames": [],
       "nextGame": {
         "opponent": "Oklahoma",
-        "date": "Apr 1"
+        "date": "Apr 2"
       }
     },
     "LSU": {
@@ -9640,7 +9649,7 @@
       ],
       "nextGame": {
         "opponent": "High Point",
-        "date": "Mar 21"
+        "date": "Mar 22"
       }
     },
     "UC Santa Barbara": {
@@ -9784,7 +9793,7 @@
       "recentGames": [],
       "nextGame": {
         "opponent": "Creighton",
-        "date": "Apr 2"
+        "date": "Apr 3"
       }
     },
     "Missouri": {
@@ -9799,7 +9808,7 @@
       "recentGames": [],
       "nextGame": {
         "opponent": "Miami",
-        "date": "Mar 20"
+        "date": "Mar 21"
       }
     },
     "CS Northridge": {
@@ -9844,7 +9853,7 @@
       ],
       "nextGame": {
         "opponent": "Saint Joseph's",
-        "date": "Mar 22"
+        "date": "Mar 23"
       }
     },
     "Cornell": {
@@ -9913,7 +9922,7 @@
       "recentGames": [],
       "nextGame": {
         "opponent": "Missouri",
-        "date": "Mar 20"
+        "date": "Mar 21"
       }
     },
     "Xavier": {
@@ -9940,7 +9949,7 @@
       "recentGames": [],
       "nextGame": {
         "opponent": "CA Baptist",
-        "date": "Mar 20"
+        "date": "Mar 21"
       }
     },
     "Saint Marys": {
@@ -10033,7 +10042,7 @@
       "recentGames": [],
       "nextGame": {
         "opponent": "Minnesota",
-        "date": "Apr 1"
+        "date": "Apr 2"
       }
     },
     "Texas": {
@@ -10110,7 +10119,7 @@
       "recentGames": [],
       "nextGame": {
         "opponent": "Prairie View",
-        "date": "Mar 20"
+        "date": "Mar 21"
       }
     },
     "Illinois State": {
@@ -10386,7 +10395,7 @@
       ],
       "nextGame": {
         "opponent": "Vanderbilt",
-        "date": "Mar 21"
+        "date": "Mar 22"
       }
     },
     "Sacramento State": {
@@ -10524,7 +10533,7 @@
       "recentGames": [],
       "nextGame": {
         "opponent": "UConn",
-        "date": "Mar 20"
+        "date": "Mar 21"
       }
     },
     "Charleston": {
@@ -10713,7 +10722,7 @@
       ],
       "nextGame": {
         "opponent": "New Mexico",
-        "date": "Mar 22"
+        "date": "Mar 23"
       }
     },
     "Texas Tech": {
@@ -10896,7 +10905,7 @@
       "recentGames": [],
       "nextGame": {
         "opponent": "Stanford",
-        "date": "Apr 2"
+        "date": "Apr 3"
       }
     },
     "UAB": {
@@ -10929,7 +10938,7 @@
       ],
       "nextGame": {
         "opponent": "California",
-        "date": "Mar 22"
+        "date": "Mar 23"
       }
     },
     "Iona": {
@@ -10980,7 +10989,7 @@
       "recentGames": [],
       "nextGame": {
         "opponent": "Baylor",
-        "date": "Apr 1"
+        "date": "Apr 2"
       }
     },
     "Michigan State": {
@@ -11028,7 +11037,7 @@
       "recentGames": [],
       "nextGame": {
         "opponent": "West Virginia",
-        "date": "Apr 2"
+        "date": "Apr 3"
       }
     },
     "Indiana State": {
@@ -11184,7 +11193,7 @@
       "recentGames": [],
       "nextGame": {
         "opponent": "Rutgers",
-        "date": "Apr 2"
+        "date": "Apr 3"
       }
     },
     "Troy": {
@@ -11463,7 +11472,7 @@
       ],
       "nextGame": {
         "opponent": "Liberty",
-        "date": "Mar 21"
+        "date": "Mar 22"
       }
     },
     "LaSalle": {
@@ -11583,7 +11592,7 @@
       ],
       "nextGame": {
         "opponent": "Florida",
-        "date": "Mar 20"
+        "date": "Mar 21"
       }
     },
     "Bethune-Cookman": {
