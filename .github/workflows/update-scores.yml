@@ -51,7 +51,6 @@ jobs:
       - name: Re-run sim if scores changed
         if: steps.commit.outputs.changed == 'true'
         run: |
-          git pull --rebase
           python sim.py
           git add placements.html sim.py
           if git diff --cached --quiet; then
