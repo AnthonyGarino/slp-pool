@@ -150,6 +150,8 @@ KNOWN_RESULTS = {
     frozenset({"Miami FL", "Missouri"}): "Miami FL",
     frozenset({"Utah St", "Villanova"}): "Utah St",
     frozenset({"Iowa", "Clemson"}): "Iowa",
+    # 2nd Round
+    frozenset({"Michigan", "Saint Louis"}): "Michigan",
 }
 
 # All tournament teams should have BPR ratings from data.csv
