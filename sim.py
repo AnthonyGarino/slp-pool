@@ -151,13 +151,14 @@ KNOWN_RESULTS = {
     frozenset({"Utah St", "Villanova"}): "Utah St",
     frozenset({"Iowa", "Clemson"}): "Iowa",
     # 2nd Round
-    frozenset({"Nebraska", "Vanderbilt"}): "Nebraska",
     frozenset({"Michigan", "Saint Louis"}): "Michigan",
     frozenset({"Duke", "TCU"}): "Duke",
     frozenset({"Houston", "Texas A&M"}): "Houston",
     frozenset({"Michigan St", "Louisville"}): "Michigan St",
     frozenset({"Texas", "Gonzaga"}): "Texas",
     frozenset({"Illinois", "VCU"}): "Illinois",
+    frozenset({"Nebraska", "Vanderbilt"}): "Nebraska",
+    frozenset({"Arkansas", "High Point"}): "Arkansas",
 }
 
 # All tournament teams should have BPR ratings from data.csv
