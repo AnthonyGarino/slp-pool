@@ -1366,6 +1366,77 @@
       "previousRank": 12
     },
     {
+      "name": "Faconal",
+      "totalValue": 100,
+      "score": 411,
+      "picks": {
+        "ACC": {
+          "team": "Florida State",
+          "value": 6,
+          "points": 29
+        },
+        "Big East": {
+          "team": "Depaul",
+          "value": 7,
+          "points": 24
+        },
+        "Big Ten": {
+          "team": "Ohio State",
+          "value": 11,
+          "points": 38
+        },
+        "Big 12": {
+          "team": "Iowa State",
+          "value": 14,
+          "points": 53
+        },
+        "SEC": {
+          "team": "Arkansas",
+          "value": 13,
+          "points": 59
+        }
+      },
+      "wildcards": [
+        {
+          "team": "Gonzaga",
+          "value": 13,
+          "points": 64,
+          "counts": true
+        },
+        {
+          "team": "Boise State",
+          "value": 10,
+          "points": 32,
+          "counts": true
+        },
+        {
+          "team": "Vanderbilt",
+          "value": 9,
+          "points": 45,
+          "counts": true
+        },
+        {
+          "team": "Texas A&M",
+          "value": 7,
+          "points": 36,
+          "counts": true
+        },
+        {
+          "team": "Rhode Island",
+          "value": 5,
+          "points": 23,
+          "counts": false
+        },
+        {
+          "team": "Green Bay",
+          "value": 5,
+          "points": 31,
+          "counts": true
+        }
+      ],
+      "previousRank": 16
+    },
+    {
       "name": "Dr C TX Entry B",
       "totalValue": 100,
       "score": 410,
@@ -1577,77 +1648,6 @@
         }
       ],
       "previousRank": 14
-    },
-    {
-      "name": "Faconal",
-      "totalValue": 100,
-      "score": 407,
-      "picks": {
-        "ACC": {
-          "team": "Florida State",
-          "value": 6,
-          "points": 29
-        },
-        "Big East": {
-          "team": "Depaul",
-          "value": 7,
-          "points": 24
-        },
-        "Big Ten": {
-          "team": "Ohio State",
-          "value": 11,
-          "points": 38
-        },
-        "Big 12": {
-          "team": "Iowa State",
-          "value": 14,
-          "points": 49
-        },
-        "SEC": {
-          "team": "Arkansas",
-          "value": 13,
-          "points": 59
-        }
-      },
-      "wildcards": [
-        {
-          "team": "Gonzaga",
-          "value": 13,
-          "points": 64,
-          "counts": true
-        },
-        {
-          "team": "Boise State",
-          "value": 10,
-          "points": 32,
-          "counts": true
-        },
-        {
-          "team": "Vanderbilt",
-          "value": 9,
-          "points": 45,
-          "counts": true
-        },
-        {
-          "team": "Texas A&M",
-          "value": 7,
-          "points": 36,
-          "counts": true
-        },
-        {
-          "team": "Rhode Island",
-          "value": 5,
-          "points": 23,
-          "counts": false
-        },
-        {
-          "team": "Green Bay",
-          "value": 5,
-          "points": 31,
-          "counts": true
-        }
-      ],
-      "previousRank": 16
     },
     {
       "name": "JuliannaL",
@@ -9632,6 +9632,11 @@
           "result": "W",
           "opponent": "Santa Clara",
           "score": "89-84"
+        },
+        {
+          "result": "L",
+          "opponent": "Iowa State",
+          "score": "63-82"
         }
       ],
       "nextGame": null
@@ -9883,13 +9888,18 @@
       "confTournWinPts": 4,
       "confTournTitlePts": 0,
       "ncaaSeedPts": 6,
-      "ncaaWinPts": 2,
-      "totalPoints": 49,
+      "ncaaWinPts": 6,
+      "totalPoints": 53,
       "recentGames": [
         {
           "result": "W",
           "opponent": "Tennessee St",
           "score": "108-74"
+        },
+        {
+          "result": "W",
+          "opponent": "Kentucky",
+          "score": "82-63"
         }
       ],
       "nextGame": null
