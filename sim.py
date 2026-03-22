@@ -151,6 +151,7 @@ KNOWN_RESULTS = {
     frozenset({"Utah St", "Villanova"}): "Utah St",
     frozenset({"Iowa", "Clemson"}): "Iowa",
     # 2nd Round
+    frozenset({"Houston", "Texas A&M"}): "Houston",
     frozenset({"Michigan", "Saint Louis"}): "Michigan",
     frozenset({"Duke", "TCU"}): "Duke",
     frozenset({"Michigan St", "Louisville"}): "Michigan St",
