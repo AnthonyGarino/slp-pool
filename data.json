@@ -1434,7 +1434,7 @@
           "counts": true
         }
       ],
-      "previousRank": 16
+      "previousRank": 13
     },
     {
       "name": "Dr C TX Entry B",
@@ -1505,7 +1505,7 @@
           "counts": true
         }
       ],
-      "previousRank": 13
+      "previousRank": 14
     },
     {
       "name": "The Hackers",
@@ -1576,7 +1576,7 @@
           "counts": false
         }
       ],
-      "previousRank": 14
+      "previousRank": 15
     },
     {
       "name": "Oval Office",
@@ -1647,7 +1647,7 @@
           "counts": false
         }
       ],
-      "previousRank": 14
+      "previousRank": 15
     },
     {
       "name": "JuliannaL",
@@ -1718,7 +1718,7 @@
           "counts": false
         }
       ],
-      "previousRank": 16
+      "previousRank": 17
     },
     {
       "name": "gHost",
@@ -9653,16 +9653,45 @@
       "recentGames": [],
       "nextGame": null
     },
-    "Northwestern": {
-      "confW": 5,
+    "Ohio State": {
+      "confW": 12,
       "nonConfW": 8,
+      "confTitlePts": 0,
+      "confTournWinPts": 2,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 4,
+      "ncaaWinPts": 0,
+      "totalPoints": 38,
+      "recentGames": [
+        {
+          "result": "L",
+          "opponent": "TCU",
+          "score": "64-66"
+        }
+      ],
+      "nextGame": null
+    },
+    "Iowa State": {
+      "confW": 12,
+      "nonConfW": 13,
       "confTitlePts": 0,
       "confTournWinPts": 4,
       "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 22,
-      "recentGames": [],
+      "ncaaSeedPts": 6,
+      "ncaaWinPts": 6,
+      "totalPoints": 53,
+      "recentGames": [
+        {
+          "result": "W",
+          "opponent": "Tennessee St",
+          "score": "108-74"
+        },
+        {
+          "result": "W",
+          "opponent": "Kentucky",
+          "score": "82-63"
+        }
+      ],
       "nextGame": null
     },
     "Arkansas": {
@@ -9686,6 +9715,42 @@
           "score": "94-88"
         }
       ],
+      "nextGame": null
+    },
+    "Boise State": {
+      "confW": 12,
+      "nonConfW": 8,
+      "confTitlePts": 0,
+      "confTournWinPts": 0,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 32,
+      "recentGames": [],
+      "nextGame": null
+    },
+    "Green Bay": {
+      "confW": 12,
+      "nonConfW": 5,
+      "confTitlePts": 0,
+      "confTournWinPts": 2,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 31,
+      "recentGames": [],
+      "nextGame": null
+    },
+    "Northwestern": {
+      "confW": 5,
+      "nonConfW": 8,
+      "confTitlePts": 0,
+      "confTournWinPts": 4,
+      "confTournTitlePts": 0,
+      "ncaaSeedPts": 0,
+      "ncaaWinPts": 0,
+      "totalPoints": 22,
+      "recentGames": [],
       "nextGame": null
     },
     "UC Santa Barbara": {
@@ -9860,71 +9925,6 @@
       "ncaaSeedPts": 0,
       "ncaaWinPts": 0,
       "totalPoints": 30,
-      "recentGames": [],
-      "nextGame": null
-    },
-    "Ohio State": {
-      "confW": 12,
-      "nonConfW": 8,
-      "confTitlePts": 0,
-      "confTournWinPts": 2,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 4,
-      "ncaaWinPts": 0,
-      "totalPoints": 38,
-      "recentGames": [
-        {
-          "result": "L",
-          "opponent": "TCU",
-          "score": "64-66"
-        }
-      ],
-      "nextGame": null
-    },
-    "Iowa State": {
-      "confW": 12,
-      "nonConfW": 13,
-      "confTitlePts": 0,
-      "confTournWinPts": 4,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 6,
-      "ncaaWinPts": 6,
-      "totalPoints": 53,
-      "recentGames": [
-        {
-          "result": "W",
-          "opponent": "Tennessee St",
-          "score": "108-74"
-        },
-        {
-          "result": "W",
-          "opponent": "Kentucky",
-          "score": "82-63"
-        }
-      ],
-      "nextGame": null
-    },
-    "Boise State": {
-      "confW": 12,
-      "nonConfW": 8,
-      "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 32,
-      "recentGames": [],
-      "nextGame": null
-    },
-    "Green Bay": {
-      "confW": 12,
-      "nonConfW": 5,
-      "confTitlePts": 0,
-      "confTournWinPts": 2,
-      "confTournTitlePts": 0,
-      "ncaaSeedPts": 0,
-      "ncaaWinPts": 0,
-      "totalPoints": 31,
       "recentGames": [],
       "nextGame": null
     },
