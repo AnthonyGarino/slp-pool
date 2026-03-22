@@ -159,6 +159,7 @@ KNOWN_RESULTS = {
     frozenset({"Illinois", "VCU"}): "Illinois",
     frozenset({"Nebraska", "Vanderbilt"}): "Nebraska",
     frozenset({"Arkansas", "High Point"}): "Arkansas",
+    frozenset({"Purdue", "Miami FL"}): "Purdue",
 }
 
 # All tournament teams should have BPR ratings from data.csv
