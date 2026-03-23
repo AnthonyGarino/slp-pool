@@ -1,6 +1,6 @@
 """
 NCAA Tournament Monte Carlo Simulation for SLP Pool
-Uses Blended Ratings (EvanMiya + KenPom + Torvik avg) to simulate the 2026 NCAA
+Uses 50/50 blend of Torvik AdjEM + EvanMiya BPR to simulate the 2026 NCAA
 Tournament and estimate pool win probabilities for each entry.
 
 CORRECT 2026 bracket from ESPN/CBS:
@@ -16,38 +16,63 @@ import os
 import random
 from collections import defaultdict
 
-# ─── EvanMiya BPR Ratings (from data.csv) ─────────────────────────────────────
-# Blended = average of EvanMiya BPR, KenPom AdjEM, and Torvik AdjEM
-BLENDED_RATINGS = {
+# ─── Torvik AdjEM Ratings ─────────────────────────────────────────────────────
+TORVIK_RATINGS = {
     # East Region
-    "Duke": 36.06, "UConn": 28.33, "Michigan St": 26.62, "Kansas": 23.17,
-    "St. John's": 25.66, "Louisville": 24.09, "UCLA": 21.48, "Ohio St": 21.89,
-    "TCU": 16.43, "UCF": 13.53, "South Florida": 15.88, "Northern Iowa": 11.07,
-    "Cal Baptist": 5.44, "North Dakota St": 4.39, "Furman": -0.99, "Siena": -0.33,
+    "Duke": 35.80, "UConn": 28.10, "Michigan St": 26.80, "Kansas": 23.30,
+    "St. John's": 25.60, "Louisville": 25.50, "UCLA": 22.50, "Ohio St": 22.60,
+    "TCU": 15.60, "UCF": 14.30, "South Florida": 15.30, "Northern Iowa": 11.10,
+    "Cal Baptist": 6.80, "North Dakota St": 4.50, "Furman": -2.00, "Siena": 0.10,
 
     # West Region
-    "Arizona": 34.99, "Purdue": 31.37, "Gonzaga": 26.79, "Arkansas": 25.47,
-    "Wisconsin": 23.03, "BYU": 19.62, "Miami FL": 19.51, "Villanova": 17.93,
-    "Utah St": 19.81, "Missouri": 15.55, "High Point": 8.92, "Texas": 18.32,
-    "NC State": 18.19, "Kennesaw St": 1.36, "Queens": -1.98, "LIU": -4.40,
+    "Arizona": 35.40, "Purdue": 32.70, "Gonzaga": 25.20, "Arkansas": 26.50,
+    "Wisconsin": 24.60, "BYU": 19.70, "Miami FL": 19.40, "Villanova": 18.90,
+    "Utah St": 21.00, "Missouri": 16.80, "High Point": 9.00, "Texas": 18.20,
+    "NC State": 18.70, "Kennesaw St": 1.90, "Queens": -2.40, "LIU": -6.00,
 
     # South Region
-    "Florida": 32.94, "Houston": 32.59, "Illinois": 31.66, "Nebraska": 24.31,
-    "Vanderbilt": 26.38, "North Carolina": 18.61, "Saint Mary's": 20.79, "Clemson": 18.20,
-    "Iowa": 21.37, "McNeese": 11.55, "VCU": 16.99, "Texas A&M": 18.42,
-    "Troy": 2.27, "Penn": 1.12, "Idaho": 0.90, "Prairie View": -9.64,
-    "Lehigh": -10.03,
+    "Florida": 33.70, "Houston": 33.20, "Illinois": 33.60, "Nebraska": 23.90,
+    "Vanderbilt": 27.70, "North Carolina": 20.80, "Saint Mary's": 20.10, "Clemson": 19.10,
+    "Iowa": 21.60, "McNeese": 11.50, "VCU": 16.90, "Texas A&M": 19.30,
+    "Troy": 1.10, "Penn": 1.40, "Idaho": 1.60, "Prairie View": -9.30,
+    "Lehigh": -10.50,
 
     # Midwest Region
-    "Michigan": 35.83, "Iowa St": 30.93, "Virginia": 25.53, "Alabama": 25.16,
-    "Texas Tech": 23.56, "Tennessee": 25.14, "Kentucky": 20.47, "Georgia": 18.61,
-    "Saint Louis": 18.84, "Akron": 11.90, "Santa Clara": 18.97, "SMU": 16.87,
-    "Miami OH": 9.14, "Hofstra": 9.36, "Wright St": 1.31, "Tennessee St": 0.40,
-    "UMBC": -1.21, "Howard": -1.59,
+    "Michigan": 35.80, "Iowa St": 31.00, "Virginia": 26.00, "Alabama": 26.60,
+    "Texas Tech": 27.30, "Tennessee": 25.90, "Kentucky": 19.80, "Georgia": 18.30,
+    "Saint Louis": 18.80, "Akron": 11.80, "Santa Clara": 20.80, "SMU": 16.90,
+    "Miami OH": 10.00, "Hofstra": 8.50, "Wright St": 1.31, "Tennessee St": 0.40,
+    "UMBC": -1.80, "Howard": -1.10,
 
     # Hawaii (West 4-13 matchup)
-    "Hawaii": 3.68,
+    "Hawaii": 4.40,
 }
+
+# ─── EvanMiya BPR (Relative Rating) ──────────────────────────────────────────
+EVANMIYA_RATINGS = {
+    "Duke": 35.20, "Michigan": 35.00, "Arizona": 34.20, "Houston": 33.10,
+    "Florida": 33.00, "Purdue": 31.60, "Illinois": 31.10, "Iowa St": 30.10,
+    "UConn": 26.70, "Michigan St": 26.40, "St. John's": 26.30, "Gonzaga": 25.30,
+    "Virginia": 24.50, "Vanderbilt": 24.20, "Arkansas": 23.60, "Tennessee": 23.20,
+    "Nebraska": 22.60, "Alabama": 22.40, "Kansas": 21.80, "Louisville": 21.60,
+    "Wisconsin": 21.40, "Ohio St": 20.90, "UCLA": 20.60, "Kentucky": 20.30,
+    "Iowa": 20.20, "Miami FL": 19.80, "Texas Tech": 19.80, "Saint Louis": 18.50,
+    "Utah St": 18.20, "Saint Mary's": 18.10, "Texas": 18.00, "Georgia": 17.20,
+    "NC State": 16.80, "Santa Clara": 16.40, "BYU": 16.20, "VCU": 16.10,
+    "TCU": 16.00, "Clemson": 16.00, "SMU": 16.00, "South Florida": 15.90,
+    "Texas A&M": 15.80, "Villanova": 15.60, "North Carolina": 13.50,
+    "Missouri": 13.40, "UCF": 14.30,
+}
+
+# ─── Blended Ratings (50% Torvik + 50% EvanMiya) ─────────────────────────────
+# For teams without EvanMiya ratings (small schools), use Torvik only
+BLENDED_RATINGS = {}
+for team, torvik in TORVIK_RATINGS.items():
+    em = EVANMIYA_RATINGS.get(team)
+    if em is not None:
+        BLENDED_RATINGS[team] = round((torvik + em) / 2, 2)
+    else:
+        BLENDED_RATINGS[team] = torvik
 
 # ─── 2026 NCAA Tournament Bracket (REAL from ESPN/Yahoo) ─────────────────────
 # Each region: 8 first-round matchups in standard bracket order
@@ -241,19 +266,19 @@ def normalize(name):
 
 
 def win_prob(team_a, team_b):
-    """Win probability for team_a vs team_b using EvanMiya BPR.
+    """Win probability for team_a vs team_b using blended ratings (50% Torvik + 50% EvanMiya).
 
-    BPR diff maps to expected scoring margin similarly to BPR:
-      expected_margin = BPR_diff × 0.67  (scale to ~67 possessions/game)
+    Rating diff maps to expected scoring margin:
+      expected_margin = rating_diff × 0.67  (scale to ~67 possessions/game)
       P(A wins) = Phi(expected_margin / game_sigma)
       game_sigma ≈ 11 is the std dev of actual scoring margins in CBB.
     """
-    a_bpr = BLENDED_RATINGS.get(team_a)
-    b_bpr = BLENDED_RATINGS.get(team_b)
-    if a_bpr is None or b_bpr is None:
+    a_rating = BLENDED_RATINGS.get(team_a)
+    b_rating = BLENDED_RATINGS.get(team_b)
+    if a_rating is None or b_rating is None:
         return 0.5
-    bpr_diff = a_bpr - b_bpr
-    expected_margin = bpr_diff * 0.67
+    rating_diff = a_rating - b_rating
+    expected_margin = rating_diff * 0.67
     GAME_SIGMA = 11.0
     return 0.5 * (1.0 + math.erf(expected_margin / (GAME_SIGMA * math.sqrt(2))))
 
@@ -386,7 +411,7 @@ def main():
     print(f"Tournament teams (inc. play-in): {len(tourney_teams)}")
     print(f"Pool entries: {len(entries)}")
 
-    # Verify all bracket teams have EvanMiya ratings
+    # Verify all bracket teams have blended ratings
     all_bracket_teams = set()
     for region, matchups in BRACKET.items():
         for a, b in matchups:
@@ -398,7 +423,7 @@ def main():
 
     missing = all_bracket_teams - set(BLENDED_RATINGS.keys())
     if missing:
-        print(f"\n⚠ WARNING: Missing EvanMiya ratings for: {missing}")
+        print(f"\n⚠ WARNING: Missing blended ratings for: {missing}")
         print("  These teams will use 50/50 win probability.")
 
     # ─── Show top entries and their tournament teams ─────────────────────────
@@ -786,7 +811,7 @@ def update_placements_html(position_counts, NUM_SIMS, sim_adv, sim_top8, all_tea
 </div>
 
 <h1>SLP Pool \u2013 Placement Distribution</h1>
-<p class="sub">{NUM_SIMS:,} Monte Carlo simulations using <a href="https://evanmiya.com" target="_blank" style="color:#4FC3F7;text-decoration:none">EvanMiya</a> BPR ratings &bull; NCAA 2-4-6-8-10-12 scoring</p>
+<p class="sub">{NUM_SIMS:,} Monte Carlo simulations using <a href="https://www.t-ranker.com" target="_blank" style="color:#4FC3F7;text-decoration:none">Torvik</a> + <a href="https://evanmiya.com" target="_blank" style="color:#4FC3F7;text-decoration:none">EvanMiya</a> blended ratings &bull; NCAA 2-4-6-8-10-12 scoring</p>
 
 <div class="filters">
   <div id="filterRows"></div>
@@ -814,7 +839,7 @@ def update_placements_html(position_counts, NUM_SIMS, sim_adv, sim_top8, all_tea
 </div>
 
 <p class="source">
-  Powered by <a href="https://evanmiya.com" target="_blank">EvanMiya</a> BPR ratings
+  Powered by <a href="https://www.t-ranker.com" target="_blank">Torvik</a> + <a href="https://evanmiya.com" target="_blank">EvanMiya</a> blended ratings
 </p>
 
 <script>
