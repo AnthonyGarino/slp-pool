@@ -103,7 +103,7 @@ const MANUAL_MAP = {
   'UNC Wilmington':      '350',
   'UC Davis':            '302',
   'UC Irvine':           '300',
-  'UC Santa Barbara':    '301',
+  'UC Santa Barbara':    '2540',
   'Houston Christian':   '2277',
   'West Georgia':        '2698',
   'Merrimack':           '2771',
