@@ -6617,7 +6617,7 @@
           "counts": false
         }
       ],
-      "previousRank": 86
+      "previousRank": 84
     },
     {
       "name": "Razor Razorbacks",
@@ -6688,7 +6688,7 @@
           "counts": false
         }
       ],
-      "previousRank": 86
+      "previousRank": 87
     },
     {
       "name": "Logger Scoots 2",
@@ -8822,9 +8822,17 @@
           "result": "W",
           "opponent": "G Washington",
           "score": "86-61"
+        },
+        {
+          "result": "W",
+          "opponent": "Saint Joseph's",
+          "score": "84-69"
         }
       ],
-      "nextGame": null
+      "nextGame": {
+        "opponent": "Tulsa",
+        "date": "Apr 2"
+      }
     },
     "Fairfield": {
       "confW": 11,
@@ -9270,7 +9278,10 @@
           "score": "83-79"
         }
       ],
-      "nextGame": null
+      "nextGame": {
+        "opponent": "New Mexico",
+        "date": "Apr 2"
+      }
     },
     "Weber State": {
       "confW": 10,
@@ -11329,6 +11340,11 @@
           "result": "W",
           "opponent": "California",
           "score": "76-75"
+        },
+        {
+          "result": "L",
+          "opponent": "New Mexico",
+          "score": "69-84"
         }
       ],
       "nextGame": null
