@@ -137,6 +137,11 @@ PLAY_IN_GAMES = [
 # Add results here as games complete. The sim will use these instead of
 # simulating those matchups.
 KNOWN_RESULTS = {
+    # Play-in games (no points, but determines R64 matchups)
+    frozenset({"Texas", "NC State"}): "Texas",
+    frozenset({"SMU", "Miami OH"}): "Miami OH",
+    frozenset({"Prairie View", "Lehigh"}): "Prairie View",
+    frozenset({"UMBC", "Howard"}): "UMBC",
     # 1st Round
     frozenset({"Arizona", "LIU"}): "Arizona",
     frozenset({"Florida", "Prairie View"}): "Florida",
@@ -154,6 +159,16 @@ KNOWN_RESULTS = {
     frozenset({"Miami FL", "Missouri"}): "Miami FL",
     frozenset({"Utah St", "Villanova"}): "Utah St",
     frozenset({"Iowa", "Clemson"}): "Iowa",
+    # Missing R64 results (teams that won R32+ but R64 wasn't listed)
+    frozenset({"Duke", "Siena"}): "Duke",
+    frozenset({"Michigan", "UMBC"}): "Michigan",
+    frozenset({"Illinois", "Penn"}): "Illinois",
+    frozenset({"Nebraska", "Troy"}): "Nebraska",
+    frozenset({"Houston", "Idaho"}): "Houston",
+    frozenset({"Michigan St", "North Dakota St"}): "Michigan St",
+    frozenset({"Arkansas", "Hawaii"}): "Arkansas",
+    frozenset({"Texas", "BYU"}): "Texas",           # Texas won play-in vs NC State, then beat BYU R64
+    frozenset({"Louisville", "South Florida"}): "Louisville",
     # 2nd Round
     frozenset({"Michigan", "Saint Louis"}): "Michigan",
     frozenset({"Duke", "TCU"}): "Duke",
