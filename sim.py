@@ -172,7 +172,9 @@ KNOWN_RESULTS = {
     frozenset({"St. John's", "Kansas"}): "St. John's",
     frozenset({"Alabama", "Texas Tech"}): "Alabama",
     # Sweet 16
+    frozenset({"Arizona", "Arkansas"}): "Arizona",
     frozenset({"Purdue", "Texas"}): "Purdue",
+    frozenset({"Illinois", "Houston"}): "Illinois",
     frozenset({"Iowa", "Nebraska"}): "Iowa",
 }
 
