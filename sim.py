@@ -138,22 +138,6 @@ PLAY_IN_GAMES = [
 # simulating those matchups.
 KNOWN_RESULTS = {
     # 1st Round
-    frozenset({"Duke", "Siena"}): "Duke",
-    frozenset({"Michigan", "Howard"}): "Michigan",
-    frozenset({"Houston", "Idaho"}): "Houston",
-    frozenset({"Michigan St", "North Dakota St"}): "Michigan St",
-    frozenset({"Illinois", "Penn"}): "Illinois",
-    frozenset({"Gonzaga", "Kennesaw St"}): "Gonzaga",
-    frozenset({"Nebraska", "Troy"}): "Nebraska",
-    frozenset({"Arkansas", "Hawaii"}): "Arkansas",
-    frozenset({"High Point", "Wisconsin"}): "High Point",
-    frozenset({"Vanderbilt", "McNeese"}): "Vanderbilt",
-    frozenset({"Louisville", "South Florida"}): "Louisville",
-    frozenset({"VCU", "North Carolina"}): "VCU",
-    frozenset({"Texas", "BYU"}): "Texas",
-    frozenset({"Texas A&M", "Saint Mary's"}): "Texas A&M",
-    frozenset({"TCU", "Ohio St"}): "TCU",
-    frozenset({"Saint Louis", "Georgia"}): "Saint Louis",
     frozenset({"Arizona", "LIU"}): "Arizona",
     frozenset({"Florida", "Prairie View"}): "Florida",
     frozenset({"Iowa St", "Tennessee St"}): "Iowa St",
@@ -187,6 +171,9 @@ KNOWN_RESULTS = {
     frozenset({"Tennessee", "Virginia"}): "Tennessee",
     frozenset({"St. John's", "Kansas"}): "St. John's",
     frozenset({"Alabama", "Texas Tech"}): "Alabama",
+    # Sweet 16
+    frozenset({"Purdue", "Texas"}): "Purdue",
+    frozenset({"Iowa", "Nebraska"}): "Iowa",
 }
 
 # All tournament teams should have BPR ratings from data.csv
