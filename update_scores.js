@@ -958,7 +958,7 @@ async function updateSimKnownResults() {
   // Check multiple date ranges to cover all tournament days
   const results = [];
   const today = new Date();
-  for (let d = -7; d <= 1; d++) {
+  for (let d = -21; d <= 1; d++) {
     const dt = new Date(today);
     dt.setDate(dt.getDate() + d);
     const dateStr = dt.toISOString().slice(0, 10).replace(/-/g, '');
