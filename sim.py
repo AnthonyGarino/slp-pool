@@ -137,6 +137,46 @@ PLAY_IN_GAMES = [
 # Add results here as games complete. The sim will use these instead of
 # simulating those matchups.
 KNOWN_RESULTS = {
+    # Play-in games (no points, but determines R64 matchups)
+    frozenset({"Texas", "NC State"}): "Texas",
+    frozenset({"SMU", "Miami OH"}): "Miami OH",
+    frozenset({"Prairie View", "Lehigh"}): "Prairie View",
+    frozenset({"UMBC", "Howard"}): "UMBC",
+    # 1st Round
+    frozenset({"Arizona", "LIU"}): "Arizona",
+    frozenset({"Florida", "Prairie View"}): "Florida",
+    frozenset({"Iowa St", "Tennessee St"}): "Iowa St",
+    frozenset({"Purdue", "Queens"}): "Purdue",
+    frozenset({"UConn", "Furman"}): "UConn",
+    frozenset({"Virginia", "Wright St"}): "Virginia",
+    frozenset({"Alabama", "Hofstra"}): "Alabama",
+    frozenset({"Kansas", "Cal Baptist"}): "Kansas",
+    frozenset({"Texas Tech", "Akron"}): "Texas Tech",
+    frozenset({"St. John's", "Northern Iowa"}): "St. John's",
+    frozenset({"Tennessee", "Miami OH"}): "Tennessee",
+    frozenset({"Kentucky", "Santa Clara"}): "Kentucky",
+    frozenset({"UCLA", "UCF"}): "UCLA",
+    frozenset({"Miami FL", "Missouri"}): "Miami FL",
+    frozenset({"Utah St", "Villanova"}): "Utah St",
+    frozenset({"Iowa", "Clemson"}): "Iowa",
+    # Missing R64 results (teams that won R32+ but R64 wasn't listed)
+    frozenset({"Duke", "Siena"}): "Duke",
+    frozenset({"Michigan", "UMBC"}): "Michigan",
+    frozenset({"Illinois", "Penn"}): "Illinois",
+    frozenset({"Nebraska", "Troy"}): "Nebraska",
+    frozenset({"Houston", "Idaho"}): "Houston",
+    frozenset({"Michigan St", "North Dakota St"}): "Michigan St",
+    frozenset({"Arkansas", "Hawaii"}): "Arkansas",
+    frozenset({"Texas", "BYU"}): "Texas",           # Texas won play-in vs NC State, then beat BYU R64
+    frozenset({"Louisville", "South Florida"}): "Louisville",
+    # R64 results (verified from ESPN/CBS)
+    frozenset({"Ohio St", "TCU"}): "TCU",                  # TCU 66, Ohio St 64
+    frozenset({"Wisconsin", "High Point"}): "High Point",  # High Point 83, Wisconsin 82 (upset)
+    frozenset({"Gonzaga", "Kennesaw St"}): "Gonzaga",      # Gonzaga 73, Kennesaw St 64
+    frozenset({"Vanderbilt", "McNeese"}): "Vanderbilt",    # Vanderbilt 78, McNeese 68
+    frozenset({"North Carolina", "VCU"}): "VCU",           # VCU 82, North Carolina 78 OT (upset)
+    frozenset({"Saint Mary's", "Texas A&M"}): "Texas A&M", # Texas A&M 63, Saint Mary's 50 (upset)
+    frozenset({"Georgia", "Saint Louis"}): "Saint Louis",  # Saint Louis 102, Georgia 77
     # 2nd Round
     frozenset({"Michigan", "Saint Louis"}): "Michigan",
     frozenset({"Duke", "TCU"}): "Duke",
@@ -154,13 +194,15 @@ KNOWN_RESULTS = {
     frozenset({"Tennessee", "Virginia"}): "Tennessee",
     frozenset({"St. John's", "Kansas"}): "St. John's",
     frozenset({"Alabama", "Texas Tech"}): "Alabama",
-    # Sweet 16
+    # Sweet 16 (Thursday)
     frozenset({"Arizona", "Arkansas"}): "Arizona",
     frozenset({"Purdue", "Texas"}): "Purdue",
     frozenset({"Illinois", "Houston"}): "Illinois",
     frozenset({"Iowa", "Nebraska"}): "Iowa",
+    # Sweet 16 (Friday)
     frozenset({"Duke", "St. John's"}): "Duke",
     frozenset({"Michigan", "Alabama"}): "Michigan",
+    frozenset({"UConn", "Michigan St"}): "UConn",
 }
 
 # All tournament teams should have BPR ratings from data.csv
