@@ -137,6 +137,47 @@ PLAY_IN_GAMES = [
 # Add results here as games complete. The sim will use these instead of
 # simulating those matchups.
 KNOWN_RESULTS = {
+    # Play-in games
+    frozenset({"Texas", "NC State"}): "Texas",
+    frozenset({"SMU", "Miami OH"}): "Miami OH",
+    frozenset({"Prairie View", "Lehigh"}): "Prairie View",
+    frozenset({"UMBC", "Howard"}): "UMBC",
+    # 1st Round (R64) — East
+    frozenset({"Duke", "Siena"}): "Duke",
+    frozenset({"Ohio St", "TCU"}): "TCU",
+    frozenset({"St. John's", "Northern Iowa"}): "St. John's",
+    frozenset({"Kansas", "Cal Baptist"}): "Kansas",
+    frozenset({"Louisville", "South Florida"}): "Louisville",
+    frozenset({"Michigan St", "North Dakota St"}): "Michigan St",
+    frozenset({"UCLA", "UCF"}): "UCLA",
+    frozenset({"UConn", "Furman"}): "UConn",
+    # 1st Round (R64) — West
+    frozenset({"Arizona", "LIU"}): "Arizona",
+    frozenset({"Villanova", "Utah St"}): "Utah St",
+    frozenset({"Wisconsin", "High Point"}): "High Point",
+    frozenset({"Arkansas", "Hawaii"}): "Arkansas",
+    frozenset({"Texas", "BYU"}): "Texas",
+    frozenset({"Gonzaga", "Kennesaw St"}): "Gonzaga",
+    frozenset({"Miami FL", "Missouri"}): "Miami FL",
+    frozenset({"Purdue", "Queens"}): "Purdue",
+    # 1st Round (R64) — South
+    frozenset({"Florida", "Prairie View"}): "Florida",
+    frozenset({"Clemson", "Iowa"}): "Iowa",
+    frozenset({"Vanderbilt", "McNeese"}): "Vanderbilt",
+    frozenset({"Nebraska", "Troy"}): "Nebraska",
+    frozenset({"North Carolina", "VCU"}): "VCU",
+    frozenset({"Illinois", "Penn"}): "Illinois",
+    frozenset({"Saint Mary's", "Texas A&M"}): "Texas A&M",
+    frozenset({"Houston", "Idaho"}): "Houston",
+    # 1st Round (R64) — Midwest
+    frozenset({"Michigan", "UMBC"}): "Michigan",
+    frozenset({"Georgia", "Saint Louis"}): "Saint Louis",
+    frozenset({"Texas Tech", "Akron"}): "Texas Tech",
+    frozenset({"Alabama", "Hofstra"}): "Alabama",
+    frozenset({"Tennessee", "Miami OH"}): "Tennessee",
+    frozenset({"Virginia", "Wright St"}): "Virginia",
+    frozenset({"Kentucky", "Santa Clara"}): "Kentucky",
+    frozenset({"Iowa St", "Tennessee St"}): "Iowa St",
     # 2nd Round
     frozenset({"Michigan", "Saint Louis"}): "Michigan",
     frozenset({"Duke", "TCU"}): "Duke",
