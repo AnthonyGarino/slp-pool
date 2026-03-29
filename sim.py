@@ -202,6 +202,7 @@ KNOWN_RESULTS = {
     frozenset({"UConn", "Michigan St"}): "UConn",
     frozenset({"Tennessee", "Iowa St"}): "Tennessee",
     # Elite 8
+    frozenset({"Arizona", "Purdue"}): "Arizona",
     frozenset({"Illinois", "Iowa"}): "Illinois",
 }
 
