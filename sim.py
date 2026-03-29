@@ -204,6 +204,7 @@ KNOWN_RESULTS = {
     # Elite 8
     frozenset({"Arizona", "Purdue"}): "Arizona",
     frozenset({"Illinois", "Iowa"}): "Illinois",
+    frozenset({"Michigan", "Tennessee"}): "Michigan",
 }
 
 # All tournament teams should have BPR ratings from data.csv
