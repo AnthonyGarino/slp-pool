@@ -207,6 +207,7 @@ KNOWN_RESULTS = {
     frozenset({"Michigan", "Tennessee"}): "Michigan",
     frozenset({"UConn", "Duke"}): "UConn",
     # Final Four
+    frozenset({"Michigan", "Arizona"}): "Michigan",
     frozenset({"UConn", "Illinois"}): "UConn",
 }
 
