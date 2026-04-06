@@ -1,6 +1,6 @@
 {
   "season": "2025-26",
-  "lastUpdated": "2026-04-05",
+  "lastUpdated": "2026-04-06",
   "prizePool": {
     "entry": 75
   },
@@ -5344,7 +5344,7 @@
     {
       "name": "GFYEAD3",
       "totalValue": 100,
-      "score": 381,
+      "score": 382,
       "picks": {
         "ACC": {
           "team": "Syracuse",
@@ -5369,7 +5369,7 @@
         "SEC": {
           "team": "Auburn",
           "value": 13,
-          "points": 25
+          "points": 26
         }
       },
       "wildcards": [
@@ -5770,7 +5770,7 @@
     {
       "name": "The Hawk Will Never Die",
       "totalValue": 100,
-      "score": 374,
+      "score": 375,
       "picks": {
         "ACC": {
           "team": "Duke",
@@ -5790,7 +5790,7 @@
         "Big 12": {
           "team": "West Virginia",
           "value": 9,
-          "points": 27
+          "points": 28
         },
         "SEC": {
           "team": "Missouri",
@@ -8966,6 +8966,11 @@
           "result": "W",
           "opponent": "Baylor",
           "score": "82-69"
+        },
+        {
+          "result": "L",
+          "opponent": "West Virginia",
+          "score": "82-89"
         }
       ],
       "nextGame": null
@@ -9041,12 +9046,14 @@
           "result": "W",
           "opponent": "New Mexico",
           "score": "74-69"
+        },
+        {
+          "result": "L",
+          "opponent": "Auburn",
+          "score": "86-92"
         }
       ],
-      "nextGame": {
-        "opponent": "Auburn",
-        "date": "Apr 6"
-      }
+      "nextGame": null
     },
     "Mercer": {
       "confW": 11,
@@ -11549,13 +11556,13 @@
     },
     "Auburn": {
       "confW": 7,
-      "nonConfW": 9,
+      "nonConfW": 10,
       "confTitlePts": 0,
       "confTournWinPts": 2,
       "confTournTitlePts": 0,
       "ncaaSeedPts": 0,
       "ncaaWinPts": 0,
-      "totalPoints": 25,
+      "totalPoints": 26,
       "recentGames": [
         {
           "result": "W",
@@ -11576,12 +11583,14 @@
           "result": "W",
           "opponent": "Illinois St",
           "score": "88-66"
+        },
+        {
+          "result": "W",
+          "opponent": "Tulsa",
+          "score": "92-86"
         }
       ],
-      "nextGame": {
-        "opponent": "Tulsa",
-        "date": "Apr 6"
-      }
+      "nextGame": null
     },
     "Valparaiso": {
       "confW": 11,
@@ -11679,13 +11688,13 @@
     },
     "West Virginia": {
       "confW": 9,
-      "nonConfW": 9,
+      "nonConfW": 10,
       "confTitlePts": 0,
       "confTournWinPts": 0,
       "confTournTitlePts": 0,
       "ncaaSeedPts": 0,
       "ncaaWinPts": 0,
-      "totalPoints": 27,
+      "totalPoints": 28,
       "recentGames": [
         {
           "result": "W",
@@ -11696,6 +11705,11 @@
           "result": "W",
           "opponent": "Creighton",
           "score": "87-70"
+        },
+        {
+          "result": "L",
+          "opponent": "Oklahoma",
+          "score": "89-82"
         }
       ],
       "nextGame": null
