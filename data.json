@@ -5410,7 +5410,78 @@
           "counts": false
         }
       ],
-      "previousRank": 69
+      "previousRank": 66
+    },
+    {
+      "name": "The Hawk Will Never Die",
+      "totalValue": 100,
+      "score": 381,
+      "picks": {
+        "ACC": {
+          "team": "Duke",
+          "value": 16,
+          "points": 82
+        },
+        "Big East": {
+          "team": "Xavier",
+          "value": 9,
+          "points": 22
+        },
+        "Big Ten": {
+          "team": "Maryland",
+          "value": 8,
+          "points": 17
+        },
+        "Big 12": {
+          "team": "West Virginia",
+          "value": 9,
+          "points": 34
+        },
+        "SEC": {
+          "team": "Missouri",
+          "value": 10,
+          "points": 32
+        }
+      },
+      "wildcards": [
+        {
+          "team": "Miami",
+          "value": 10,
+          "points": 45,
+          "counts": true
+        },
+        {
+          "team": "UAB",
+          "value": 9,
+          "points": 28,
+          "counts": true
+        },
+        {
+          "team": "Miami OH",
+          "value": 9,
+          "points": 57,
+          "counts": true
+        },
+        {
+          "team": "Saint Josephs",
+          "value": 8,
+          "points": 36,
+          "counts": true
+        },
+        {
+          "team": "Iona",
+          "value": 7,
+          "points": 28,
+          "counts": true
+        },
+        {
+          "team": "Delaware",
+          "value": 5,
+          "points": 16,
+          "counts": false
+        }
+      ],
+      "previousRank": 75
     },
     {
       "name": "Briggs 2",
@@ -5768,77 +5839,6 @@
       "previousRank": 74
     },
     {
-      "name": "The Hawk Will Never Die",
-      "totalValue": 100,
-      "score": 375,
-      "picks": {
-        "ACC": {
-          "team": "Duke",
-          "value": 16,
-          "points": 82
-        },
-        "Big East": {
-          "team": "Xavier",
-          "value": 9,
-          "points": 22
-        },
-        "Big Ten": {
-          "team": "Maryland",
-          "value": 8,
-          "points": 17
-        },
-        "Big 12": {
-          "team": "West Virginia",
-          "value": 9,
-          "points": 28
-        },
-        "SEC": {
-          "team": "Missouri",
-          "value": 10,
-          "points": 32
-        }
-      },
-      "wildcards": [
-        {
-          "team": "Miami",
-          "value": 10,
-          "points": 45,
-          "counts": true
-        },
-        {
-          "team": "UAB",
-          "value": 9,
-          "points": 28,
-          "counts": true
-        },
-        {
-          "team": "Miami OH",
-          "value": 9,
-          "points": 57,
-          "counts": true
-        },
-        {
-          "team": "Saint Josephs",
-          "value": 8,
-          "points": 36,
-          "counts": true
-        },
-        {
-          "team": "Iona",
-          "value": 7,
-          "points": 28,
-          "counts": true
-        },
-        {
-          "team": "Delaware",
-          "value": 5,
-          "points": 16,
-          "counts": false
-        }
-      ],
-      "previousRank": 75
-    },
-    {
       "name": "405 Hustlers",
       "totalValue": 100,
       "score": 374,
@@ -5907,7 +5907,7 @@
           "counts": true
         }
       ],
-      "previousRank": 75
+      "previousRank": 76
     },
     {
       "name": "Ashton",
@@ -5978,7 +5978,7 @@
           "counts": false
         }
       ],
-      "previousRank": 75
+      "previousRank": 76
     },
     {
       "name": "Little Pitino Energy",
@@ -11688,13 +11688,13 @@
     },
     "West Virginia": {
       "confW": 9,
-      "nonConfW": 10,
+      "nonConfW": 9,
       "confTitlePts": 0,
-      "confTournWinPts": 0,
-      "confTournTitlePts": 0,
+      "confTournWinPts": 2,
+      "confTournTitlePts": 5,
       "ncaaSeedPts": 0,
       "ncaaWinPts": 0,
-      "totalPoints": 28,
+      "totalPoints": 34,
       "recentGames": [
         {
           "result": "W",
@@ -11707,7 +11707,7 @@
           "score": "87-70"
         },
         {
-          "result": "L",
+          "result": "W",
           "opponent": "Oklahoma",
           "score": "89-82"
         }
@@ -12739,6 +12739,10 @@
     "Navy": {
       "confTournWinPts": 2,
       "confTournTitlePts": 0
+    },
+    "West Virginia": {
+      "confTournWinPts": 2,
+      "confTournTitlePts": 5
     }
   }
 }
