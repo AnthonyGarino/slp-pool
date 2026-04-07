@@ -209,6 +209,8 @@ KNOWN_RESULTS = {
     # Final Four
     frozenset({"Michigan", "Arizona"}): "Michigan",
     frozenset({"UConn", "Illinois"}): "UConn",
+    # Championship
+    frozenset({"Michigan", "UConn"}): "Michigan",
 }
 
 # All tournament teams should have BPR ratings from data.csv
