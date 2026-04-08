@@ -138,8 +138,6 @@ PLAY_IN_GAMES = [
 # simulating those matchups.
 KNOWN_RESULTS = {
     # First Four (play-in)
-    frozenset({"Texas", "NC State"}): "Texas",
-    frozenset({"Howard", "UMBC"}): "Howard",
     frozenset({"Miami OH", "SMU"}): "Miami OH",
     frozenset({"Prairie View", "Lehigh"}): "Prairie View",
     # 1st Round
