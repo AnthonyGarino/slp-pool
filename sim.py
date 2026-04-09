@@ -137,9 +137,6 @@ PLAY_IN_GAMES = [
 # Add results here as games complete. The sim will use these instead of
 # simulating those matchups.
 KNOWN_RESULTS = {
-    # First Four (play-in)
-    frozenset({"Miami OH", "SMU"}): "Miami OH",
-    frozenset({"Prairie View", "Lehigh"}): "Prairie View",
     # 1st Round
     frozenset({"Duke", "Siena"}): "Duke",
     frozenset({"Michigan", "Howard"}): "Michigan",
