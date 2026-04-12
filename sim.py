@@ -138,14 +138,6 @@ PLAY_IN_GAMES = [
 # simulating those matchups.
 KNOWN_RESULTS = {
     # 2nd Round
-    frozenset({"Michigan", "Saint Louis"}): "Michigan",
-    frozenset({"Duke", "TCU"}): "Duke",
-    frozenset({"Houston", "Texas A&M"}): "Houston",
-    frozenset({"Michigan St", "Louisville"}): "Michigan St",
-    frozenset({"Texas", "Gonzaga"}): "Texas",
-    frozenset({"Illinois", "VCU"}): "Illinois",
-    frozenset({"Nebraska", "Vanderbilt"}): "Nebraska",
-    frozenset({"Arkansas", "High Point"}): "Arkansas",
     frozenset({"Iowa", "Florida"}): "Iowa",
     frozenset({"Arizona", "Utah St"}): "Arizona",
     frozenset({"Purdue", "Miami FL"}): "Purdue",
