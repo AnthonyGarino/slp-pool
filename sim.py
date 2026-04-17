@@ -138,10 +138,6 @@ PLAY_IN_GAMES = [
 # simulating those matchups.
 KNOWN_RESULTS = {
     # Sweet 16
-    frozenset({"Arizona", "Arkansas"}): "Arizona",
-    frozenset({"Purdue", "Texas"}): "Purdue",
-    frozenset({"Illinois", "Houston"}): "Illinois",
-    frozenset({"Iowa", "Nebraska"}): "Iowa",
     frozenset({"Duke", "St. John's"}): "Duke",
     frozenset({"Michigan", "Alabama"}): "Michigan",
     frozenset({"UConn", "Michigan St"}): "UConn",
