@@ -137,11 +137,6 @@ PLAY_IN_GAMES = [
 # Add results here as games complete. The sim will use these instead of
 # simulating those matchups.
 KNOWN_RESULTS = {
-    # Sweet 16
-    frozenset({"Duke", "St. John's"}): "Duke",
-    frozenset({"Michigan", "Alabama"}): "Michigan",
-    frozenset({"UConn", "Michigan St"}): "UConn",
-    frozenset({"Tennessee", "Iowa St"}): "Tennessee",
     # Elite 8
     frozenset({"Arizona", "Purdue"}): "Arizona",
     frozenset({"Illinois", "Iowa"}): "Illinois",
