@@ -138,8 +138,6 @@ PLAY_IN_GAMES = [
 # simulating those matchups.
 KNOWN_RESULTS = {
     # Elite 8
-    frozenset({"Arizona", "Purdue"}): "Arizona",
-    frozenset({"Illinois", "Iowa"}): "Illinois",
     frozenset({"Michigan", "Tennessee"}): "Michigan",
     frozenset({"UConn", "Duke"}): "UConn",
     # Final Four
