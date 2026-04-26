@@ -137,9 +137,6 @@ PLAY_IN_GAMES = [
 # Add results here as games complete. The sim will use these instead of
 # simulating those matchups.
 KNOWN_RESULTS = {
-    # Final Four
-    frozenset({"Michigan", "Arizona"}): "Michigan",
-    frozenset({"UConn", "Illinois"}): "UConn",
     # Championship
     frozenset({"Michigan", "UConn"}): "Michigan",
 }
