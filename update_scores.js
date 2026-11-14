@@ -8,7 +8,7 @@ const path  = require('path');
 
 const DATA_PATH = path.join(__dirname, 'data.json');
 const HTML_PATH = path.join(__dirname, 'index.html');
-const SEASON    = '2026';
+const SEASON    = '2027';   // ESPN season year (2026-27 season)
 
 // ── ESPN Conference Group IDs ──────────────────────────────────────────
 // All 31 active D1 conferences — pre-load standings for conf tournament detection
@@ -76,7 +76,10 @@ const MANUAL_MAP = {
   'Texas A&M-CC':        '357',
   'Texas A&M-Commerce':  null,   // Not in ESPN D1
   'Queens NC':           null,   // Not in ESPN D1
-  'LaSalle':             '2352',
+  'LaSalle':             '2325',
+  'Loyola MD':           '2352',
+  'Nicholls State':      '2447',
+  'Arkansas Pine Bluff': '2029',
   'Umass':               '113',
   'Umass Lowell':        '2349',
   'Utah Valley State':   '3084',
@@ -506,7 +509,7 @@ async function calcPostSeasonPoints(espnId, gid, standingsCache) {
 
 // ── MAIN ──────────────────────────────────────────────────────────────
 async function main() {
-  console.log('\n🏀 SLP Score Updater — Season 2025-26\n');
+  console.log('\n🏀 SLP Score Updater — Season 2026-27\n');
 
   // Load data.json
   const data = JSON.parse(fs.readFileSync(DATA_PATH, 'utf8'));
@@ -1036,6 +1039,6 @@ async function updateSimKnownResults() {
   console.log(`🏀 Updated KNOWN_RESULTS in sim.py with ${results.length} completed NCAA games`);
 }
 
+// updateSimKnownResults() targets last season's NCAA bracket sim; re-enable once the 2027 bracket is set.
 main()
-  .then(() => updateSimKnownResults())
   .catch(err => { console.error('Fatal:', err); process.exit(1); });
