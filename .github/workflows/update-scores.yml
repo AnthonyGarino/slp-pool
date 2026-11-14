@@ -32,7 +32,7 @@ jobs:
         run: |
           git config user.name "SLP Score Bot"
           git config user.email "bot@slp-pool.github.io"
-          git add data.json index.html sim.py
+          git add data.json index.html
           if git diff --cached --quiet; then
             echo "No score changes detected — skipping commit."
             echo "changed=false" >> $GITHUB_OUTPUT
@@ -40,22 +40,4 @@ jobs:
             git commit -m "Auto-update scores $(date -u '+%Y-%m-%d %H:%M UTC')"
             git push
             echo "changed=true" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Set up Python
-        if: steps.commit.outputs.changed == 'true'
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      - name: Re-run sim if scores changed
-        if: steps.commit.outputs.changed == 'true'
-        run: |
-          python sim.py
-          git add placements.html sim.py
-          if git diff --cached --quiet; then
-            echo "No sim changes."
-          else
-            git commit -m "Auto-update placement sim $(date -u '+%Y-%m-%d %H:%M UTC')"
-            git push
           fi
