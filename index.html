@@ -295,15 +295,11 @@
     <div class="root-head">
       <div>
         <div class="mu-title">Who to root for</div>
-        <div class="mu-sub">Pick an SLP team. Games are ranked by how much the result moves that team against the competition, based on who owns each side.</div>
+        <div class="mu-sub">Pick an SLP team. Everything is ranked by how much it helps that team win the pool, based on who owns each side. Entries near the top of the standings count most.</div>
       </div>
       <div class="root-controls">
         <label class="root-label" for="root-entry">SLP team</label>
         <select id="root-entry" onchange="onRootChange()"></select>
-        <div class="league-toggle" role="group" aria-label="Who you are competing against">
-          <button type="button" id="rv-pool" onclick="setRootVs('pool')">Whole pool</button>
-          <button type="button" id="rv-league" onclick="setRootVs('league')">Our league</button>
-        </div>
         <div class="league-toggle" role="group" aria-label="Which games">
           <button type="button" id="rd-today" onclick="setRootDay('today')">Today</button>
           <button type="button" id="rd-all" onclick="setRootDay('all')">All upcoming</button>
@@ -311,12 +307,12 @@
       </div>
     </div>
     <div class="root-teams">
-      <div class="root-card"><h4>Most valuable to have win</h4><div class="root-card-sub">Your teams that the competition owns least, weighted by price</div><ol id="root-mine"></ol></div>
-      <div class="root-card"><h4>Main teams to root against</h4><div class="root-card-sub">Teams you don't have that the competition owns most, weighted by price</div><ol id="root-against"></ol></div>
+      <div class="root-card"><h4>Most valuable to have win</h4><div class="root-card-sub">Your teams the pool's contenders own least</div><ol id="root-mine"></ol></div>
+      <div class="root-card"><h4>Main teams to root against</h4><div class="root-card-sub">Teams you don't have that the pool's contenders own most</div><ol id="root-against"></ol></div>
     </div>
     <div class="mu-title root-games-title">Games</div>
     <div id="root-out" class="game-list"></div>
-    <div class="root-note">Weight = points at stake (1 for a non-conference win, 2 for a power-conference game) × how differently you and your competition own the two teams. Teams in your dropped wildcard slot still count, since the drop can change. Uses the next game ESPN lists for each team.</div>
+    <div class="root-note">Weight = points at stake (1 for a non-conference win, 2 for a power-conference game) × how differently you and the rest of the pool own the two teams, counting entries closer to first place more. Teams in your dropped wildcard slot still count, since the drop can change. Uses the next game ESPN lists for each team.</div>
   </div>
 
   <div id="tab-rules" class="tab">
@@ -800,10 +796,7 @@ function dateKey(d) {
   if (m < 0) return 99999;
   return (m < 6 ? m + 12 : m) * 40 + day;   // season runs Nov → Apr
 }
-let rootVs = 'pool', rootDay = 'today';
-try { rootVs = localStorage.getItem('slp-root-vs') || 'pool'; } catch (err) {}
-
-function setRootVs(v) { rootVs = v; try { localStorage.setItem('slp-root-vs', v); } catch (err) {} renderRootList(); }
+let rootDay = 'today';
 function setRootDay(v) { rootDay = v; renderRootList(); }
 function onRootChange() {
   try { localStorage.setItem('slp-root-entry', document.getElementById('root-entry').value); } catch (err) {}
@@ -857,31 +850,30 @@ function renderRootList() {
   const me = data.entries.find(e => e.name === name);
   const out = document.getElementById('root-out');
   const set = (id, on) => { const el = document.getElementById(id); el.classList.toggle('active', on); el.setAttribute('aria-pressed', String(on)); };
-  set('rv-pool', rootVs === 'pool'); set('rv-league', rootVs === 'league');
   set('rd-today', rootDay === 'today'); set('rd-all', rootDay === 'all');
   if (!me) { out.innerHTML = ''; return; }
 
   const ownSet = e => new Set(entryTeams(e).map(t => t.team));
   const mine = ownSet(me);
-  let rivals = rootVs === 'league'
-    ? data.entries.filter(e => LEAGUE.includes(e.name) && e.name !== name)
-    : data.entries.filter(e => e.name !== name);
-  if (!rivals.length) rivals = data.entries.filter(e => e.name !== name);
+  // Everyone else in the pool, weighted toward the entries closest to first place
+  const rivals = data.entries.filter(e => e.name !== name);
+  const top = Math.max(...data.entries.map(e => e.score || 0));
+  const rivalW = rivals.map(e => Math.exp(((e.score || 0) - top) / 15));
+  const wSum = rivalW.reduce((s, x) => s + x, 0) || 1;
   const rivalSets = rivals.map(ownSet);
-  const share = t => t ? rivalSets.filter(s => s.has(t)).length / rivalSets.length : 0;
+  const share = t => t ? rivalSets.reduce((s, set, i) => s + (set.has(t) ? rivalW[i] : 0), 0) / wSum : 0;
+  const ownPct = t => t ? Math.round(rivalSets.filter(s => s.has(t)).length / rivalSets.length * 100) : 0;
+  const tp = t => ((data.teamBreakdowns || {})[t] || {}).totalPoints || 0;
   const today = todayLabel();
 
-  // Team lists: price (the commissioner's estimate of a team's points) x ownership gap
-  const tv = data.teamValues || {};
-  const pct = x => Math.round(x * 100) + '%';
-  const vsWord = rootVs === 'league' ? 'of our league' : 'of the pool';
-  const mineList = Array.from(mine).map(t => ({ t, w: (tv[t] || 5) * (1 - share(t)), s: share(t) }))
-    .sort((x, y) => y.w - x.w).slice(0, 8);
+  // Team lists: ownership gap against the pool's contenders (ties go to the team with more points so far)
+  const mineList = Array.from(mine).map(t => ({ t, w: 1 - share(t) }))
+    .sort((x, y) => y.w - x.w || tp(y.t) - tp(x.t)).slice(0, 8);
   const allTeams = new Set();
   rivalSets.forEach(s => s.forEach(t => allTeams.add(t)));
-  const againstList = Array.from(allTeams).filter(t => !mine.has(t)).map(t => ({ t, w: (tv[t] || 5) * share(t), s: share(t) }))
-    .sort((x, y) => y.w - x.w).slice(0, 8);
-  const li = (r, max) => `<li><div class="t">${esc(r.t)}<div class="m">$${tv[r.t] || '?'} · ${pct(r.s)} ${vsWord} have it</div></div><span class="wbar"><i style="width:${Math.max(4, r.w / max * 100).toFixed(0)}%"></i></span></li>`;
+  const againstList = Array.from(allTeams).filter(t => !mine.has(t)).map(t => ({ t, w: share(t) }))
+    .sort((x, y) => y.w - x.w || tp(y.t) - tp(x.t)).slice(0, 8);
+  const li = (r, max) => `<li><div class="t">${esc(r.t)}<div class="m">${ownPct(r.t)}% of the pool have it · ${tp(r.t)} pts so far</div></div><span class="wbar"><i style="width:${Math.max(4, r.w / max * 100).toFixed(0)}%"></i></span></li>`;
   document.getElementById('root-mine').innerHTML = mineList.map(r => li(r, mineList[0] ? mineList[0].w : 1)).join('');
   document.getElementById('root-against').innerHTML = againstList.length
     ? againstList.map(r => li(r, againstList[0].w)).join('')
@@ -901,11 +893,11 @@ function renderRootList() {
     const winner = lev > 0 ? g.a : g.bLabel, loser = lev > 0 ? g.bLabel : g.a;
     const winTeam = lev > 0 ? g.a : g.b, loseTeam = lev > 0 ? g.b : g.a;
     const why = [];
-    const vsLabel = rootVs === 'league' ? 'of our league' : 'of the pool';
-    if (winTeam && mine.has(winTeam)) why.push(`You have ${esc(winTeam)}` + (share(winTeam) ? ` (so do ${Math.round(share(winTeam) * 100)}% ${vsLabel})` : ' and almost nobody else does'));
-    else if (winTeam && share(winTeam)) why.push(`${Math.round(share(winTeam) * 100)}% ${vsLabel} have ${esc(winTeam)}`);
+    const vsLabel = 'of the pool';
+    if (winTeam && mine.has(winTeam)) why.push(`You have ${esc(winTeam)}` + (ownPct(winTeam) ? ` (so do ${ownPct(winTeam)}% ${vsLabel})` : ' and almost nobody else does'));
+    else if (winTeam && ownPct(winTeam)) why.push(`${ownPct(winTeam)}% ${vsLabel} have ${esc(winTeam)}`);
     if (loseTeam && mine.has(loseTeam)) why.push(`you also have ${esc(loseTeam)}, but more of your competition does`);
-    else if (loseTeam && share(loseTeam)) why.push(`${Math.round(share(loseTeam) * 100)}% ${vsLabel} have ${esc(loseTeam)}` + (mine.has(loseTeam) ? '' : ' and you don\'t'));
+    else if (loseTeam && ownPct(loseTeam)) why.push(`${ownPct(loseTeam)}% ${vsLabel} have ${esc(loseTeam)}` + (mine.has(loseTeam) ? '' : ' and you don\'t'));
     if (pts === 2) why.push('conference game, 2 points');
     rows.push({ g, lev: Math.abs(lev), winner, loser, why });
   }
