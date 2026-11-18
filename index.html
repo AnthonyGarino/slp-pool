@@ -69,6 +69,17 @@
     .root-controls select { background: var(--surface2); color: var(--text); border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; font-size: 13px; width: 100%; }
     .root-controls select:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
     .root-note { font-size: 12px; color: var(--muted); margin-top: 16px; max-width: 80ch; }
+    .root-teams { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+    @media (max-width: 640px) { .root-teams { grid-template-columns: 1fr; } }
+    .root-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; min-width: 0; }
+    .root-card h4 { font-size: 13px; font-weight: 600; color: var(--text); }
+    .root-card-sub { font-size: 11px; color: var(--muted); margin: 2px 0 8px; }
+    .root-card ol { list-style: none; margin: 0; padding: 0; }
+    .root-card li { display: grid; grid-template-columns: 1fr 70px; gap: 10px; align-items: center; padding: 6px 0; border-top: 1px solid var(--border); font-size: 13px; }
+    .root-card li:first-child { border-top: 0; }
+    .root-card li .t { min-width: 0; overflow-wrap: anywhere; }
+    .root-card li .m { color: var(--muted); font-size: 11px; }
+    .root-games-title { margin-bottom: 10px; }
     .game { grid-template-columns: 64px 1fr 90px; }
     .game-pick { font-size: 14px; font-weight: 600; overflow-wrap: anywhere; }
     .game-pick .vs { color: var(--muted); font-weight: 400; }
@@ -299,6 +310,11 @@
         </div>
       </div>
     </div>
+    <div class="root-teams">
+      <div class="root-card"><h4>Most valuable to have win</h4><div class="root-card-sub">Your teams that the competition owns least, weighted by price</div><ol id="root-mine"></ol></div>
+      <div class="root-card"><h4>Main teams to root against</h4><div class="root-card-sub">Teams you don't have that the competition owns most, weighted by price</div><ol id="root-against"></ol></div>
+    </div>
+    <div class="mu-title root-games-title">Games</div>
     <div id="root-out" class="game-list"></div>
     <div class="root-note">Weight = points at stake (1 for a non-conference win, 2 for a power-conference game) × how differently you and your competition own the two teams. Teams in your dropped wildcard slot still count, since the drop can change. Uses the next game ESPN lists for each team.</div>
   </div>
@@ -854,6 +870,22 @@ function renderRootList() {
   const rivalSets = rivals.map(ownSet);
   const share = t => t ? rivalSets.filter(s => s.has(t)).length / rivalSets.length : 0;
   const today = todayLabel();
+
+  // Team lists: price (the commissioner's estimate of a team's points) x ownership gap
+  const tv = data.teamValues || {};
+  const pct = x => Math.round(x * 100) + '%';
+  const vsWord = rootVs === 'league' ? 'of our league' : 'of the pool';
+  const mineList = Array.from(mine).map(t => ({ t, w: (tv[t] || 5) * (1 - share(t)), s: share(t) }))
+    .sort((x, y) => y.w - x.w).slice(0, 8);
+  const allTeams = new Set();
+  rivalSets.forEach(s => s.forEach(t => allTeams.add(t)));
+  const againstList = Array.from(allTeams).filter(t => !mine.has(t)).map(t => ({ t, w: (tv[t] || 5) * share(t), s: share(t) }))
+    .sort((x, y) => y.w - x.w).slice(0, 8);
+  const li = (r, max) => `<li><div class="t">${esc(r.t)}<div class="m">$${tv[r.t] || '?'} · ${pct(r.s)} ${vsWord} have it</div></div><span class="wbar"><i style="width:${Math.max(4, r.w / max * 100).toFixed(0)}%"></i></span></li>`;
+  document.getElementById('root-mine').innerHTML = mineList.map(r => li(r, mineList[0] ? mineList[0].w : 1)).join('');
+  document.getElementById('root-against').innerHTML = againstList.length
+    ? againstList.map(r => li(r, againstList[0].w)).join('')
+    : '<li><div class="t m">Nobody else owns teams you don\'t.</div></li>';
 
   const rows = [];
   for (const g of upcomingGames()) {
