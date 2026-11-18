@@ -79,7 +79,8 @@
     .root-card li:first-child { border-top: 0; }
     .root-card li .t { min-width: 0; overflow-wrap: anywhere; }
     .root-card li .m { color: var(--muted); font-size: 11px; }
-    .root-games-title { margin-bottom: 10px; }
+    .root-games-title { margin-bottom: 10px; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+    .root-scale { font-size: 12px; font-weight: 500; color: var(--muted); }
     .game { grid-template-columns: 64px 1fr 90px; }
     .game-pick { font-size: 14px; font-weight: 600; overflow-wrap: anywhere; }
     .game-pick .vs { color: var(--muted); font-weight: 400; }
@@ -307,12 +308,12 @@
       </div>
     </div>
     <div class="root-teams">
-      <div class="root-card"><h4>Most valuable to have win</h4><div class="root-card-sub">Your teams the pool's contenders own least</div><ol id="root-mine"></ol></div>
-      <div class="root-card"><h4>Main teams to root against</h4><div class="root-card-sub">Teams you don't have that the pool's contenders own most</div><ol id="root-against"></ol></div>
+      <div class="root-card"><h4>Most valuable to have win</h4><div class="root-card-sub">Your strongest teams that the pool's contenders own least</div><ol id="root-mine"></ol></div>
+      <div class="root-card"><h4>Main teams to root against</h4><div class="root-card-sub">Strong teams you don't have that the pool's contenders own most</div><ol id="root-against"></ol></div>
     </div>
-    <div class="mu-title root-games-title">Games</div>
+    <div class="mu-title root-games-title">Games <span class="root-scale">importance 0 to 1</span></div>
     <div id="root-out" class="game-list"></div>
-    <div class="root-note">Weight = points at stake (1 for a non-conference win, 2 for a power-conference game) × how differently you and the rest of the pool own the two teams, counting entries closer to first place more. Teams in your dropped wildcard slot still count, since the drop can change. Uses the next game ESPN lists for each team.</div>
+    <div class="root-note">Importance runs from 0 to 1 on a fixed scale, so games can be compared across days. 1 is a coin-flip game for a team only you have, or a conference game with title-race stakes. Weight = points at stake (1 for a non-conference win, 2 for a conference game, more when it affects a conference-title race) × how differently you and the rest of the pool own the two teams (entries closer to first place count more) × how close the game is. Win chances and team strength come from EvanMiya's team ratings (as of Nov 18). Teams in your dropped wildcard slot still count, since the drop can change. Uses the next game ESPN lists for each team.</div>
   </div>
 
   <div id="tab-rules" class="tab">
@@ -778,7 +779,7 @@ function entryTeams(e) {
   return out;
 }
 function normTeam(s) {
-  return (s || '').toLowerCase().replace(/&/g, 'and').replace(/[.'\u2019()]/g, '').replace(/-/g, ' ')
+  return (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/&/g, 'and').replace(/[.'\u2019()]/g, '').replace(/-/g, ' ')
     .replace(/\bstate\b/g, 'st').replace(/\bsaint\b/g, 'st').replace(/\s+/g, ' ').trim();
 }
 // True when every word of the shorter name starts a word of the longer one ("Fullerton" ~ "CS Fullerton").
@@ -797,6 +798,73 @@ function dateKey(d) {
   return (m < 6 ? m + 12 : m) * 40 + day;   // season runs Nov → Apr
 }
 let rootDay = 'today';
+
+// EvanMiya team ratings (free on evanmiya.com). Update by replacing this line.
+const STRENGTH = {"asOf":"Nov 18","teams":{"Illinois":[31.6,"B10"],"Florida":[30.9,"SEC"],"Kansas":[30.5,"B12"],"Connecticut":[28.6,"BE"],"Houston":[27.5,"B12"],"Duke":[27.2,"ACC"],"Texas Tech":[26.1,"B12"],"St. John's":[26.0,"BE"],"Michigan State":[25.6,"B10"],"Arizona":[25.6,"B12"],"LSU":[25.6,"SEC"],"Gonzaga":[25.5,"P12"],"Miami (Fla.)":[25.3,"ACC"],"UCLA":[25.0,"B10"],"Virginia":[24.8,"ACC"],"Texas":[24.7,"SEC"],"Nebraska":[22.5,"B10"],"Vanderbilt":[22.4,"SEC"],"Michigan":[22.4,"B10"],"Iowa State":[22.4,"B12"],"Alabama":[22.2,"SEC"],"Tennessee":[21.9,"SEC"],"Texas A&M":[21.7,"SEC"],"Louisville":[20.6,"ACC"],"BYU":[20.3,"B12"],"USC":[20.2,"B10"],"Utah State":[20.1,"P12"],"Ole Miss":[19.9,"SEC"],"Marquette":[19.8,"BE"],"Missouri":[19.6,"SEC"],"Georgia":[19.6,"SEC"],"Xavier":[19.0,"BE"],"Cincinnati":[18.8,"B12"],"Baylor":[18.0,"B12"],"Purdue":[17.6,"B10"],"West Virginia":[17.6,"B12"],"TCU":[17.6,"B12"],"NC State":[17.6,"ACC"],"Auburn":[17.4,"SEC"],"Wisconsin":[17.2,"B10"],"Oklahoma State":[17.1,"B12"],"Virginia Tech":[16.9,"ACC"],"Indiana":[16.2,"B10"],"High Point":[15.9,"BSth"],"Oregon":[15.9,"B10"],"Grand Canyon":[15.8,"MWC"],"Kentucky":[15.7,"SEC"],"New Mexico":[15.6,"MWC"],"Arkansas":[15.6,"SEC"],"Ohio State":[15.5,"B10"],"Oklahoma":[15.4,"SEC"],"Villanova":[15.3,"BE"],"Providence":[15.2,"BE"],"VCU":[14.8,"A10"],"Minnesota":[14.8,"B10"],"George Washington":[14.6,"A10"],"Saint Louis":[14.6,"A10"],"North Carolina":[14.6,"ACC"],"Iowa":[14.5,"B10"],"Maryland":[14.4,"B10"],"Pittsburgh":[14.4,"ACC"],"Santa Clara":[14.3,"WCC"],"Florida State":[14.2,"ACC"],"Syracuse":[14.2,"ACC"],"Creighton":[13.8,"BE"],"Mississippi State":[13.4,"SEC"],"Clemson":[13.2,"ACC"],"Oregon State":[12.8,"P12"],"Arizona State":[12.7,"B12"],"DePaul":[12.5,"BE"],"SMU":[12.2,"ACC"],"Wichita State":[11.2,"AAC"],"Georgetown":[11.2,"BE"],"Notre Dame":[11.2,"ACC"],"Murray State":[11.2,"MVC"],"Kansas State":[10.7,"B12"],"Saint Mary's":[10.6,"WCC"],"South Carolina":[10.4,"SEC"],"San Diego State":[9.9,"P12"],"Memphis":[9.5,"AAC"],"Seton Hall":[9.1,"BE"],"Stanford":[8.8,"ACC"],"Rutgers":[8.8,"B10"],"South Florida":[8.8,"AAC"],"Boise State":[8.7,"P12"],"UCF":[8.2,"B12"],"Nevada":[8.2,"MWC"],"Washington":[7.9,"B10"],"Colorado":[7.8,"B12"],"UC Santa Barbara":[7.8,"BW"],"Wright State":[7.5,"Horz"],"Butler":[7.4,"BE"],"Wake Forest":[7.4,"ACC"],"Colorado State":[7.3,"P12"],"Boston College":[7.1,"ACC"],"McNeese State":[6.9,"Slnd"],"Rhode Island":[6.7,"A10"],"Penn State":[6.6,"B10"],"Saint Bonaventure":[6.5,"A10"],"Utah":[6.2,"B12"],"George Mason":[6.1,"A10"],"UNC Wilmington":[5.7,"CAA"],"Loyola Chicago":[5.6,"A10"],"Tulsa":[5.5,"AAC"],"Wyoming":[5.3,"MWC"],"Akron":[5.1,"MAC"],"Texas State":[5.1,"P12"],"Illinois-Chicago":[5.0,"MVC"],"College of Charleston":[4.8,"CAA"],"UNLV":[4.8,"MWC"],"Dayton":[4.5,"A10"],"Miami (OH)":[4.1,"MAC"],"California":[4.1,"ACC"],"Georgia Tech":[4.0,"ACC"],"Western Kentucky":[4.0,"CUSA"],"Illinois State":[3.6,"MVC"],"Montana State":[3.6,"BSky"],"UC Irvine":[3.5,"BW"],"North Texas":[3.5,"AAC"],"Western Michigan":[3.4,"MAC"],"Davidson":[3.1,"A10"],"Richmond":[3.1,"A10"],"Utah Valley":[2.9,"BW"],"Fordham":[2.9,"A10"],"Seattle":[2.6,"WCC"],"South Dakota State":[2.4,"Sum"],"Pacific":[2.3,"WCC"],"Towson":[2.2,"CAA"],"Northwestern":[2.2,"B10"],"Liberty":[2.2,"CUSA"],"Furman":[2.0,"SC"],"Charlotte":[2.0,"AAC"],"Saint Joseph's":[1.5,"A10"],"Belmont":[1.4,"MVC"],"Ohio":[1.3,"MAC"],"Valparaiso":[1.0,"MVC"],"Duquesne":[1.0,"A10"],"Drake":[0.7,"MVC"],"UC San Diego":[0.6,"BW"],"Loyola Marymount":[0.6,"WCC"],"Harvard":[0.5,"Ivy"],"Temple":[0.3,"AAC"],"Marshall":[0.2,"SB"],"San Francisco":[0.2,"WCC"],"Columbia":[0.1,"Ivy"],"Kennesaw State":[0.1,"CUSA"],"St. Thomas (MN)":[0.1,"Sum"],"Sam Houston State":[-0.0,"CUSA"],"UAB":[-0.1,"AAC"],"Siena":[-0.1,"MAAC"],"Pepperdine":[-0.1,"WCC"],"San Jose State":[-0.2,"MWC"],"Florida Atlantic":[-0.3,"AAC"],"Penn":[-0.4,"Ivy"],"Princeton":[-0.5,"Ivy"],"Eastern Washington":[-0.5,"BSky"],"Toledo":[-0.6,"MAC"],"Old Dominion":[-0.6,"SB"],"James Madison":[-0.6,"SB"],"Stephen F. Austin":[-0.9,"Slnd"],"Lamar":[-1.0,"Slnd"],"San Diego":[-1.0,"WCC"],"Florida International":[-1.0,"CUSA"],"Southern Illinois":[-1.1,"MVC"],"Monmouth":[-1.3,"CAA"],"Hawaii":[-1.3,"MWC"],"Central Arkansas":[-1.3,"UAC"],"East Carolina":[-1.4,"AAC"],"Howard":[-1.4,"MEAC"],"Lipscomb":[-1.4,"ASUN"],"Tulane":[-1.6,"AAC"],"East Tennessee State":[-1.6,"SC"],"Bowling Green":[-1.7,"MAC"],"American":[-1.7,"Pat"],"Portland State":[-1.9,"BSky"],"Massachusetts":[-1.9,"MAC"],"Arkansas State":[-1.9,"SB"],"Tennessee-Martin":[-2.1,"OVC"],"Austin Peay":[-2.1,"UAC"],"UTEP":[-2.2,"MWC"],"Appalachian State":[-2.2,"SB"],"Vermont":[-2.3,"AE"],"Chattanooga":[-2.3,"SC"],"Hofstra":[-2.4,"CAA"],"UT Arlington":[-2.6,"UAC"],"Fresno State":[-2.6,"P12"],"New Mexico State":[-2.9,"CUSA"],"Middle Tennessee":[-3.0,"CUSA"],"Queens":[-3.1,"ASUN"],"Troy":[-3.1,"SB"],"Tennessee State":[-3.1,"OVC"],"Northern Illinois":[-3.2,"Horz"],"Washington State":[-3.4,"P12"],"Merrimack":[-3.4,"MAAC"],"Elon":[-3.5,"CAA"],"UC Davis":[-3.5,"MWC"],"Milwaukee":[-3.6,"Horz"],"Yale":[-3.7,"Ivy"],"Mercer":[-3.7,"SC"],"Lehigh":[-4.0,"Pat"],"Missouri State":[-4.1,"CUSA"],"Western Carolina":[-4.3,"SC"],"Quinnipiac":[-4.3,"MAAC"],"Tennessee Tech":[-4.3,"SC"],"Samford":[-4.4,"SC"],"UC Riverside":[-4.5,"BW"],"Northeastern":[-4.5,"CAA"],"Bradley":[-4.5,"MVC"],"Kent State":[-4.6,"MAC"],"Bethune-Cookman":[-4.6,"SWAC"],"Cornell":[-4.6,"Ivy"],"Cal State Northridge":[-4.6,"BW"],"William & Mary":[-4.7,"CAA"],"Northern Iowa":[-4.8,"MVC"],"Florida Gulf Coast":[-4.8,"ASUN"],"Iona":[-4.8,"MAAC"],"Green Bay":[-4.8,"Horz"],"Montana":[-4.9,"BSky"],"Cal Poly":[-5.0,"BW"],"Longwood":[-5.1,"BSth"],"Central Michigan":[-5.1,"MAC"],"Cal State Fullerton":[-5.2,"BW"],"Georgia State":[-5.2,"SB"],"Colgate":[-5.3,"Pat"],"Indiana State":[-5.3,"MVC"],"UTSA":[-5.4,"AAC"],"Hampton":[-5.4,"CAA"],"Drexel":[-5.4,"CAA"],"Eastern Michigan":[-5.5,"MAC"],"Ball State":[-5.5,"MAC"],"Tarleton State":[-5.6,"UAC"],"Sacramento State":[-5.6,"BW"],"Buffalo":[-5.6,"MAC"],"Rice":[-5.7,"AAC"],"South Alabama":[-5.7,"SB"],"Southeast Missouri State":[-5.9,"OVC"],"Texas A&M-Corpus Christi":[-6.0,"Slnd"],"Wofford":[-6.0,"SC"],"Portland":[-6.1,"WCC"],"Eastern Kentucky":[-6.1,"UAC"],"Presbyterian":[-6.2,"BSth"],"Campbell":[-6.3,"CAA"],"Marist":[-6.3,"MAAC"],"Boston University":[-6.4,"Pat"],"La Salle":[-6.5,"A10"],"Youngstown State":[-6.5,"Horz"],"Delaware":[-6.5,"CUSA"],"Fort Wayne":[-6.7,"Horz"],"Jacksonville":[-6.7,"ASUN"],"Stony Brook":[-6.8,"CAA"],"Arkansas-Little Rock":[-6.9,"UAC"],"Cal State Bakersfield":[-7.0,"BW"],"Louisiana Tech":[-7.1,"SB"],"Radford":[-7.1,"BSth"],"Jacksonville State":[-7.2,"CUSA"],"Missouri-Kansas City":[-7.3,"Sum"],"Houston Christian":[-7.3,"Slnd"],"North Dakota State":[-7.3,"Sum"],"Robert Morris":[-7.4,"Horz"],"Winthrop":[-7.4,"BSth"],"UMass Lowell":[-7.5,"AE"],"Louisiana-Lafayette":[-7.5,"SB"],"Northern Colorado":[-7.5,"BSky"],"North Alabama":[-7.9,"UAC"],"West Florida":[-8.0,"ASUN"],"Fairfield":[-8.1,"MAAC"],"Oral Roberts":[-8.2,"Sum"],"Long Beach State":[-8.2,"BW"],"UNC Greensboro":[-8.3,"SC"],"Jackson State":[-8.3,"SWAC"],"Charleston Southern":[-8.4,"BSth"],"Idaho":[-8.4,"BSky"],"Navy":[-8.4,"Pat"],"Brown":[-8.5,"Ivy"],"UNC Asheville":[-8.5,"BSth"],"Southern Mississippi":[-8.6,"SB"],"Evansville":[-8.7,"MVC"],"Denver":[-8.8,"WCC"],"North Carolina A&T":[-8.9,"CAA"],"Utah Tech":[-8.9,"BSky"],"VMI":[-8.9,"SC"],"Northern Kentucky":[-9.1,"Horz"],"Coastal Carolina":[-9.1,"SB"],"Northern Arizona":[-9.2,"BSky"],"East Texas A&M":[-9.2,"Slnd"],"Texas-Rio Grande Valley":[-9.2,"Slnd"],"SIU Edwardsville":[-9.3,"OVC"],"IU Indy":[-9.5,"Horz"],"New Orleans":[-9.6,"Slnd"],"UMBC":[-9.6,"AE"],"Long Island":[-9.8,"NEC"],"Georgia Southern":[-9.8,"SB"],"Oakland":[-9.9,"Horz"],"Army":[-10.1,"Pat"],"Nicholls State":[-10.2,"Slnd"],"New Hampshire":[-10.2,"AE"],"Abilene Christian":[-10.3,"UAC"],"Southeastern Louisiana":[-10.3,"Slnd"],"Alabama State":[-10.3,"SWAC"],"Sacred Heart":[-10.3,"MAAC"],"Dartmouth":[-10.5,"Ivy"],"Bryant":[-10.6,"AE"],"Grambling":[-10.8,"SWAC"],"Texas Southern":[-11.1,"SWAC"],"Southern Utah":[-11.2,"BSky"],"Maine":[-11.5,"AE"],"Central Connecticut":[-11.5,"NEC"],"Bellarmine":[-11.5,"ASUN"],"Stetson":[-11.6,"ASUN"],"Northwestern State":[-11.6,"Slnd"],"North Dakota":[-11.8,"Sum"],"Air Force":[-12.0,"MWC"],"Cleveland State":[-12.0,"Horz"],"Mercyhurst":[-12.3,"NEC"],"North Florida":[-12.5,"ASUN"],"South Dakota":[-12.5,"Sum"],"Albany":[-12.5,"AE"],"Southern":[-12.6,"SWAC"],"West Georgia":[-13.1,"UAC"],"South Carolina State":[-13.2,"MEAC"],"Le Moyne":[-13.3,"NEC"],"Morehead State":[-13.3,"OVC"],"Lindenwood":[-13.4,"OVC"],"Coppin State":[-13.5,"MEAC"],"Alabama A&M":[-13.5,"SWAC"],"Binghamton":[-13.8,"AE"],"Morgan State":[-13.9,"MEAC"],"The Citadel":[-14.0,"SC"],"Saint Peter's":[-14.1,"MAAC"],"Mount St. Mary's":[-14.2,"MAAC"],"Fairleigh Dickinson":[-14.2,"NEC"],"Idaho State":[-14.3,"BSky"],"Lafayette":[-14.4,"Pat"],"Weber State":[-14.5,"BSky"],"Omaha":[-14.5,"Sum"],"Southern Indiana":[-14.6,"OVC"],"New Haven":[-14.6,"NEC"],"Prairie View":[-14.6,"SWAC"],"Loyola Maryland":[-14.6,"Pat"],"Manhattan":[-14.6,"MAAC"],"California Baptist":[-14.8,"BW"],"Detroit":[-14.9,"Horz"],"Incarnate Word":[-15.2,"Slnd"],"Niagara":[-15.2,"MAAC"],"Wagner":[-15.2,"NEC"],"Bucknell":[-15.5,"Pat"],"Norfolk State":[-15.6,"MEAC"],"Gardner-Webb":[-15.7,"BSth"],"Delaware State":[-15.8,"MEAC"],"Holy Cross":[-16.4,"Pat"],"North Carolina Central":[-16.7,"MEAC"],"Louisiana-Monroe":[-16.8,"SB"],"Chicago State":[-17.4,"NEC"],"NJIT":[-17.8,"AE"],"South Carolina Upstate":[-18.2,"BSth"],"Stonehill":[-18.6,"NEC"],"Alcorn State":[-20.2,"SWAC"],"Rider":[-20.8,"MAAC"],"Maryland-Eastern Shore":[-20.9,"MEAC"],"Eastern Illinois":[-21.3,"OVC"],"Florida A&M":[-21.4,"SWAC"],"Mississippi Valley State":[-21.4,"SWAC"],"Canisius":[-23.1,"MAAC"],"Western Illinois":[-24.3,"OVC"],"Arkansas-Pine Bluff":[-25.0,"SWAC"]},"alias":{"Arkansas Pine Bluff":"Arkansas-Pine Bluff","CS Bakersfield":"Cal State Bakersfield","Charleston":"College of Charleston","Kansas City":"Missouri-Kansas City","LaSalle":"La Salle","Little Rock":"Arkansas-Little Rock","Loyola MD":"Loyola Maryland","Miami":"Miami (Fla.)","Miami OH":"Miami (OH)","North Carolina State":"NC State","SE Louisiana":"Southeastern Louisiana","SE Missouri State":"Southeast Missouri State","Saint Josephs":"Saint Joseph's","Saint Marys":"Saint Mary's","Sam Houston":"Sam Houston State","St Bonaventure":"Saint Bonaventure","St Johns":"St. John's","St Thomas MN":"St. Thomas (MN)","Stephen F Austin":"Stephen F. Austin","Tarleton":"Tarleton State","UIC":"Illinois-Chicago","UT Martin":"Tennessee-Martin","Uconn":"Connecticut","Umass":"Massachusetts","Umass Lowell":"UMass Lowell"}};
+let strengthIdx = null;
+const ESPN_ALIAS = {
+  'nwestern st': 'Northwestern State', 'fgcu': 'Florida Gulf Coast', 'sf austin': 'Stephen F. Austin',
+  'southern miss': 'Southern Mississippi', 'st joseph bkn': null, 'csu northridge': 'Cal State Northridge',
+  'san jose st': 'San Jose State', 'texas a and m cc': 'Texas A&M-Corpus Christi', 'western ky': 'Western Kentucky', 'nc central': 'North Carolina Central',
+  'fiu': 'Florida International', 'fau': 'Florida Atlantic', 'jax st': 'Jacksonville State',
+  'uconn': 'Connecticut', 'ole miss': 'Ole Miss', 'mtsu': 'Middle Tennessee', 'umass': 'Massachusetts',
+  'ul monroe': 'Louisiana-Monroe', 'siue': 'SIU Edwardsville', 'utsa': 'UTSA', 'unlv': 'UNLV', 'vcu': 'VCU',
+  'smu': 'SMU', 'byu': 'BYU', 'tcu': 'TCU', 'ucf': 'UCF', 'uab': 'UAB', 'utep': 'UTEP', 'liu': 'Long Island',
+  'fullerton': 'Cal State Fullerton', 'cal st fullerton': 'Cal State Fullerton', 'hawaii': 'Hawaii',
+  'md eastern': 'Maryland-Eastern Shore', 'ar pine bluff': 'Arkansas-Pine Bluff', 'mount st marys': "Mount St. Mary's",
+  'lsu n orleans': 'New Orleans', 'texas a&m cc': 'Texas A&M-Corpus Christi', 'ut rio grande': 'Texas-Rio Grande Valley',
+  'ut martin': 'Tennessee-Martin', 'kansas city': 'Missouri-Kansas City', 'st thomas mn': 'St. Thomas (MN)'
+};
+function strengthOf(name) {
+  if (!name) return null;
+  const T = STRENGTH.teams;
+  const hit = em => (em && T[em]) ? { r: T[em][0], conf: T[em][1], em } : null;
+  let s = hit(T[name] ? name : null) || hit(STRENGTH.alias[name]);
+  if (s) return s;
+  if (!strengthIdx) {
+    strengthIdx = {};
+    Object.keys(T).forEach(em => { strengthIdx[normTeam(em)] = em; });
+    Object.entries(STRENGTH.alias).forEach(([n, em]) => { strengthIdx[normTeam(n)] = em; });
+  }
+  const raw = normTeam(name);
+  if (raw in ESPN_ALIAS) return hit(ESPN_ALIAS[raw]);
+  const n = raw.replace(/^se /, 'southeast ').replace(/^e /, 'eastern ').replace(/^w /, 'western ')
+    .replace(/^n /, 'northern ').replace(/^s /, 'southern ').replace(/^ul /, 'louisiana ');
+  s = hit(strengthIdx[n]);
+  if (s) return s;
+  const cands = Object.keys(T).filter(em => looseMatch(name, em));
+  return cands.length === 1 ? hit(cands[0]) : null;
+}
+function normCdf(x) {
+  const t = 1 / (1 + 0.2316419 * Math.abs(x));
+  const d = 0.3989423 * Math.exp(-x * x / 2);
+  const p = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274))));
+  return x > 0 ? 1 - p : p;
+}
+function winProb(rA, rB) { return normCdf((rA - rB) * 0.68 / 11); }
+// Rough share of a conference title: teams within a few points of the league's best get most of it
+let titleShare = null;
+function titleOf(name) {
+  if (!titleShare) {
+    titleShare = {};
+    const byConf = {};
+    Object.entries(STRENGTH.teams).forEach(([em, [r, c]]) => { (byConf[c] = byConf[c] || []).push([em, r]); });
+    Object.values(byConf).forEach(list => {
+      const top = Math.max(...list.map(x => x[1]));
+      const w = list.map(([em, r]) => [em, Math.exp((r - top) / 3)]);
+      const sum = w.reduce((s, x) => s + x[1], 0);
+      w.forEach(([em, x]) => { titleShare[em] = x / sum; });
+    });
+  }
+  const s = strengthOf(name);
+  return s ? (titleShare[s.em] || 0) : 0;
+}
+// Stand-in for a team's season value: overall strength plus how likely it is to win its league
+function teamValue(name) {
+  const s = strengthOf(name);
+  if (!s) return 15;
+  return Math.max(5, 20 + 1.2 * s.r + 15 * titleOf(name));
+}
 function setRootDay(v) { rootDay = v; renderRootList(); }
 function onRootChange() {
   try { localStorage.setItem('slp-root-entry', document.getElementById('root-entry').value); } catch (err) {}
@@ -867,13 +935,13 @@ function renderRootList() {
   const today = todayLabel();
 
   // Team lists: ownership gap against the pool's contenders (ties go to the team with more points so far)
-  const mineList = Array.from(mine).map(t => ({ t, w: 1 - share(t) }))
+  const mineList = Array.from(mine).map(t => ({ t, w: teamValue(t) * (1 - share(t)) }))
     .sort((x, y) => y.w - x.w || tp(y.t) - tp(x.t)).slice(0, 8);
   const allTeams = new Set();
   rivalSets.forEach(s => s.forEach(t => allTeams.add(t)));
-  const againstList = Array.from(allTeams).filter(t => !mine.has(t)).map(t => ({ t, w: share(t) }))
+  const againstList = Array.from(allTeams).filter(t => !mine.has(t)).map(t => ({ t, w: teamValue(t) * share(t) }))
     .sort((x, y) => y.w - x.w || tp(y.t) - tp(x.t)).slice(0, 8);
-  const li = (r, max) => `<li><div class="t">${esc(r.t)}<div class="m">${ownPct(r.t)}% of the pool have it · ${tp(r.t)} pts so far</div></div><span class="wbar"><i style="width:${Math.max(4, r.w / max * 100).toFixed(0)}%"></i></span></li>`;
+  const li = (r, max) => `<li><div class="t">${esc(r.t)}<div class="m">${strengthOf(r.t) ? 'EvanMiya ' + strengthOf(r.t).r.toFixed(1) + ' · ' : ''}${ownPct(r.t)}% of the pool have it · ${tp(r.t)} pts so far</div></div><span class="wbar"><i style="width:${Math.max(4, r.w / max * 100).toFixed(0)}%"></i></span></li>`;
   document.getElementById('root-mine').innerHTML = mineList.map(r => li(r, mineList[0] ? mineList[0].w : 1)).join('');
   document.getElementById('root-against').innerHTML = againstList.length
     ? againstList.map(r => li(r, againstList[0].w)).join('')
@@ -882,14 +950,20 @@ function renderRootList() {
   const rows = [];
   for (const g of upcomingGames()) {
     if (rootDay === 'today' && g.date !== today) continue;
-    const ca = confOf(g.a), cb = g.b ? confOf(g.b) : null;
+    const sa = strengthOf(g.a), sb = strengthOf(g.b || g.bLabel);
     // Conference games (2 pts) start in December; earlier same-league meetings are treated as non-conference
     const mon = (g.date || '').slice(0, 3).toLowerCase();
-    const pts = ca && ca === cb && !['oct', 'nov'].includes(mon) ? 2 : 1;
+    const confGame = !!(sa && sb && sa.conf === sb.conf && !['oct', 'nov'].includes(mon));
+    // In a conference game between contenders, the result also moves the title race (worth 5 pts)
+    const titleStake = confGame ? 2.5 * (titleOf(g.a) + titleOf(g.b || g.bLabel)) : 0;
+    const pts = (confGame ? 2 : 1) + titleStake;
+    // A team EvanMiya doesn't rate is almost always a non-Division I school
+    const pA = winProb(sa ? sa.r : -25, sb ? sb.r : -25);
     const ea = (mine.has(g.a) ? 1 : 0) - share(g.a);
     const eb = (g.b && mine.has(g.b) ? 1 : 0) - share(g.b);
-    const lev = pts * (ea - eb);
-    if (Math.abs(lev) < 0.02) continue;
+    // Close games matter most; a near-certain result barely changes anything
+    const lev = pts * (ea - eb) * 2 * Math.sqrt(pA * (1 - pA));
+    if (Math.abs(lev) < 0.01) continue;
     const winner = lev > 0 ? g.a : g.bLabel, loser = lev > 0 ? g.bLabel : g.a;
     const winTeam = lev > 0 ? g.a : g.b, loseTeam = lev > 0 ? g.b : g.a;
     const why = [];
@@ -898,20 +972,20 @@ function renderRootList() {
     else if (winTeam && ownPct(winTeam)) why.push(`${ownPct(winTeam)}% ${vsLabel} have ${esc(winTeam)}`);
     if (loseTeam && mine.has(loseTeam)) why.push(`you also have ${esc(loseTeam)}, but more of your competition does`);
     else if (loseTeam && ownPct(loseTeam)) why.push(`${ownPct(loseTeam)}% ${vsLabel} have ${esc(loseTeam)}` + (mine.has(loseTeam) ? '' : ' and you don\'t'));
-    if (pts === 2) why.push('conference game, 2 points');
-    rows.push({ g, lev: Math.abs(lev), winner, loser, why });
+    if (confGame) why.push(titleStake > 0.5 ? 'conference game with title-race stakes' : 'conference game, 2 points');
+    const pWin = lev > 0 ? pA : 1 - pA;
+    rows.push({ g, lev: Math.min(1, Math.abs(lev)), winner, loser, why, pWin });
   }
   rows.sort((x, y) => y.lev - x.lev || dateKey(x.g.date) - dateKey(y.g.date));
   if (!rows.length) {
     out.innerHTML = `<div class="loading">${rootDay === 'today' ? 'No games today involve teams that matter for this entry. Try "All upcoming".' : 'No upcoming games listed yet. The score bot fills these in from ESPN.'}</div>`;
     return;
   }
-  const max = rows[0].lev;
   out.innerHTML = rows.map((r, k) => `<div class="game${k < 3 ? ' top' : ''}">
       <div class="game-date">${esc(r.g.date)}</div>
-      <div class="game-body"><div class="game-pick">Root for ${esc(r.winner)} <span class="vs">over ${esc(r.loser)}</span></div>
+      <div class="game-body"><div class="game-pick">Root for ${esc(r.winner)} <span class="vs">over ${esc(r.loser)} · ${Math.round(r.pWin * 100)}% to win</span></div>
         <div class="game-why">${r.why.join('; ')}</div></div>
-      <div class="game-w"><span class="v">${r.lev.toFixed(2)}</span><span class="wbar"><i style="width:${Math.max(4, r.lev / max * 100).toFixed(0)}%"></i></span></div>
+      <div class="game-w" title="Importance from 0 to 1"><span class="v">${r.lev.toFixed(2)}</span><span class="wbar"><i style="width:${Math.max(4, r.lev * 100).toFixed(0)}%"></i></span></div>
     </div>`).join('');
 }
 
