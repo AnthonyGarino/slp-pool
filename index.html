@@ -61,41 +61,39 @@
     .mu-section { margin-bottom: 32px; }
     .mu-title { font-size: 18px; font-weight: 600; letter-spacing: -0.2px; margin-bottom: 4px; }
     .mu-sub { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
-    .mu-pickers { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 16px; }
-    .mu-pickers select { background: var(--surface2); color: var(--text); border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; font-size: 13px; min-width: 0; max-width: 100%; }
-    .mu-pickers select:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
-    .mu-vs { color: var(--muted); font-size: 12px; font-weight: 600; letter-spacing: 0.5px; }
-    .h2h-score { display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-bottom: 16px; }
-    .h2h-side { min-width: 0; }
-    .h2h-side.right { text-align: right; }
-    .h2h-name { font-size: 13px; color: var(--muted); overflow-wrap: anywhere; }
-    .h2h-pts { font-size: 30px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--text); }
-    .h2h-side.lead .h2h-pts { color: var(--accent); }
-    .h2h-gap { font-size: 12px; color: var(--muted); text-align: center; white-space: nowrap; }
-    .h2h-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    @media (max-width: 640px) { .h2h-cols { grid-template-columns: 1fr; } }
-    .h2h-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; min-width: 0; }
-    .h2h-card h4 { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; display: flex; justify-content: space-between; gap: 8px; }
-    .h2h-row { display: flex; justify-content: space-between; gap: 10px; padding: 6px 0; border-top: 1px solid var(--border); font-size: 13px; }
-    .h2h-row:first-of-type { border-top: 0; }
-    .h2h-row .t { min-width: 0; overflow-wrap: anywhere; }
-    .h2h-row .meta { color: var(--muted); font-size: 11px; }
-    .h2h-row .p { font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
-    .h2h-row.dropped .p, .h2h-row.dropped .t { color: var(--muted); text-decoration: line-through; }
-    .h2h-shared { margin-top: 16px; }
-    .h2h-chips { display: flex; flex-wrap: wrap; gap: 6px; }
-    .h2h-chip { background: var(--surface2); color: var(--text); font-size: 12px; padding: 4px 8px; border-radius: 4px; }
-    .h2h-chip span { color: var(--muted); margin-left: 4px; font-variant-numeric: tabular-nums; }
+    .root-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+    .root-head > div:first-child { max-width: 60ch; min-width: 0; }
+    .root-controls { display: flex; flex-direction: column; gap: 8px; width: 240px; }
+    @media (max-width: 640px) { .root-controls { width: 100%; } .root-controls .league-toggle { width: 100%; } }
+    .root-label { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; }
+    .root-controls select { background: var(--surface2); color: var(--text); border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; font-size: 13px; width: 100%; }
+    .root-controls select:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+    .root-note { font-size: 12px; color: var(--muted); margin-top: 16px; max-width: 80ch; }
+    .root-teams { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+    @media (max-width: 640px) { .root-teams { grid-template-columns: 1fr; } }
+    .root-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; min-width: 0; }
+    .root-card h4 { font-size: 13px; font-weight: 600; color: var(--text); }
+    .root-card-sub { font-size: 11px; color: var(--muted); margin: 2px 0 8px; }
+    .root-card ol { list-style: none; margin: 0; padding: 0; }
+    .root-card li { display: grid; grid-template-columns: 1fr 70px; gap: 10px; align-items: center; padding: 6px 0; border-top: 1px solid var(--border); font-size: 13px; }
+    .root-card li:first-child { border-top: 0; }
+    .root-card li .t { min-width: 0; overflow-wrap: anywhere; }
+    .root-card li .m { color: var(--muted); font-size: 11px; }
+    .root-games-title { margin-bottom: 10px; }
+    .game { grid-template-columns: 64px 1fr 90px; }
+    .game-pick { font-size: 14px; font-weight: 600; overflow-wrap: anywhere; }
+    .game-pick .vs { color: var(--muted); font-weight: 400; }
+    .game-why { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .game-w { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; padding-top: 2px; }
+    .game-w .v { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .wbar { width: 100%; height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+    .wbar i { display: block; height: 100%; background: var(--accent); border-radius: 3px; }
+    .game.top { border-color: var(--accent); }
+    @media (max-width: 480px) { .game { grid-template-columns: 52px 1fr 60px; } }
     .game-list { display: flex; flex-direction: column; gap: 8px; }
     .game { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; display: grid; grid-template-columns: 64px 1fr; gap: 12px; align-items: start; }
-    .game.rival { border-color: var(--accent); }
     .game-date { font-size: 12px; color: var(--muted); font-weight: 600; padding-top: 2px; }
     .game-body { min-width: 0; }
-    .game-teams { font-size: 14px; font-weight: 600; overflow-wrap: anywhere; }
-    .game-teams .own { color: var(--muted); font-weight: 400; font-size: 11px; }
-    .game-stakes { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 6px; font-size: 12px; color: var(--muted); }
-    .game-stakes b { color: var(--text); font-weight: 600; }
-    .game-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; color: var(--accent); margin-left: 6px; }
     .search-box { background: var(--surface2); border: 1px solid transparent; color: var(--text); padding: 8px 14px; border-radius: 6px; font-size: 13px; width: 240px; outline: none; transition: border-color 0.2s; }
     .search-box:focus { border-color: var(--accent); }
 
@@ -259,7 +257,7 @@
 
 <nav>
   <button class="active" onclick="showTab('standings')">Standings</button>
-  <button onclick="showTab('matchups')">Matchups</button>
+  <button onclick="showTab('rooting')">Who to Root For</button>
   <a href="2025-26.html" style="background:none;border:none;color:var(--muted);padding:12px 16px;font-size:13px;font-weight:500;cursor:pointer;border-bottom:2px solid transparent;transition:color 0.2s;white-space:nowrap;letter-spacing:0.2px;text-decoration:none;display:flex;align-items:center;">2025–26 Final</a>
   <button onclick="showTab('submit')">Submit Entry</button>
   <button onclick="showTab('rules')">Rules</button>
@@ -293,24 +291,32 @@
   </div>
 
   <!-- RULES TAB -->
-  <div id="tab-matchups" class="tab">
-    <div class="mu-section">
-      <div class="mu-title">Head to head</div>
-      <div class="mu-sub">Shared teams cancel out. The race comes down to the teams each side has that the other doesn't.</div>
-      <div class="mu-pickers">
-        <label class="visually-hidden" for="h2h-a">First entry</label>
-        <select id="h2h-a" onchange="renderH2H()"></select>
-        <span class="mu-vs">VS</span>
-        <label class="visually-hidden" for="h2h-b">Second entry</label>
-        <select id="h2h-b" onchange="renderH2H()"></select>
+  <div id="tab-rooting" class="tab">
+    <div class="root-head">
+      <div>
+        <div class="mu-title">Who to root for</div>
+        <div class="mu-sub">Pick an SLP team. Games are ranked by how much the result moves that team against the competition, based on who owns each side.</div>
       </div>
-      <div id="h2h-out"></div>
+      <div class="root-controls">
+        <label class="root-label" for="root-entry">SLP team</label>
+        <select id="root-entry" onchange="onRootChange()"></select>
+        <div class="league-toggle" role="group" aria-label="Who you are competing against">
+          <button type="button" id="rv-pool" onclick="setRootVs('pool')">Whole pool</button>
+          <button type="button" id="rv-league" onclick="setRootVs('league')">Our league</button>
+        </div>
+        <div class="league-toggle" role="group" aria-label="Which games">
+          <button type="button" id="rd-today" onclick="setRootDay('today')">Today</button>
+          <button type="button" id="rd-all" onclick="setRootDay('all')">All upcoming</button>
+        </div>
+      </div>
     </div>
-    <div class="mu-section">
-      <div class="mu-title">Games that matter for our league</div>
-      <div class="mu-sub">Each league team's next game, and which of us is rooting for which side. Games where two of us are on opposite sides come first.</div>
-      <div id="games-out" class="game-list"></div>
+    <div class="root-teams">
+      <div class="root-card"><h4>Most valuable to have win</h4><div class="root-card-sub">Your teams that the competition owns least, weighted by price</div><ol id="root-mine"></ol></div>
+      <div class="root-card"><h4>Main teams to root against</h4><div class="root-card-sub">Teams you don't have that the competition owns most, weighted by price</div><ol id="root-against"></ol></div>
     </div>
+    <div class="mu-title root-games-title">Games</div>
+    <div id="root-out" class="game-list"></div>
+    <div class="root-note">Weight = points at stake (1 for a non-conference win, 2 for a power-conference game) × how differently you and your competition own the two teams. Teams in your dropped wildcard slot still count, since the drop can change. Uses the next game ESPN lists for each team.</div>
   </div>
 
   <div id="tab-rules" class="tab">
@@ -762,7 +768,7 @@ function showTab(name) {
   document.getElementById('tab-' + name).classList.add('active');
   event.target.classList.add('active');
   if (name === 'submit') buildForm();
-  if (name === 'matchups') renderMatchups();
+  if (name === 'rooting') renderRooting();
 }
 
 // ============================================================
@@ -794,96 +800,127 @@ function dateKey(d) {
   if (m < 0) return 99999;
   return (m < 6 ? m + 12 : m) * 40 + day;   // season runs Nov → Apr
 }
-function ownersOf(team, names) {
-  return names.filter(n => {
-    const e = data.entries.find(x => x.name === n);
-    return e && entryTeams(e).some(t => t.team === team);
-  });
-}
+let rootVs = 'pool', rootDay = 'today';
+try { rootVs = localStorage.getItem('slp-root-vs') || 'pool'; } catch (err) {}
 
-function renderMatchups() {
-  const a = document.getElementById('h2h-a'), b = document.getElementById('h2h-b');
-  if (a && !a.options.length) {
+function setRootVs(v) { rootVs = v; try { localStorage.setItem('slp-root-vs', v); } catch (err) {} renderRootList(); }
+function setRootDay(v) { rootDay = v; renderRootList(); }
+function onRootChange() {
+  try { localStorage.setItem('slp-root-entry', document.getElementById('root-entry').value); } catch (err) {}
+  renderRootList();
+}
+function todayLabel() { return new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' }); }
+
+function renderRooting() {
+  const sel = document.getElementById('root-entry');
+  if (!sel.options.length) {
     const names = data.entries.map(e => e.name);
     const league = LEAGUE.filter(n => names.includes(n));
     const others = names.filter(n => !league.includes(n)).sort((x, y) => x.localeCompare(y));
-    const opts = `<optgroup label="Our league">${league.map(n => `<option>${esc(n)}</option>`).join('')}</optgroup>` +
-                 `<optgroup label="Everyone else">${others.map(n => `<option>${esc(n)}</option>`).join('')}</optgroup>`;
-    a.innerHTML = opts; b.innerHTML = opts;
-    a.value = league[0] || names[0];
-    b.value = league[1] || names[1];
+    sel.innerHTML = `<optgroup label="Our league">${league.map(n => `<option>${esc(n)}</option>`).join('')}</optgroup>` +
+                    `<optgroup label="Everyone else">${others.map(n => `<option>${esc(n)}</option>`).join('')}</optgroup>`;
+    let saved = null;
+    try { saved = localStorage.getItem('slp-root-entry'); } catch (err) {}
+    sel.value = names.includes(saved) ? saved : (league[0] || names[0]);
+    // Default to today's games only if there are any
+    rootDay = upcomingGames().some(g => g.date === todayLabel()) ? 'today' : 'all';
   }
-  renderH2H();
-  renderGames();
+  renderRootList();
 }
 
-function renderH2H() {
-  const na = document.getElementById('h2h-a').value, nb = document.getElementById('h2h-b').value;
-  const ea = data.entries.find(e => e.name === na), eb = data.entries.find(e => e.name === nb);
-  const out = document.getElementById('h2h-out');
-  if (!ea || !eb) { out.innerHTML = ''; return; }
-  if (na === nb) { out.innerHTML = '<div class="loading">Pick two different entries.</div>'; return; }
-  const ta = entryTeams(ea), tb = entryTeams(eb);
-  const setA = new Set(ta.map(t => t.team)), setB = new Set(tb.map(t => t.team));
-  const shared = ta.filter(t => setB.has(t.team));
-  const onlyA = ta.filter(t => !setB.has(t.team)), onlyB = tb.filter(t => !setA.has(t.team));
-  const sa = ea.score || 0, sb = eb.score || 0;
-  const gap = Math.abs(sa - sb);
+// Pair each scored team with its next opponent (both must list each other on the same date).
+function upcomingGames() {
   const bd = data.teamBreakdowns || {};
-  const nextTxt = t => { const g = bd[t] && bd[t].nextGame; return g ? `Next: ${esc(g.opponent)}, ${esc(g.date)}` : ''; };
-  const sum = list => list.filter(t => t.counts).reduce((s, t) => s + t.points, 0);
-  const row = t => `<div class="h2h-row${t.counts ? '' : ' dropped'}"><div class="t">${esc(t.team)}<div class="meta">${esc(t.slot)}${t.counts ? '' : ' · dropped'}${nextTxt(t.team) ? ' · ' + nextTxt(t.team) : ''}</div></div><div class="p">${t.points}</div></div>`;
-  const card = (name, list) => `<div class="h2h-card"><h4><span>Only ${esc(name)}</span><span>${sum(list)} pts</span></h4>${list.length ? list.map(row).join('') : '<div class="meta">No unique teams</div>'}</div>`;
-  out.innerHTML = `
-    <div class="h2h-score">
-      <div class="h2h-side${sa > sb ? ' lead' : ''}"><div class="h2h-name">${esc(na)}</div><div class="h2h-pts">${sa}</div></div>
-      <div class="h2h-gap">${gap === 0 ? 'Tied' : (sa > sb ? esc(na) : esc(nb)) + '<br>up ' + gap}</div>
-      <div class="h2h-side right${sb > sa ? ' lead' : ''}"><div class="h2h-name">${esc(nb)}</div><div class="h2h-pts">${sb}</div></div>
-    </div>
-    <div class="h2h-cols">${card(na, onlyA)}${card(nb, onlyB)}</div>
-    <div class="h2h-card h2h-shared"><h4><span>Shared teams (${shared.length})</span><span>cancel out</span></h4>
-      <div class="h2h-chips">${shared.length ? shared.map(t => `<span class="h2h-chip">${esc(t.team)}<span>${t.points}</span></span>`).join('') : '<span class="meta">None</span>'}</div>
-    </div>`;
-}
-
-function renderGames() {
-  const out = document.getElementById('games-out');
-  const bd = data.teamBreakdowns || {};
-  const league = LEAGUE.filter(n => data.entries.some(e => e.name === n));
-  const leagueTeams = new Set();
-  league.forEach(n => entryTeams(data.entries.find(e => e.name === n)).forEach(t => leagueTeams.add(t.team)));
   const seen = new Set(), games = [];
-  for (const team of leagueTeams) {
-    const g = bd[team] && bd[team].nextGame;
+  for (const [team, info] of Object.entries(bd)) {
+    const g = info.nextGame;
     if (!g) continue;
-    // Find the opponent among scored teams: same date, and each lists the other as its opponent
     let opp = null;
-    for (const [other, info] of Object.entries(bd)) {
-      if (other === team || !info.nextGame || info.nextGame.date !== g.date) continue;
-      if (looseMatch(g.opponent, other) && looseMatch(info.nextGame.opponent, team)) { opp = other; break; }
+    for (const [other, oi] of Object.entries(bd)) {
+      if (other === team || !oi.nextGame || oi.nextGame.date !== g.date) continue;
+      if (looseMatch(g.opponent, other) && looseMatch(oi.nextGame.opponent, team)) { opp = other; break; }
     }
-    const key = [team, opp || g.opponent].sort().join('|') + '|' + g.date;
+    const key = [team, opp || ('~' + g.opponent)].sort().join('|') + '|' + g.date;
     if (seen.has(key)) continue;
     seen.add(key);
-    const ownA = ownersOf(team, league), ownB = opp ? ownersOf(opp, league) : [];
-    const rootA = ownA.filter(n => !ownB.includes(n)), rootB = ownB.filter(n => !ownA.includes(n));
-    if (!rootA.length && !rootB.length) continue;   // everyone in the league on both sides, or no stake
-    games.push({ date: g.date, a: team, b: opp || g.opponent, bOwned: !!opp, rootA, rootB });
+    games.push({ date: g.date, a: team, b: opp, bLabel: opp || g.opponent });
   }
-  games.sort((x, y) => {
-    const rx = x.rootA.length && x.rootB.length ? 0 : 1, ry = y.rootA.length && y.rootB.length ? 0 : 1;
-    return rx - ry || dateKey(x.date) - dateKey(y.date) || (y.rootA.length + y.rootB.length) - (x.rootA.length + x.rootB.length);
-  });
-  const cnt = t => teamOwnerCount[t] ? `<span class="own">(${teamOwnerCount[t]} of ${data.entries.length})</span>` : '';
-  out.innerHTML = games.length ? games.map(g => {
-    const rival = g.rootA.length && g.rootB.length;
-    const stakes = [];
-    if (g.rootA.length) stakes.push(`Root for <b>${esc(g.a)}</b>: ${g.rootA.map(esc).join(', ')}`);
-    if (g.rootB.length) stakes.push(`Root for <b>${esc(g.b)}</b>: ${g.rootB.map(esc).join(', ')}`);
-    return `<div class="game${rival ? ' rival' : ''}"><div class="game-date">${esc(g.date)}</div><div class="game-body">
-      <div class="game-teams">${esc(g.a)} ${cnt(g.a)} vs ${esc(g.b)} ${g.bOwned ? cnt(g.b) : ''}${rival ? '<span class="game-tag">League rivalry</span>' : ''}</div>
-      <div class="game-stakes">${stakes.map(s => `<span>${s}</span>`).join('')}</div></div></div>`;
-  }).join('') : '<div class="loading">No upcoming games listed yet. The score bot fills these in from ESPN.</div>';
+  return games;
+}
+function confOf(team) {
+  for (const [c, list] of Object.entries(data.conferenceTeams || {})) if (list.includes(team)) return c;
+  return null;
+}
+
+function renderRootList() {
+  const name = document.getElementById('root-entry').value;
+  const me = data.entries.find(e => e.name === name);
+  const out = document.getElementById('root-out');
+  const set = (id, on) => { const el = document.getElementById(id); el.classList.toggle('active', on); el.setAttribute('aria-pressed', String(on)); };
+  set('rv-pool', rootVs === 'pool'); set('rv-league', rootVs === 'league');
+  set('rd-today', rootDay === 'today'); set('rd-all', rootDay === 'all');
+  if (!me) { out.innerHTML = ''; return; }
+
+  const ownSet = e => new Set(entryTeams(e).map(t => t.team));
+  const mine = ownSet(me);
+  let rivals = rootVs === 'league'
+    ? data.entries.filter(e => LEAGUE.includes(e.name) && e.name !== name)
+    : data.entries.filter(e => e.name !== name);
+  if (!rivals.length) rivals = data.entries.filter(e => e.name !== name);
+  const rivalSets = rivals.map(ownSet);
+  const share = t => t ? rivalSets.filter(s => s.has(t)).length / rivalSets.length : 0;
+  const today = todayLabel();
+
+  // Team lists: price (the commissioner's estimate of a team's points) x ownership gap
+  const tv = data.teamValues || {};
+  const pct = x => Math.round(x * 100) + '%';
+  const vsWord = rootVs === 'league' ? 'of our league' : 'of the pool';
+  const mineList = Array.from(mine).map(t => ({ t, w: (tv[t] || 5) * (1 - share(t)), s: share(t) }))
+    .sort((x, y) => y.w - x.w).slice(0, 8);
+  const allTeams = new Set();
+  rivalSets.forEach(s => s.forEach(t => allTeams.add(t)));
+  const againstList = Array.from(allTeams).filter(t => !mine.has(t)).map(t => ({ t, w: (tv[t] || 5) * share(t), s: share(t) }))
+    .sort((x, y) => y.w - x.w).slice(0, 8);
+  const li = (r, max) => `<li><div class="t">${esc(r.t)}<div class="m">$${tv[r.t] || '?'} · ${pct(r.s)} ${vsWord} have it</div></div><span class="wbar"><i style="width:${Math.max(4, r.w / max * 100).toFixed(0)}%"></i></span></li>`;
+  document.getElementById('root-mine').innerHTML = mineList.map(r => li(r, mineList[0] ? mineList[0].w : 1)).join('');
+  document.getElementById('root-against').innerHTML = againstList.length
+    ? againstList.map(r => li(r, againstList[0].w)).join('')
+    : '<li><div class="t m">Nobody else owns teams you don\'t.</div></li>';
+
+  const rows = [];
+  for (const g of upcomingGames()) {
+    if (rootDay === 'today' && g.date !== today) continue;
+    const ca = confOf(g.a), cb = g.b ? confOf(g.b) : null;
+    // Conference games (2 pts) start in December; earlier same-league meetings are treated as non-conference
+    const mon = (g.date || '').slice(0, 3).toLowerCase();
+    const pts = ca && ca === cb && !['oct', 'nov'].includes(mon) ? 2 : 1;
+    const ea = (mine.has(g.a) ? 1 : 0) - share(g.a);
+    const eb = (g.b && mine.has(g.b) ? 1 : 0) - share(g.b);
+    const lev = pts * (ea - eb);
+    if (Math.abs(lev) < 0.02) continue;
+    const winner = lev > 0 ? g.a : g.bLabel, loser = lev > 0 ? g.bLabel : g.a;
+    const winTeam = lev > 0 ? g.a : g.b, loseTeam = lev > 0 ? g.b : g.a;
+    const why = [];
+    const vsLabel = rootVs === 'league' ? 'of our league' : 'of the pool';
+    if (winTeam && mine.has(winTeam)) why.push(`You have ${esc(winTeam)}` + (share(winTeam) ? ` (so do ${Math.round(share(winTeam) * 100)}% ${vsLabel})` : ' and almost nobody else does'));
+    else if (winTeam && share(winTeam)) why.push(`${Math.round(share(winTeam) * 100)}% ${vsLabel} have ${esc(winTeam)}`);
+    if (loseTeam && mine.has(loseTeam)) why.push(`you also have ${esc(loseTeam)}, but more of your competition does`);
+    else if (loseTeam && share(loseTeam)) why.push(`${Math.round(share(loseTeam) * 100)}% ${vsLabel} have ${esc(loseTeam)}` + (mine.has(loseTeam) ? '' : ' and you don\'t'));
+    if (pts === 2) why.push('conference game, 2 points');
+    rows.push({ g, lev: Math.abs(lev), winner, loser, why });
+  }
+  rows.sort((x, y) => y.lev - x.lev || dateKey(x.g.date) - dateKey(y.g.date));
+  if (!rows.length) {
+    out.innerHTML = `<div class="loading">${rootDay === 'today' ? 'No games today involve teams that matter for this entry. Try "All upcoming".' : 'No upcoming games listed yet. The score bot fills these in from ESPN.'}</div>`;
+    return;
+  }
+  const max = rows[0].lev;
+  out.innerHTML = rows.map((r, k) => `<div class="game${k < 3 ? ' top' : ''}">
+      <div class="game-date">${esc(r.g.date)}</div>
+      <div class="game-body"><div class="game-pick">Root for ${esc(r.winner)} <span class="vs">over ${esc(r.loser)}</span></div>
+        <div class="game-why">${r.why.join('; ')}</div></div>
+      <div class="game-w"><span class="v">${r.lev.toFixed(2)}</span><span class="wbar"><i style="width:${Math.max(4, r.lev / max * 100).toFixed(0)}%"></i></span></div>
+    </div>`).join('');
 }
 
 // ============================================================
