@@ -48,6 +48,12 @@
     .standings-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 12px; }
     .standings-title { font-size: 20px; font-weight: 600; letter-spacing: -0.2px; }
     .standings-filters { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+    .league-toggle { display: inline-flex; background: var(--surface2); border-radius: 6px; padding: 3px; gap: 3px; width: 240px; }
+    .league-toggle button { flex: 1; background: none; border: none; color: var(--muted); font-size: 12px; font-weight: 600; padding: 6px 10px; border-radius: 4px; cursor: pointer; transition: background 0.15s, color 0.15s; }
+    .league-toggle button:hover { color: var(--text); }
+    .league-toggle button.active { background: var(--surface); color: var(--accent); box-shadow: 0 1px 2px rgba(0,0,0,0.25); }
+    .league-toggle button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+    .overall-cell { color: var(--muted); font-variant-numeric: tabular-nums; }
     .search-box { background: var(--surface2); border: 1px solid transparent; color: var(--text); padding: 8px 14px; border-radius: 6px; font-size: 13px; width: 240px; outline: none; transition: border-color 0.2s; }
     .search-box:focus { border-color: var(--accent); }
 
@@ -157,6 +163,7 @@
       .standings-filters { align-items: stretch; width: 100%; }
       .search-box { width: 100%; }
       .team-filter { width: 100%; }
+      .league-toggle { width: 100%; }
     }
 
     /* SEASON BADGE */
@@ -226,6 +233,10 @@
         <div id="last-updated" style="font-size:12px; color:var(--muted); margin-top:2px;"></div>
       </div>
       <div class="standings-filters">
+        <div class="league-toggle" role="group" aria-label="Which entries to show">
+          <button type="button" id="league-all" class="active" aria-pressed="true" onclick="setLeague(false)">All entries</button>
+          <button type="button" id="league-ours" aria-pressed="false" onclick="setLeague(true)">Our league</button>
+        </div>
         <input class="search-box" type="text" id="search-input" placeholder="Search entries..." oninput="filterStandings()"/>
         <div class="team-filter">
           <input class="team-filter-input" type="text" id="team-filter-input" placeholder="Filter by team..." oninput="onTeamFilterInput()" onfocus="onTeamFilterInput()" />
@@ -374,6 +385,14 @@ function renderStandings() {
   }
   // Default sort (score) is already ranked
 
+  // Our league — only the group's entries; rank and "Behind" are within the league
+  const leagueRanked = ranked.filter(e => LEAGUE.includes(e.name));
+  const leagueRankMap = {};
+  leagueRanked.forEach((e, i) => {
+    leagueRankMap[e.name] = (i > 0 && e._score === leagueRanked[i-1]._score) ? leagueRankMap[leagueRanked[i-1].name] : i + 1;
+  });
+  if (leagueOnly) entries = entries.filter(e => LEAGUE.includes(e.name));
+
   // Filter
   if (search) entries = entries.filter(e => e.name.toLowerCase().includes(search));
 
@@ -391,21 +410,24 @@ function renderStandings() {
     });
   }
 
-  const topScore = ranked.length ? ranked[0]._score : 0;
+  const topScore = leagueOnly
+    ? (leagueRanked.length ? leagueRanked[0]._score : 0)
+    : (ranked.length ? ranked[0]._score : 0);
   const arrow = (key) => sortKey === key ? (sortDir === -1 ? '↓' : '↑') : '';
 
   let html = `<table class="standings-table">
     <thead><tr>
       <th onclick="setSort('rank')" style="width:44px">Rank ${arrow('rank')}</th>
       <th onclick="setSort('name')">Entry Name ${arrow('name')}</th>
-      <th onclick="setSort('totalValue')" style="width:80px; text-align:right">Value ${arrow('totalValue')}</th>
+      ${leagueOnly ? '<th style="width:64px; text-align:right" title="Rank among all entries">Overall</th>' : ''}
+      ${leagueOnly ? '' : `<th onclick="setSort('totalValue')" style="width:80px; text-align:right">Value ${arrow('totalValue')}</th>`}
       <th onclick="setSort('score')" style="width:80px; text-align:right">Score ${arrow('score')}</th>
       <th style="width:80px; text-align:right">Behind</th>
     </tr></thead><tbody>`;
 
   entries.forEach(e => {
     const info = rankMap[e.name] || { rank: '—', score: 0 };
-    const rank = info.rank;
+    const rank = leagueOnly ? (leagueRankMap[e.name] || '—') : info.rank;
     const score = info.score;
     const behind = score === topScore ? '—' : `${topScore - score}`;
     const rankClass = rank <= 3 ? 'rank top3' : 'rank';
@@ -415,7 +437,8 @@ function renderStandings() {
     html += `<tr class="${rowClass}" onclick="openDetail('${e.name.replace(/'/g, "\\'")}')">
       <td class="${rankClass}">${rank}</td>
       <td class="entry-name">${e.name}</td>
-      <td style="text-align:right"><span class="value-badge">${tv}</span></td>
+      ${leagueOnly ? `<td class="overall-cell" style="text-align:right; white-space:nowrap">${info.rank}</td>` : ''}
+      ${leagueOnly ? '' : `<td style="text-align:right"><span class="value-badge">${tv}</span></td>`}
       <td class="score-cell" style="text-align:right">${score}</td>
       <td class="behind-cell" style="text-align:right">${behind}</td>
     </tr>`;
@@ -434,6 +457,27 @@ function setSort(key) {
 }
 
 function filterStandings() { renderStandings(); }
+
+// ============================================================
+// OUR LEAGUE (friends' entries)
+// ============================================================
+const LEAGUE = ['Donut Holes', 'Jelly Donuts', 'Glazed Donuts', 'BOOMCHEE-BOOMCHEE', 'Mehta World Peace', 'Crazyab', 'The General Is Back'];
+let leagueOnly = false;
+try { leagueOnly = localStorage.getItem('slp-league') === '1'; } catch (err) {}
+if (location.hash === '#league') leagueOnly = true;
+
+function setLeague(on) {
+  leagueOnly = on;
+  try { localStorage.setItem('slp-league', on ? '1' : '0'); } catch (err) {}
+  syncLeagueToggle();
+  renderStandings();
+}
+function syncLeagueToggle() {
+  const all = document.getElementById('league-all'), ours = document.getElementById('league-ours');
+  if (!all || !ours) return;
+  all.classList.toggle('active', !leagueOnly); all.setAttribute('aria-pressed', String(!leagueOnly));
+  ours.classList.toggle('active', leagueOnly); ours.setAttribute('aria-pressed', String(leagueOnly));
+}
 
 // ============================================================
 // TEAM FILTER
@@ -884,6 +928,7 @@ const entryFee = (data.prizePool && data.prizePool.entry) || 75;
 const pool = entryFee * data.entries.length;
 document.getElementById('header-pool').textContent = 'Prize Pool: $' + pool.toLocaleString();
 
+syncLeagueToggle();
 renderStandings();
 </script>
 </body>
