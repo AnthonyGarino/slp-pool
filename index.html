@@ -296,7 +296,7 @@
     <div class="root-head">
       <div>
         <div class="mu-title">Who to root for</div>
-        <div class="mu-sub">Pick an SLP team. Everything is ranked by how much it helps that team win the pool, based on who owns each side. Entries near the top of the standings count most.</div>
+        <div class="mu-sub">Pick an SLP team. Everything is ranked by how much it helps that team win the pool, playing out the rest of the season from where every team and entry stands now.</div>
       </div>
       <div class="root-controls">
         <label class="root-label" for="root-entry">SLP team</label>
@@ -308,12 +308,12 @@
       </div>
     </div>
     <div class="root-teams">
-      <div class="root-card"><h4>Most valuable to have win</h4><div class="root-card-sub">Your strongest teams that the pool's contenders own least</div><ol id="root-mine"></ol></div>
-      <div class="root-card"><h4>Main teams to root against</h4><div class="root-card-sub">Strong teams you don't have that the pool's contenders own most</div><ol id="root-against"></ol></div>
+      <div class="root-card"><h4>Most valuable to have win</h4><div class="root-card-sub">Your teams whose seasons matter most to your chances</div><ol id="root-mine"></ol></div>
+      <div class="root-card"><h4>Main teams to root against</h4><div class="root-card-sub">Teams you don't have whose big seasons hurt you most</div><ol id="root-against"></ol></div>
     </div>
     <div class="mu-title root-games-title">Games <span class="root-scale">importance 0 to 1</span></div>
     <div id="root-out" class="game-list"></div>
-    <div class="root-note">Importance runs from 0 to 1 on a fixed scale, so games can be compared across days. 1 is a coin-flip game for a team only you have, or a conference game with title-race stakes. Weight = points at stake (1 for a non-conference win, 2 for a conference game, more when it affects a conference-title race) × how differently you and the rest of the pool own the two teams (entries closer to first place count more) × how close the game is. Win chances and team strength come from EvanMiya's team ratings (as of Nov 20). Teams in your dropped wildcard slot still count, since the drop can change. Uses the next game ESPN lists for each team.</div>
+    <div class="root-note">Rankings come from playing out the rest of the season 1,200 times, starting from every team’s points so far. Each simulated season draws how good each team turns out to be, so teams with real upside (a title run, an NCAA bid) count for more than their average. Every SLP entry is scored in each season, and a team or game ranks high when it changes how often your entry finishes ahead of the rest of the pool. Close races at the top count most, and entries far behind barely matter. Importance runs from 0 to 1 on a fixed scale: 1 is a coin-flip game for a team only you have, or a conference game with title-race stakes. Team strength and win chances come from EvanMiya’s team ratings (as of Nov 20). Uses the next game ESPN lists for each team.</div>
   </div>
 
   <div id="tab-rules" class="tab">
@@ -842,29 +842,220 @@ function normCdf(x) {
   return x > 0 ? 1 - p : p;
 }
 function winProb(rA, rB) { return normCdf((rA - rB) * 0.68 / 11); }
-// Rough share of a conference title: teams within a few points of the league's best get most of it
-let titleShare = null;
-function titleOf(name) {
-  if (!titleShare) {
-    titleShare = {};
-    const byConf = {};
-    Object.entries(STRENGTH.teams).forEach(([em, [r, c]]) => { (byConf[c] = byConf[c] || []).push([em, r]); });
-    Object.values(byConf).forEach(list => {
-      const top = Math.max(...list.map(x => x[1]));
-      const w = list.map(([em, r]) => [em, Math.exp((r - top) / 3)]);
-      const sum = w.reduce((s, x) => s + x[1], 0);
-      w.forEach(([em, x]) => { titleShare[em] = x / sum; });
+// ---- Season sim on EvanMiya ratings ----
+// Plays out the rest of the season many times from each team's points so far, so a team's value
+// reflects what it has banked, its schedule length, its title and tournament chances, and how wide
+// its realistic range is. Nothing from it is shown as a probability; it only ranks teams and games.
+const CONF_GAMES = {"A10":18,"AAC":18,"ACC":18,"AE":16,"ASUN":14,"B10":20,"B12":18,"BE":20,"BSky":20,"BSth":16,"BW":22,"CAA":18,"CUSA":18,"Horz":20,"Ivy":14,"MAAC":20,"MAC":22,"MEAC":14,"MVC":20,"MWC":18,"NEC":16,"OVC":16,"P12":16,"Pat":18,"SB":18,"SC":20,"SEC":18,"SWAC":18,"Slnd":22,"Sum":14,"UAC":16,"WCC":16};
+const SIM_N = 1200;
+const SEED_PTS = [8, 6, 6, 6, 4, 4, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2];
+const ROUND_PTS = [2, 4, 6, 8, 10, 12];
+const REGION_ORDER = [1, 16, 8, 9, 5, 12, 4, 13, 6, 11, 3, 14, 7, 10, 2, 15];
+let seasonSim = null;
+
+function mulberry32(a) {
+  return function () {
+    a |= 0; a = a + 0x6D2B79F5 | 0;
+    let t = Math.imul(a ^ a >>> 15, 1 | a);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+function bracketOrder(P) {
+  let o = [1];
+  while (o.length < P) { const m = 2 * o.length + 1; o = o.flatMap(s => [s, m - s]); }
+  return o;
+}
+// Regular-season title points from final conference wins: 5 alone, 3 each for a 2-way tie, 2 each for 3+
+function titlePoints(wins) {
+  const best = Math.max(...wins), k = wins.filter(w => w === best).length;
+  const p = k === 1 ? 5 : k === 2 ? 3 : 2;
+  return wins.map(w => (w === best ? p : 0));
+}
+function seasonPhase() {
+  const now = new Date(), y = now.getMonth() >= 6 ? now.getFullYear() : now.getFullYear() - 1;
+  const t = d => d.getTime();
+  const clamp = x => Math.max(0, Math.min(1, x));
+  const ncStart = new Date(y, 10, 3), ncEnd = new Date(y, 11, 31);
+  const cStart = new Date(y + 1, 0, 1), cEnd = new Date(y + 1, 2, 8);
+  return {
+    ncLeft: clamp((t(ncEnd) - t(now)) / (t(ncEnd) - t(ncStart))),
+    confPlayed: clamp((t(now) - t(cStart)) / (t(cEnd) - t(cStart))),
+    confTournDone: now > new Date(y + 1, 2, 16),
+    ncaaDone: now > new Date(y + 1, 3, 8)
+  };
+}
+
+function buildSeasonSim() {
+  const T = STRENGTH.teams, names = Object.keys(T), n = names.length;
+  const idx = {}; names.forEach((em, i) => { idx[em] = i; });
+  const rating = names.map(em => T[em][0]), conf = names.map(em => T[em][1]);
+  const bd = data.teamBreakdowns || {};
+  const banked = new Float64Array(n), confW0 = new Float64Array(n), known = new Uint8Array(n);
+  const siteIdx = {};
+  const mapTeam = t => {
+    if (t in siteIdx) return siteIdx[t];
+    const s = strengthOf(t); siteIdx[t] = s ? idx[s.em] : -1; return siteIdx[t];
+  };
+  for (const [t, b] of Object.entries(bd)) {
+    const i = mapTeam(t); if (i < 0) continue;
+    banked[i] = b.totalPoints || 0; confW0[i] = b.confW || 0; known[i] = 1;
+  }
+  const members = {};
+  conf.forEach((c, i) => { (members[c] = members[c] || []).push(i); });
+  const ph = seasonPhase();
+  const rnd = mulberry32(20261120 + (data.lastUpdated || '').length);
+  const gauss = () => { const u = rnd() || 1e-9, v = rnd(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
+  const P = d => normCdf(d * 0.68 / 11);
+
+  const pts = new Float32Array(SIM_N * n);
+  const cwins = new Int16Array(SIM_N * n);
+  for (let s = 0; s < SIM_N; s++) {
+    const R = rating.map(r => r + 3.5 * gauss());            // how good each team turns out to be this season
+    const Re = R.map(r => r + 2 * gauss());                   // March form
+    const p = Array.from(banked);
+    // Remaining non-conference games, against opponents scaled to each team's level
+    for (let i = 0; i < n; i++) {
+      const left = Math.round((31 - (CONF_GAMES[conf[i]] || 18)) * ph.ncLeft * 0.7);
+      for (let g = 0; g < left; g++) if (rnd() < P(R[i] + 1 - (0.3 * R[i] - 5 + 8 * gauss()))) p[i] += 1;
+    }
+    const champs = [];
+    for (const [c, mem] of Object.entries(members)) {
+      const G = CONF_GAMES[c] || 18, played = Math.round(G * ph.confPlayed), N = mem.length;
+      const w = mem.map(i => known[i] ? Math.min(confW0[i], played) : 0);
+      if (N < 2) { champs.push(mem[0]); continue; }
+      mem.forEach((i, k) => {
+        const opp = () => { let j; do { j = mem[Math.floor(rnd() * N)]; } while (j === i); return j; };
+        if (!known[i]) for (let g = 0; g < played; g++) if (rnd() < P(R[i] - R[opp()])) w[k]++;
+        for (let g = played; g < G; g++) if (rnd() < P(R[i] - R[opp()])) { w[k]++; p[i] += 2; }
+        cwins[s * n + i] = w[k];
+      });
+      if (ph.confPlayed < 1) titlePoints(w).forEach((tp, k) => { p[mem[k]] += tp; });
+      // Conference tournament: top seeds by conference record
+      const order = mem.map((i, k) => [i, w[k] + rnd() * 0.5]).sort((x, y) => y[1] - x[1]).map(x => x[0]);
+      if (ph.confTournDone) { champs.push(order[0]); continue; }
+      const F = c === 'Ivy' ? 4 : Math.min(N, 12);
+      let Pp = 1; while (Pp < F) Pp *= 2;
+      let slots = bracketOrder(Pp).map(sd => (sd <= F ? order[sd - 1] : null));
+      while (slots.length > 1) {
+        const nx = [];
+        for (let k = 0; k < slots.length; k += 2) {
+          const a = slots[k], b = slots[k + 1];
+          if (a === null || b === null) { nx.push(a === null ? b : a); continue; }
+          const wnr = rnd() < P(Re[a] - Re[b]) ? a : b; p[wnr] += 2; nx.push(wnr);
+        }
+        slots = nx;
+      }
+      p[slots[0]] += 5; champs.push(slots[0]);
+    }
+    if (!ph.ncaaDone) {
+      // 76-team field: conference champions plus the best remaining teams, 12 play-in games
+      const res = Re.map(r => r + 1.5 * gauss());
+      const auto = new Set(champs);
+      const at = Array.from({ length: n }, (_, i) => i).filter(i => !auto.has(i)).sort((a, b) => res[b] - res[a]).slice(0, 76 - auto.size);
+      const autos = Array.from(auto).sort((a, b) => res[b] - res[a]);
+      const ffA = autos.slice(-12), ffL = at.slice(-12), winners = [];
+      for (const L of [ffA, ffL]) for (let q = 0; q + 1 < L.length; q += 2) {
+        const a = L[q], b = L[q + 1], wnr = rnd() < P(Re[a] - Re[b]) ? a : b;
+        p[wnr === a ? b : a] += 1; winners.push(wnr);
+      }
+      const out = new Set(ffA.concat(ffL));
+      const field = autos.concat(at).filter(i => !out.has(i)).concat(winners).sort((a, b) => res[b] - res[a]).slice(0, 64);
+      const regions = [[], [], [], []];
+      for (let line = 0; line < 16; line++) {
+        let grp = field.slice(4 * line, 4 * line + 4); if (line % 2) grp = grp.reverse();
+        grp.forEach((t, r) => { regions[r][line] = t; p[t] += SEED_PTS[line]; });
+      }
+      const finals = regions.map(reg => {
+        let b = REGION_ORDER.map(sd => reg[sd - 1]), rd = 0;
+        while (b.length > 1) {
+          const nx = [];
+          for (let k = 0; k < b.length; k += 2) { const wnr = rnd() < P(Re[b[k]] - Re[b[k + 1]]) ? b[k] : b[k + 1]; p[wnr] += ROUND_PTS[rd]; nx.push(wnr); }
+          b = nx; rd++;
+        }
+        return b[0];
+      });
+      const semi = (a, b) => { const wnr = rnd() < P(Re[a] - Re[b]) ? a : b; p[wnr] += 10; return wnr; };
+      const f1 = semi(finals[0], finals[1]), f2 = semi(finals[2], finals[3]);
+      p[rnd() < P(Re[f1] - Re[f2]) ? f1 : f2] += 12;
+    }
+    for (let i = 0; i < n; i++) pts[s * n + i] = p[i];
+  }
+
+  // Every entry's season total in each simulated season (lowest wildcard dropped)
+  const entries = data.entries.map(e => {
+    const p5 = Object.values(e.picks).map(x => mapTeam(x.team));
+    const wc = e.wildcards.map(x => mapTeam(x.team));
+    const fixedP5 = Object.values(e.picks).map(x => x.points || 0), fixedWc = e.wildcards.map(x => x.points || 0);
+    return { name: e.name, p5, wc, fixedP5, fixedWc, teams: new Set(entryTeams(e).map(t => t.team)) };
+  });
+  const totals = entries.map(() => new Float32Array(SIM_N));
+  for (let s = 0; s < SIM_N; s++) {
+    const off = s * n;
+    entries.forEach((e, k) => {
+      let tot = 0, wsum = 0, wmin = Infinity;
+      e.p5.forEach((i, j) => { tot += i >= 0 ? pts[off + i] : e.fixedP5[j]; });
+      e.wc.forEach((i, j) => { const v = i >= 0 ? pts[off + i] : e.fixedWc[j]; wsum += v; if (v < wmin) wmin = v; });
+      totals[k][s] = tot + wsum - (e.wc.length ? wmin : 0);
     });
   }
-  const s = strengthOf(name);
-  return s ? (titleShare[s.em] || 0) : 0;
+  return { names, idx, conf, members, ph, pts, cwins, n, entries, totals, mapTeam };
 }
-// Stand-in for a team's season value: overall strength plus how likely it is to win its league
-function teamValue(name) {
-  const s = strengthOf(name);
-  if (!s) return 15;
-  return Math.max(5, 20 + 1.2 * s.r + 15 * titleOf(name));
+
+// How each simulated season looks for one entry: how far ahead of (or behind) the best other entry it
+// finishes, turned into a smooth 0-1 "winning the pool" score so close races count most.
+function entryOutlook(name) {
+  const S = seasonSim, me = S.entries.findIndex(e => e.name === name);
+  const target = new Float64Array(SIM_N), slope = new Float64Array(SIM_N), leader = new Int32Array(SIM_N);
+  for (let s = 0; s < SIM_N; s++) {
+    let best = -Infinity, bi = -1;
+    S.totals.forEach((t, k) => { if (k !== me && t[s] > best) { best = t[s]; bi = k; } });
+    const m = (S.totals[me][s] - best) / 10, y = 1 / (1 + Math.exp(-m));
+    target[s] = y; slope[s] = y * (1 - y) / 10; leader[s] = bi;
+  }
+  const ref = slope.reduce((a, b) => a + b, 0) / SIM_N;
+  return { me, target, slope, leader, ref };
 }
+// A team's whole remaining season against this entry's chances: covariance of its points with the
+// entry's pool outlook. Upside, title odds and how many contenders own it all feed in.
+function teamImpact(O, team) {
+  const S = seasonSim, i = S.mapTeam(team);
+  if (i < 0) return 0;
+  let mp = 0, mt = 0, c = 0;
+  for (let s = 0; s < SIM_N; s++) { mp += S.pts[s * S.n + i]; mt += O.target[s]; }
+  mp /= SIM_N; mt /= SIM_N;
+  for (let s = 0; s < SIM_N; s++) c += (S.pts[s * S.n + i] - mp) * (O.target[s] - mt);
+  return c / SIM_N / O.ref;
+}
+// Change in this entry's outlook if A beats B instead of B beating A, in points-for-you terms.
+function gameSwing(O, a, b, confGame) {
+  const S = seasonSim, ia = S.mapTeam(a), ib = b ? S.mapTeam(b) : -1;
+  const me = S.entries[O.me];
+  const own = (e, t) => (t && e.teams.has(t) ? 1 : 0);
+  let D = 0, titleD = 0;
+  const mem = confGame && ia >= 0 ? S.members[S.conf[ia]] : null;
+  const memNames = mem ? mem.map(i => S.names[i]) : null;
+  // Owned teams in this conference, by site name, so title swings reach whoever owns them
+  const siteOf = {};
+  if (mem) Object.keys(data.teamBreakdowns || {}).forEach(t => { const i = S.mapTeam(t); if (i >= 0 && S.conf[i] === S.conf[ia]) siteOf[i] = t; });
+  for (let s = 0; s < SIM_N; s++) {
+    const L = S.entries[O.leader[s]];
+    const v = t => own(me, t) - own(L, t);
+    let d = (confGame ? 2 : 1) * (v(a) - v(b));
+    if (mem && ib >= 0 && S.conf[ib] === S.conf[ia] && S.ph.confPlayed < 1) {
+      const base = mem.map(i => S.cwins[s * S.n + i]);
+      const wa = base.map((w, k) => w + (mem[k] === ia ? 1 : 0));
+      const wb = base.map((w, k) => w + (mem[k] === ib ? 1 : 0));
+      const ta = titlePoints(wa), tb = titlePoints(wb);
+      let td = 0;
+      mem.forEach((i, k) => { if (ta[k] !== tb[k] && siteOf[i]) td += (ta[k] - tb[k]) * v(siteOf[i]); });
+      d += td; titleD += Math.abs(td) * O.slope[s];
+    }
+    D += d * O.slope[s];
+  }
+  return { swing: D / SIM_N / O.ref, title: titleD / SIM_N / O.ref };
+}
+
 function setRootDay(v) { rootDay = v; renderRootList(); }
 function onRootChange() {
   try { localStorage.setItem('slp-root-entry', document.getElementById('root-entry').value); } catch (err) {}
@@ -885,6 +1076,11 @@ function renderRooting() {
     sel.value = names.includes(saved) ? saved : (league[0] || names[0]);
     // Default to today's games only if there are any
     rootDay = upcomingGames().some(g => g.date === todayLabel()) ? 'today' : 'all';
+  }
+  if (!seasonSim) {
+    document.getElementById('root-out').innerHTML = '<div class="loading">Playing out the rest of the season…</div>';
+    setTimeout(() => { seasonSim = buildSeasonSim(); renderRootList(); }, 30);
+    return;
   }
   renderRootList();
 }
@@ -919,7 +1115,8 @@ function renderRootList() {
   const out = document.getElementById('root-out');
   const set = (id, on) => { const el = document.getElementById(id); el.classList.toggle('active', on); el.setAttribute('aria-pressed', String(on)); };
   set('rd-today', rootDay === 'today'); set('rd-all', rootDay === 'all');
-  if (!me) { out.innerHTML = ''; return; }
+  if (!me || !seasonSim) { if (!me) out.innerHTML = ''; return; }
+  const O = entryOutlook(name);
 
   const ownSet = e => new Set(entryTeams(e).map(t => t.team));
   const mine = ownSet(me);
@@ -934,13 +1131,13 @@ function renderRootList() {
   const tp = t => ((data.teamBreakdowns || {})[t] || {}).totalPoints || 0;
   const today = todayLabel();
 
-  // Team lists: ownership gap against the pool's contenders (ties go to the team with more points so far)
-  const mineList = Array.from(mine).map(t => ({ t, w: teamValue(t) * (1 - share(t)) }))
-    .sort((x, y) => y.w - x.w || tp(y.t) - tp(x.t)).slice(0, 8);
+  // Team lists: how much each team's whole remaining season moves this entry's chances of winning the pool
+  const mineList = Array.from(mine).map(t => ({ t, w: teamImpact(O, t) }))
+    .filter(r => r.w > 0).sort((x, y) => y.w - x.w).slice(0, 8);
   const allTeams = new Set();
   rivalSets.forEach(s => s.forEach(t => allTeams.add(t)));
-  const againstList = Array.from(allTeams).filter(t => !mine.has(t)).map(t => ({ t, w: teamValue(t) * share(t) }))
-    .sort((x, y) => y.w - x.w || tp(y.t) - tp(x.t)).slice(0, 8);
+  const againstList = Array.from(allTeams).filter(t => !mine.has(t)).map(t => ({ t, w: -teamImpact(O, t) }))
+    .filter(r => r.w > 0).sort((x, y) => y.w - x.w).slice(0, 8);
   const li = (r, max) => `<li><div class="t">${esc(r.t)}<div class="m">${strengthOf(r.t) ? 'EvanMiya ' + strengthOf(r.t).r.toFixed(1) + ' · ' : ''}${ownPct(r.t)}% of the pool have it · ${tp(r.t)} pts so far</div></div><span class="wbar"><i style="width:${Math.max(4, r.w / max * 100).toFixed(0)}%"></i></span></li>`;
   document.getElementById('root-mine').innerHTML = mineList.map(r => li(r, mineList[0] ? mineList[0].w : 1)).join('');
   document.getElementById('root-against').innerHTML = againstList.length
@@ -954,15 +1151,13 @@ function renderRootList() {
     // Conference games (2 pts) start in December; earlier same-league meetings are treated as non-conference
     const mon = (g.date || '').slice(0, 3).toLowerCase();
     const confGame = !!(sa && sb && sa.conf === sb.conf && !['oct', 'nov'].includes(mon));
-    // In a conference game between contenders, the result also moves the title race (worth 5 pts)
-    const titleStake = confGame ? 2.5 * (titleOf(g.a) + titleOf(g.b || g.bLabel)) : 0;
-    const pts = (confGame ? 2 : 1) + titleStake;
     // A team EvanMiya doesn't rate is almost always a non-Division I school
     const pA = winProb(sa ? sa.r : -25, sb ? sb.r : -25);
-    const ea = (mine.has(g.a) ? 1 : 0) - share(g.a);
-    const eb = (g.b && mine.has(g.b) ? 1 : 0) - share(g.b);
-    // Close games matter most; a near-certain result barely changes anything
-    const lev = pts * (ea - eb) * 2 * Math.sqrt(pA * (1 - pA));
+    // How much this entry's pool outlook moves on the result (points, and any title-race shift), weighted
+    // toward close games because a near-certain result barely changes anything
+    const sw = gameSwing(O, g.a, g.b, confGame);
+    const lev = sw.swing * 2 * Math.sqrt(pA * (1 - pA));
+    const titleStake = Math.abs(sw.swing) > 0 ? sw.title / Math.abs(sw.swing) : 0;
     if (Math.abs(lev) < 0.01) continue;
     const winner = lev > 0 ? g.a : g.bLabel, loser = lev > 0 ? g.bLabel : g.a;
     const winTeam = lev > 0 ? g.a : g.b, loseTeam = lev > 0 ? g.b : g.a;
@@ -972,7 +1167,7 @@ function renderRootList() {
     else if (winTeam && ownPct(winTeam)) why.push(`${ownPct(winTeam)}% ${vsLabel} have ${esc(winTeam)}`);
     if (loseTeam && mine.has(loseTeam)) why.push(`you also have ${esc(loseTeam)}, but more of your competition does`);
     else if (loseTeam && ownPct(loseTeam)) why.push(`${ownPct(loseTeam)}% ${vsLabel} have ${esc(loseTeam)}` + (mine.has(loseTeam) ? '' : ' and you don\'t'));
-    if (confGame) why.push(titleStake > 0.5 ? 'conference game with title-race stakes' : 'conference game, 2 points');
+    if (confGame) why.push(titleStake > 0.3 ? 'conference game with title-race stakes' : 'conference game, 2 points');
     const pWin = lev > 0 ? pA : 1 - pA;
     rows.push({ g, lev: Math.min(1, Math.abs(lev)), winner, loser, why, pWin });
   }
